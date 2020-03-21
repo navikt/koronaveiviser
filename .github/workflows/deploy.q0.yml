@@ -1,4 +1,4 @@
-name: Deploy-to-prod
+name: Deploy-to-q0
 on:
   push:
     tags:
@@ -29,21 +29,21 @@ jobs:
       - name: Docker build and push
         run: |
           echo $GITHUB_TOKEN | docker login $IMAGE_REGISTRY -u ${GITHUB_REPOSITORY} --password-stdin
-          docker build -t $IMAGE_REGISTRY/$IMAGE_NAME:$IMAGE_VERSION -t $IMAGE_REGISTRY/$IMAGE_NAME:latest .
-          docker push $IMAGE_REGISTRY/$IMAGE_NAME
+          docker build -t $IMAGE_REGISTRY/$IMAGE_NAME:$IMAGE_VERSION .
+          docker push $IMAGE_REGISTRY/$IMAGE_NAME:$IMAGE_VERSION
       - name: Generate nais variables
         run: |
           cat > .nais/vars.yaml <<EOF
-          namespace: default
+          namespace: q0
           ingresses:
-            - https://koronaveiviser.nais.oera.no
-            - https://www.nav.no/person/koronaveiviser
+            - https://koronaveiviser.nais.oera-q.no
+            - https://www-q0.nav.no/person/koronaveiviser
           image: $IMAGE_REGISTRY/$IMAGE_NAME
           version: $IMAGE_VERSION
           EOF
       - uses: nais/deploy/actions/deploy@master
         env:
-          CLUSTER: prod-sbs
+          CLUSTER: dev-sbs
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: .nais/config.yaml
           VARS: .nais/vars.yaml
