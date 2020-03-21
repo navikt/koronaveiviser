@@ -4,15 +4,15 @@ import { Innholdstittel } from "nav-frontend-typografi";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Alerts } from "../../utils/sanity/endpoints/alert";
 
-const cssPrefix = "varsler-seksjon";
+const cssPrefix = "seksjon-varsler";
 
 type Props = {
   varsler: Alerts;
 };
 
-export const VarslerSeksjon = ({ varsler }: Props) => {
+export const SeksjonVarsler = ({ varsler }: Props) => {
   return (
-    <PanelBase className={cssPrefix}>
+    <PanelBase className={`${cssPrefix}${varsler.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
           {"Koronavirus - informasjon og hjelp fra NAV"}

@@ -14,20 +14,16 @@ const cssPrefix = "seksjon-praktisk-info";
 export const SeksjonPraktiskInfo = ({ praktiskInfo }: Props) => {
   const info = praktiskInfo.info[0];
 
-  if (!info) {
-    return null;
-  }
-
   return (
-    <PanelBase className={cssPrefix}>
+    <PanelBase className={`${cssPrefix}${praktiskInfo.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          <SanityBlocks blocks={info.title} />
+          {"Praktisk informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
-        {info.sections.map((section, index) => (
+        {info && info.sections.map((section, index) => (
           <div className={`${cssPrefix}__section`} key={index}>
             <Undertittel>
               <SanityBlocks blocks={section.title} />

@@ -1,14 +1,15 @@
 @import (reference) "src/App";
 
 .seksjon-alle-situasjoner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: @padding-y @padding-x;
-  margin-top: @seksjon-spacing;
-
   @border-props: 1px solid @navGra40;
   @border-radius: 4px;
+
+  .seksjon-props();
+  margin-top: @seksjon-spacing;
+
+  &--loaded {
+    transform: none;
+  }
 
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;

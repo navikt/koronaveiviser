@@ -1,14 +1,11 @@
 @import (reference) "src/App";
 
 .seksjon-din-situasjon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: @padding-y @padding-x;
+  .seksjon-props();
   margin-top: @seksjon-spacing;
 
-  @media (max-width: @mobil-max-width) {
-    padding: @padding-mobil;
+  &--loaded {
+    transform: none;
   }
 
   &__header {

@@ -21,7 +21,7 @@ export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle }: Props) => {
   ));
 
   return (
-    <PanelBase className={cssPrefix}>
+    <PanelBase className={`${cssPrefix}${rolleKontekst.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {"Alle situasjoner"}

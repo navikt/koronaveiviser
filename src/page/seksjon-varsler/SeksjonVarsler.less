@@ -1,15 +1,10 @@
 @import (reference) "src/App";
 
-.seksjon-praktisk-info {
+.seksjon-varsler {
   .seksjon-props();
-  margin-top: @seksjon-spacing;
 
   &--loaded {
     transform: none;
-  }
-
-  @media (max-width: @mobil-max-width) {
-    padding: @padding-mobil;
   }
 
   &__header {
@@ -17,10 +12,7 @@
   }
 
   &__innhold {
-    width: 100%;
-  }
-
-  &__section {
     margin-top: 2rem;
+    width: 100%;
   }
 }

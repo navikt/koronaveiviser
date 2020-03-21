@@ -1,5 +1,5 @@
 import React from 'react';
-import { VarslerSeksjon } from "./varsler-seksjon/VarslerSeksjon";
+import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
 import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo";
@@ -12,7 +12,7 @@ export const Page = () => {
   return (
     <div className={"pagecontent"}>
       <ToppLinje />
-      <VarslerSeksjon varsler={alerts} />
+      <SeksjonVarsler varsler={alerts} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} />
