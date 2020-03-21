@@ -1,16 +1,21 @@
 import React from 'react';
-import { ToppSeksjon } from "./topp-seksjon/ToppSeksjon";
-import { MidtSeksjon } from "./midt-seksjon/MidtSeksjon";
-import { BunnSeksjon } from "./bunn-seksjon/BunnSeksjon";
-import { BunnSeksjonInfo } from "./bunn-seksjon-info/BunnSeksjonInfo";
+import { VarslerSeksjon } from "./varsler-seksjon/VarslerSeksjon";
+import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
+import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
+import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo";
+import { useStore } from "../store/Provider";
+import { ToppLinje } from "./topp-linje/ToppLinje";
 
 export const Page = () => {
+  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, rollevalg }] = useStore();
+
   return (
     <div className={"pagecontent"}>
-      <ToppSeksjon />
-      <MidtSeksjon />
-      <BunnSeksjon />
-      <BunnSeksjonInfo />
+      <ToppLinje />
+      <VarslerSeksjon varsler={alerts} />
+      <SeksjonDinSituasjon dinSituasjon={dinSituasjon} />
+      <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} />
+      <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} />
     </div>
   );
 };

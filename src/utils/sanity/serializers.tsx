@@ -12,6 +12,7 @@ import React from "react";
 import BlockContent from "@sanity/block-content-to-react";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Varsel } from "../../components/varsler/Varsel";
+import Lenke from "nav-frontend-lenker";
 
 export enum Language {
   Bokmaal = "nb"
@@ -40,25 +41,34 @@ const typoComponents = {
 };
 
 export type TextBlock = {
-  node: {style: TypoStyle};
+  node: { style: TypoStyle };
   children: React.ReactElement[];
+};
+
+export type SanityLink = {
+  title: LocaleString;
+  url: LocaleUrl;
+};
+
+export type SanityLinkList = {
+  title: LocaleString;
+  links: SanityLink[];
 };
 
 export type LocaleBlock = { [key in Language]: TextBlock };
 
 export type LocaleString = { [key in Language]: string };
 
-export type LocaleLink = { [key in Language]: string };
+export type LocaleUrl = { [key in Language]: string };
 
-export type Page = {
-  content: LocaleBlock;
+export type TextBlockWithTitle = {
   title: LocaleString;
-};
-
-export type LenkePanel = {
   description: LocaleBlock;
-  title: LocaleString;
 };
+export type LinkMark = {
+  mark: { href: string };
+  children: any;
+}
 
 const localeStringSerializer = (block: { node: LocaleString }) => {
   return block.node[language];
@@ -87,6 +97,13 @@ const alertSerializer = (props: any) => {
   );
 };
 
+const linkMarkSerializer = (mark: LinkMark) => {
+  return (
+    <Lenke href={mark.mark.href}>
+      {mark.children}
+    </Lenke>
+  );
+};
 
 export const serializers = {
   types: {
@@ -94,5 +111,8 @@ export const serializers = {
     localeBlock: localeBlockSerializer,
     localeString: localeStringSerializer,
     block: blockSerializer,
+  },
+  marks: {
+    link: linkMarkSerializer,
   }
 };
