@@ -33,7 +33,7 @@ jobs:
       - name: Generate nais variables
         run: |
           cat > .nais/vars.yaml <<EOF
-          namespace: q0
+          namespace: q1
           ingresses:
             - https://koronaveiviser.nais.oera-q.no
             - https://www-q0.nav.no/person/koronaveiviser
