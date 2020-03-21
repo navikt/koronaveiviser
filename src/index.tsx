@@ -9,7 +9,6 @@ import skiplinks from "./clients/apiMock/decorator/decorator-skiplinks";
 import styles from "./clients/apiMock/decorator/decorator-styles";
 import * as serviceWorker from './serviceWorker';
 import App from './App';
-import './index.css';
 
 const init = async () => {
     if (process.env.NODE_ENV === "development") {
