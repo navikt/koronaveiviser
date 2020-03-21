@@ -7,6 +7,9 @@
   padding: @padding-y @padding-x;
   margin-top: @seksjon-spacing;
 
+  @border-props: 1px solid @navGra40;
+  @border-radius: 4px;
+
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;
   }
@@ -21,12 +24,24 @@
   }
 
   &__lenkeseksjoner {
-    margin-top: 2rem;
     width: 100%;
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    border: @border-props;
+    border-bottom-left-radius: @border-radius;
+    border-bottom-right-radius: @border-radius;
+    border-top: none;
+
+    padding: 0.5rem;
+
+    @media (max-width: @mobil-max-width) {
+      border: none;
+    }
+
+    box-sizing: border-box;
 
     .lenke-seksjon {
       .col-setup(3, 1rem);
@@ -48,16 +63,41 @@
     width: 100%;
     justify-content: flex-start;
 
+    box-sizing: border-box;
+
     @media (max-width: @mobil-max-width) {
       flex-direction: column;
     }
 
     * > {
-      margin-right: 3rem;
+      padding: 1rem 1.5rem;
+      border-bottom: @border-props;
+      @media (max-width: @mobil-max-width) {
+        padding: 0.5rem 1.5rem;
+        border-bottom: none;
+      }
     }
 
     &__selected {
+      position: relative;
+      z-index: 1;
       font-weight: bold;
+      border: @border-props;
+      border-top: 2px solid @navGra40;
+      border-radius: @border-radius;
+      @media (min-width: @mobil-max-width) {
+        border-bottom: none;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &__filler {
+      flex-grow: 1;
+      border-bottom: @border-props;
+      @media (max-width: @mobil-max-width) {
+        visibility: hidden;
+      }
     }
   }
 }

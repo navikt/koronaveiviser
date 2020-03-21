@@ -28,11 +28,13 @@ export const RolleValg = () => {
             href={""}
             onClick={(event) => setRolle(event, rolle.rolle)}
             key={index}
+            className={`${cssPrefix}__lenke`}
           >
             <>{rolle.navn}</>
           </Lenke>
         )
       ))}
+      <span className={`${cssPrefix}__filler`}/>
     </div>
   );
 };
