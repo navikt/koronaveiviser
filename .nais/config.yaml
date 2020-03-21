@@ -1,0 +1,33 @@
+---
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: koronaveiviser
+  namespace: {{namespace}}
+  labels:
+    team: personbruker
+spec:
+  image: {{image}}:{{version}}
+  team: personbruker
+  port: 8080
+  ingresses:
+  {{#each ingresses as |url|}}
+     - {{url}}
+  {{/each}}
+  liveness:
+    path: /person/koronaveiviser/internal/isAlive
+    initialDelay: 10
+  readiness:
+    path: /person/koronaveiviser/internal/isReady
+    initialDelay: 10
+  vault:
+    enabled: true
+  replicas:
+    min: 2
+    max: 3
+  resources:
+    limits:
+      cpu: '3'
+      memory: 768Mi
+    requests:
+      memory: 512Mi
