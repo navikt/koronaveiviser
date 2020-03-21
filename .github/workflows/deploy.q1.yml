@@ -36,7 +36,7 @@ jobs:
           namespace: q1
           ingresses:
             - https://koronaveiviser.nais.oera-q.no
-            - https://www-q0.nav.no/person/koronaveiviser
+            - https://www-q1.nav.no/person/koronaveiviser
           image: $IMAGE_REGISTRY/$IMAGE_NAME
           version: $IMAGE_VERSION
           EOF
