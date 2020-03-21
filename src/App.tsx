@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './assets/logo.svg';
 
 function App() {
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/alerts`)
+        .then(result => result.json())
+        .then(json => console.log(json))
+        .catch(error => console.log(error))
+  })
+
   return (
     <div className="App">
       <header className="App-header">

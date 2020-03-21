@@ -18,6 +18,9 @@ jobs:
           echo ::set-env name=IMAGE_NAME::$(echo ${GITHUB_REPOSITORY##*/})
           echo ::set-env name=IMAGE_VERSION::$(echo ${GITHUB_WORKFLOW})-$(echo ${GITHUB_SHA})
           echo ::set-env name=GITHUB_TOKEN::$(echo ${GITHUB_TOKEN})
+      - name: Define client-side environment
+        run: |
+          echo ::set-env name=REACT_APP_API_URL::https://www.nav.no/person/koronaveiviser/api
       - uses: actions/cache@v1
         with:
           path: ~/.npm

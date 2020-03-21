@@ -2,7 +2,7 @@
 const VAULT_PATH = "/var/run/secrets/nais.io/vault/.env";
 require("console-stamp")(console, "[HH:MM:ss.l]");
 require("dotenv").config({
-    path: process.env.NODE_ENV === "production" ? VAULT_PATH : ".env"
+    path: process.env.NODE_ENV === "production" ? VAULT_PATH : "../.env"
 });
 
 const express = require("express");
@@ -32,6 +32,24 @@ const cache = new NodeCache(
         production: { stdTTL: 60, checkperiod: 20 }
     }[process.env.SANITY_DATASET]
 );
+
+// Cors
+server.use((req, res, next) => {
+    const origin = req.get("origin");
+    const allowedOrigin = process.env.NODE_ENV === "production"
+        ? `(http|https)://(.*).nav.no`
+        : `http://localhost:3000`;
+
+    if (origin && origin.match(allowedOrigin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept"
+        );
+    }
+    next();
+});
+
 
 server.set("views", `${__dirname}/../build`);
 server.set("view engine", "mustache");
