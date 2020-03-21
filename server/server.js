@@ -90,14 +90,14 @@ server.get(`${basePath}/api/contexts`, (req, res) => {
 
 server.get(`${basePath}/api/whats-your-situation`, (req, res) => {
     const query = "*[_id == 'whatsYourSituation' && !(_id in path('drafts.**'))] {...}";
-    const alerts = cache.get("alerts");
-    if (alerts) {
-        res.send(alerts);
+    const whatsYourSituation = cache.get("whats-your-situation");
+    if (whatsYourSituation) {
+        res.send(whatsYourSituation);
     } else {
         client
             .fetch(query)
             .then(result => {
-                cache.set("alerts", result);
+                cache.set("whats-your-situation", result);
                 res.send(result);
             })
             .catch(error => res.send(error));
