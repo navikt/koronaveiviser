@@ -1,4 +1,3 @@
-
 export enum Rolle {
   Privatperson,
   SelvstendigNd,
@@ -7,9 +6,9 @@ export enum Rolle {
 }
 
 export type RolleData = {
-  rolle: Rolle,
-  navn: string,
-}
+  rolle: Rolle;
+  navn: string;
+};
 
 export const rolleData: RolleData[] = [
   {
@@ -27,5 +26,5 @@ export const rolleData: RolleData[] = [
   {
     rolle: Rolle.Samarbeidspartner,
     navn: "Samarbeidspartner"
-  },
+  }
 ];

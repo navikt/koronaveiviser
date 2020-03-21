@@ -19,7 +19,7 @@ const hentJson = (url: string) =>
   })
     .then(response => sjekkForFeil(url, response))
     .then(parseJson)
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
       throw err;
     });

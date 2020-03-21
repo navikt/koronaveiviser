@@ -1,4 +1,3 @@
-
 export type LenkeData = {
   href: string;
   tekst: string;

@@ -4,7 +4,7 @@ import { Rolle } from "../types/roller";
 export const initialState = {
   visTekniskFeilMelding: false,
   alerts: initialAlerts as Alerts,
-  rollevalg: Rolle.Privatperson,
+  rollevalg: Rolle.Privatperson
 };
 
 export interface Store {
@@ -13,15 +13,18 @@ export interface Store {
   rollevalg: Rolle;
 }
 
-export type Action = {
-  type: "SETT_ALERTS";
-  payload: Array<Alert>;
-} | {
-  type: "SETT_ALERTS_FETCH_FAILED";
-} | {
-  type: "SETT_ROLLE";
-  payload: Rolle;
-};
+export type Action =
+  | {
+      type: "SETT_ALERTS";
+      payload: Array<Alert>;
+    }
+  | {
+      type: "SETT_ALERTS_FETCH_FAILED";
+    }
+  | {
+      type: "SETT_ROLLE";
+      payload: Rolle;
+    };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {

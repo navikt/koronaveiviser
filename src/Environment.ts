@@ -1,4 +1,3 @@
-
 const Environment = () => {
   const host = window.location.host;
   const subdomain = host.split(`.`)[0];
@@ -10,7 +9,7 @@ const Environment = () => {
       baseUrl: `http://www.nav.no`,
       baseAppPath: baseAppPath,
       appUrl: `http://localhost:8080${baseAppPath}`,
-      apiUrl: `http://localhost:8080${baseAppPath}/api`,
+      apiUrl: `http://localhost:8080${baseAppPath}/api`
     };
   }
   if (subdomain !== `www`) {
@@ -21,7 +20,7 @@ const Environment = () => {
       baseUrl: `https://www-${env}.nav.no`,
       baseAppPath: baseAppPath,
       appUrl: `https://www-${env}.nav.no${baseAppPath}`,
-      apiUrl: `https://www-${env}.nav.no${baseAppPath}/api`,
+      apiUrl: `https://www-${env}.nav.no${baseAppPath}/api`
     };
   }
 
@@ -30,7 +29,7 @@ const Environment = () => {
     baseUrl: `https://www.nav.no`,
     baseAppPath: baseAppPath,
     appUrl: `https://www.nav.no${baseAppPath}`,
-    apiUrl: `https://www.nav.no${baseAppPath}/api`,
+    apiUrl: `https://www.nav.no${baseAppPath}/api`
   };
 };
 

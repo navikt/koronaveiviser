@@ -72,6 +72,39 @@ server.get(`${basePath}/api/alerts`, (req, res) => {
     }
 });
 
+server.get(`${basePath}/api/contexts`, (req, res) => {
+    const query = "*[_type == 'context' && !(_id in path('drafts.**'))] {...}";
+    const contexts = cache.get("context");
+    if (contexts) {
+        res.send(contexts);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("context", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
+
+server.get(`${basePath}/api/whats-your-situation`, (req, res) => {
+    const query = "*[_id == 'whatsYourSituation' && !(_id in path('drafts.**'))] {...}";
+    const alerts = cache.get("alerts");
+    if (alerts) {
+        res.send(alerts);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("alerts", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
+
+
 // Parse application/json
 server.use(express.json());
 server.use((req, res, next) => {
