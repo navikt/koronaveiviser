@@ -8,6 +8,10 @@
   align-self: flex-start;
   padding: 1rem @padding-x 2rem @padding-x;
 
+  @media (max-width: @mobil-max-width) {
+    padding: 0 @padding-mobil;
+  }
+
   &__ikon {
     width: 18px;
     height: 18px;
@@ -16,5 +20,15 @@
 
   &__chevron {
     margin: 0 0.5rem;
+
+    @media (max-width: @mobil-max-width) {
+      visibility: hidden;
+    }
+  }
+
+  &__tekst {
+    @media (max-width: @mobil-max-width) {
+      visibility: hidden;
+    }
   }
 }

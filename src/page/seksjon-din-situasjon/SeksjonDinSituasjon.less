@@ -7,6 +7,10 @@
   padding: @padding-y @padding-x;
   margin-top: @seksjon-spacing;
 
+  @media (max-width: @mobil-max-width) {
+    padding: @padding-mobil;
+  }
+
   &__header {
     text-align: center;
   }
@@ -19,8 +23,14 @@
     margin-top: 1rem;
 
     .lenkepanel {
-      .col-setup(3, 1rem);
       min-height: 60px;
+      @media (min-width: @mobil-max-width) {
+        .col-setup(3, 1rem);
+      }
+
+      @media (max-width: @mobil-max-width) {
+        .col-setup(1, 0);
+      }
     }
   }
 }

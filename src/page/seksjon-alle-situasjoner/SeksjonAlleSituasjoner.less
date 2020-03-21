@@ -7,6 +7,10 @@
   padding: @padding-y @padding-x;
   margin-top: @seksjon-spacing;
 
+  @media (max-width: @mobil-max-width) {
+    padding: @padding-mobil;
+  }
+
   &__header {
     text-align: center;
   }
@@ -27,6 +31,10 @@
     .lenke-seksjon {
       .col-setup(3, 1rem);
 
+      @media (max-width: @mobil-max-width) {
+        .col-setup(1, 1px);
+      }
+
       .lenke {
         margin-bottom: 0.25rem;
       }
@@ -36,8 +44,13 @@
   .rollevalg {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
+
+    @media (max-width: @mobil-max-width) {
+      flex-direction: column;
+    }
 
     * > {
       margin-right: 3rem;

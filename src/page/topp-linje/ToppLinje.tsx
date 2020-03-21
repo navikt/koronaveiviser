@@ -16,7 +16,7 @@ export const ToppLinje = () => {
         {"nav.no"}
       </Lenke>
       <HoyreChevron className={`${cssPrefix}__chevron`} />
-      <Element>
+      <Element className={`${cssPrefix}__tekst`}>
         {"Koronavirus - informasjon og hjelp fra NAV"}
       </Element>
     </div>
