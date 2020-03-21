@@ -11,45 +11,45 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 
 const init = async () => {
-    if (process.env.NODE_ENV === "development") {
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{NAV_HEADING}}}",
-            withMenu
-        );
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{NAV_FOOTER}}}",
-            footer
-        );
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{NAV_STYLES}}}",
-            styles
-        );
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{NAV_SCRIPTS}}}",
-            scripts
-        );
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{NAV_SKIPLINKS}}}",
-            skiplinks
-        );
-        document.body.innerHTML = document.body.innerHTML.replace(
-            "{{{MEGAMENU_RESOURCES}}}",
-            megamenu
-        );
-
-        // Execute client.js
-        var script = document.createElement("script");
-        script.src = "https://www.nav.no/dekoratoren/client.js";
-        document.body.appendChild(script);
-    }
-
-    ReactDOM.render(
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>,
-        document.getElementById("app")
+  if (process.env.NODE_ENV === "development") {
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{NAV_HEADING}}}",
+      withMenu
     );
-    serviceWorker.unregister();
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{NAV_FOOTER}}}",
+      footer
+    );
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{NAV_STYLES}}}",
+      styles
+    );
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{NAV_SCRIPTS}}}",
+      scripts
+    );
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{NAV_SKIPLINKS}}}",
+      skiplinks
+    );
+    document.body.innerHTML = document.body.innerHTML.replace(
+      "{{{MEGAMENU_RESOURCES}}}",
+      megamenu
+    );
+
+    // Execute client.js
+    var script = document.createElement("script");
+    script.src = "https://www.nav.no/dekoratoren/client.js";
+    document.body.appendChild(script);
+  }
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById("app")
+  );
+  serviceWorker.unregister();
 };
 init();
 
