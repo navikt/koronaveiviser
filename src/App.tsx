@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import { Page } from "./page/Page";
 import { fetchAlerts, fetchTimeoutMs, timeoutPromise } from "./clients/api";
 import { Alert } from "./utils/sanity/endpoints/alert";
-import { useStore } from "./redux/Provider";
+import { useDispatch } from "./redux/Provider";
 
 function App() {
-  const [{alerts}, dispatch] = useStore();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     Promise.race<any>([fetchAlerts(), timeoutPromise(fetchTimeoutMs, "Fetching alerts failed!")])

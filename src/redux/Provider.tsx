@@ -20,3 +20,4 @@ export const StoreProvider = ({ reducer, initialState, children }: Props) => (
   </StoreContext.Provider>
 );
 export const useStore = () => useContext(StoreContext);
+export const useDispatch = () => useContext(createContext({} as Dispatch<Action>));
