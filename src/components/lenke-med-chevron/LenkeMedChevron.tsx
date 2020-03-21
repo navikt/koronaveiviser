@@ -17,7 +17,7 @@ const lenkeTekstMedChevron = (tekst: React.ReactNode) => (
   </span>
 );
 
-const RouterLenkeMedChevron = (props: Props) => {
+const LenkeMedChevron = (props: Props) => {
   const { href, className, id, onClick, children } = props;
   const lenkeTekst = lenkeTekstMedChevron(children);
 
@@ -33,4 +33,4 @@ const RouterLenkeMedChevron = (props: Props) => {
   );
 };
 
-export default RouterLenkeMedChevron;
+export default LenkeMedChevron;
