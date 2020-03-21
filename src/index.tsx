@@ -1,17 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import withMenu from "./clients/apiMock/decorator/decorator-header-withmenu";
+import megamenu from "./clients/apiMock/decorator/decorator-megamenu";
+import footer from "./clients/apiMock/decorator/decorator-footer";
+import scripts from "./clients/apiMock/decorator/decorator-scripts";
+import skiplinks from "./clients/apiMock/decorator/decorator-skiplinks";
+import styles from "./clients/apiMock/decorator/decorator-styles";
 import * as serviceWorker from './serviceWorker';
+import App from './App';
+import './index.css';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('app')
-);
+const init = async () => {
+    if (process.env.NODE_ENV === "development") {
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{NAV_HEADING}}}",
+            withMenu
+        );
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{NAV_FOOTER}}}",
+            footer
+        );
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{NAV_STYLES}}}",
+            styles
+        );
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{NAV_SCRIPTS}}}",
+            scripts
+        );
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{NAV_SKIPLINKS}}}",
+            skiplinks
+        );
+        document.body.innerHTML = document.body.innerHTML.replace(
+            "{{{MEGAMENU_RESOURCES}}}",
+            megamenu
+        );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+        // Execute client.js
+        var script = document.createElement("script");
+        script.src = "https://www.nav.no/dekoratoren/client.js";
+        document.body.appendChild(script);
+    }
+
+    ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+        document.getElementById("app")
+    );
+    serviceWorker.unregister();
+};
+init();
+
