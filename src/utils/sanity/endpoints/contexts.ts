@@ -18,7 +18,7 @@ export const initialRolleKontekster = {
 
 export const rolleTilSanityId = {
   [Rolle.Privatperson]: "Privatperson",
-  [Rolle.SelvstendigNd]: "Selvstending næringsdrivende",
+  [Rolle.SelvstendigNd]: "Selvstendig næringsdrivende",
   [Rolle.Arbeidsgiver]: "Arbeidsgiver",
   [Rolle.Samarbeidspartner]: "Samarbeidspartnere"
 };
