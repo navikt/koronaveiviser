@@ -104,6 +104,22 @@ server.get(`${basePath}/api/whats-your-situation`, (req, res) => {
     }
 });
 
+server.get(`${basePath}/api/information`, (req, res) => {
+    const query = "*[_id == 'information' && !(_id in path('drafts.**'))] {...}";
+    const information = cache.get("whats-your-situation");
+    if (information) {
+        res.send(information);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("information", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
+
 
 // Parse application/json
 server.use(express.json());
