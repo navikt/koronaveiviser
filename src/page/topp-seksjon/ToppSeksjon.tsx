@@ -1,11 +1,13 @@
 import React from 'react';
 import PanelBase from "nav-frontend-paneler";
-import { Innholdstittel} from "nav-frontend-typografi";
-import AlertStripe from "nav-frontend-alertstriper";
+import { Innholdstittel } from "nav-frontend-typografi";
+import { useStore } from "../../redux/Provider";
+import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 
 const cssPrefix = "topp-seksjon";
 
 export const ToppSeksjon = () => {
+  const [{ alerts }] = useStore();
 
   return (
     <PanelBase className={cssPrefix}>
@@ -15,9 +17,7 @@ export const ToppSeksjon = () => {
         </Innholdstittel>
       </div>
       <div className={`${cssPrefix}__innhold`}>
-        <AlertStripe type={"info"}>
-          Forslagene om lov...osv
-        </AlertStripe>
+        <SanityBlocks blocks={alerts.alerts} />
       </div>
     </PanelBase>
   );

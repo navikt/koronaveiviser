@@ -71,7 +71,7 @@ export const BunnSeksjon = () => {
       </div>
       <div className={`${cssPrefix}__lenkeseksjoner`}>
         {testLenkeSeksjoner.map((lenkeSeksjon, index) => (
-          <LenkeSeksjon tittel={lenkeSeksjon.tittel} lenker={lenkeSeksjon.lenker}/>
+          <LenkeSeksjon tittel={lenkeSeksjon.tittel} lenker={lenkeSeksjon.lenker} key={index}/>
         ))}
       </div>
     </PanelBase>

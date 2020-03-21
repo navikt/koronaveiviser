@@ -9,6 +9,8 @@ import skiplinks from "./clients/apiMock/decorator/decorator-skiplinks";
 import styles from "./clients/apiMock/decorator/decorator-styles";
 import * as serviceWorker from './serviceWorker';
 import App from './App';
+import { StoreProvider } from "./redux/Provider";
+import { initialState, reducer } from "./redux/store";
 
 const init = async () => {
   if (process.env.NODE_ENV === "development") {
@@ -44,9 +46,9 @@ const init = async () => {
   }
 
   ReactDOM.render(
-    <React.StrictMode>
+    <StoreProvider reducer={reducer} initialState={initialState}>
       <App />
-    </React.StrictMode>,
+    </StoreProvider>,
     document.getElementById("app")
   );
   serviceWorker.unregister();

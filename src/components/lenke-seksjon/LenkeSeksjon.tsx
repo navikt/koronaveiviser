@@ -21,7 +21,7 @@ export const LenkeSeksjon = ({tittel, lenker}: Props) => {
       </div>
       <div className={`${cssPrefix}__lenker`}>
         {lenker.map((lenke, index) => (
-          <LenkeMedChevron href={lenke.href}>
+          <LenkeMedChevron href={lenke.href} key={index}>
             <>{lenke.tekst}</>
           </LenkeMedChevron>
         ))}

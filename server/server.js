@@ -46,10 +46,10 @@ server.use((req, res, next) => {
             "Access-Control-Allow-Headers",
             "Origin, X-Requested-With, Content-Type, Accept"
         );
+        res.header("Access-Control-Allow-Credentials", "true");
     }
     next();
 });
-
 
 server.set("views", `${__dirname}/../build`);
 server.set("view engine", "mustache");
