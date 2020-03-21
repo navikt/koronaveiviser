@@ -17,8 +17,17 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm-run-all -p start:*",
+    "start:ts": "react-scripts start",
+    "start:less": "less-watch-compiler",
+    "build": "npm-run-all -p build:*",
+    "build:js": "react-scripts build",
+    "build:css": "less-watch-compiler --run-once",
+    "docker-build": "docker build . -t koronaveiviser",
+    "docker-start": "docker run --name koronaveiviser -p 8080:8080 -t -d koronaveiviser",
+    "docker-kill": "npm run docker-stop && npm run docker-rm",
+    "docker-rm": "docker rm koronaveiviser",
+    "docker-stop": "docker stop personopplysninger",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
