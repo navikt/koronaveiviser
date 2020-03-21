@@ -18,6 +18,7 @@ export const RolleValg = () => {
 
   return (
     <div className={cssPrefix}>
+      <span className={`${cssPrefix}__filler-start`} />
       {rolleData.map((rolle, index) => (
         rolle.rolle === rollevalg ? (
           <Normaltekst className={`${cssPrefix}__selected`} key={index}>
@@ -34,7 +35,7 @@ export const RolleValg = () => {
           </Lenke>
         )
       ))}
-      <span className={`${cssPrefix}__filler`}/>
+      <span className={`${cssPrefix}__filler-end`} />
     </div>
   );
 };

@@ -31,8 +31,7 @@
     flex-wrap: wrap;
 
     border: @border-props;
-    border-bottom-left-radius: @border-radius;
-    border-bottom-right-radius: @border-radius;
+    border-radius: @border-radius;
     border-top: none;
 
     padding: 0.5rem;
@@ -57,6 +56,15 @@
   }
 
   .rollevalg {
+    &::before {
+      width: @border-radius;
+      content: "";
+    }
+    &::after {
+      width: @border-radius;
+      content: "";
+    }
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -92,7 +100,14 @@
       }
     }
 
-    &__filler {
+    &__filler-start {
+      padding: 0 1rem;
+      @media (max-width: @mobil-max-width) {
+        visibility: hidden;
+      }
+    }
+
+    &__filler-end {
       flex-grow: 1;
       border-bottom: @border-props;
       @media (max-width: @mobil-max-width) {
