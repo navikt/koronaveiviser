@@ -4,8 +4,7 @@ import { LocaleBlock } from "../serializers";
 export type Alert = {
   type: AlertStripeType;
   description: LocaleBlock[];
-  displayOnAllPages: boolean;
-  displayOnSpesificPages: string[];
+  _updatedAt: string;
 };
 
 export type Alerts = {

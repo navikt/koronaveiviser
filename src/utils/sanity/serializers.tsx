@@ -10,8 +10,8 @@ import {
 import { Alert } from "./endpoints/alert";
 import React from "react";
 import BlockContent from "@sanity/block-content-to-react";
-import AlertStripe from "nav-frontend-alertstriper";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
+import { Varsel } from "../../components/varsler/Varsel";
 
 export enum Language {
   Bokmaal = "nb"
@@ -81,9 +81,9 @@ const blockSerializer = (block: TextBlock) => {
 const alertSerializer = (props: any) => {
   const alert = props.node as Alert;
   return (
-    <AlertStripe className={"varsel-panel"} type={alert.type}>
+    <Varsel type={alert.type} lastUpdate={alert._updatedAt}>
       <SanityBlocks blocks={alert.description} />
-    </AlertStripe>
+    </Varsel>
   );
 };
 
