@@ -1,7 +1,7 @@
 import React from 'react';
 import PanelBase from "nav-frontend-paneler";
 import { Innholdstittel } from "nav-frontend-typografi";
-import { useStore } from "../../redux/Provider";
+import { useStore } from "../../store/Provider";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 
 const cssPrefix = "topp-seksjon";

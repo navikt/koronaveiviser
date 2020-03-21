@@ -1,7 +1,7 @@
 import React from "react";
 import { SanityBlocks } from "../sanity-blocks/SanityBlocks";
 import { TekniskProblemBackend } from "./teknisk-problem-backend/TekniskProblemBackend";
-import { useStore } from "../../redux/Provider";
+import { useStore } from "../../store/Provider";
 
 export const VarselVisning = () => {
   const [{ alerts, visTekniskFeilMelding }] = useStore();

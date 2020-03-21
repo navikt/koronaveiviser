@@ -4,6 +4,7 @@ import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { LenkeData, LenkeSeksjonData } from "../../types/lenker";
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
+import { RolleValg } from "./RolleValg";
 
 const cssPrefix = "bunn-seksjon";
 
@@ -67,11 +68,10 @@ export const BunnSeksjon = () => {
         </Systemtittel>
       </div>
       <HeaderSeparator />
-      <div className={`${cssPrefix}__rollevalg`}>
-      </div>
+      <RolleValg />
       <div className={`${cssPrefix}__lenkeseksjoner`}>
         {testLenkeSeksjoner.map((lenkeSeksjon, index) => (
-          <LenkeSeksjon tittel={lenkeSeksjon.tittel} lenker={lenkeSeksjon.lenker} key={index}/>
+          <LenkeSeksjon tittel={lenkeSeksjon.tittel} lenker={lenkeSeksjon.lenker} key={index} />
         ))}
       </div>
     </PanelBase>

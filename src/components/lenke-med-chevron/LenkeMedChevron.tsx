@@ -5,7 +5,7 @@ import { HoyreChevron } from "nav-frontend-chevron";
 type Props = {
   href: string;
   children: JSX.Element;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
   className?: string;
   id?: string;
 };

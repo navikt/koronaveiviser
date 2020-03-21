@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Page } from "./page/Page";
 import { fetchAlerts, fetchTimeoutMs, timeoutPromise } from "./clients/api";
 import { Alert } from "./utils/sanity/endpoints/alert";
-import { useStore } from "./redux/Provider";
+import { useStore } from "./store/Provider";
 
 function App() {
   const [, dispatch] = useStore();

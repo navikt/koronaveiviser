@@ -9,8 +9,8 @@ import skiplinks from "./clients/apiMock/decorator/decorator-skiplinks";
 import styles from "./clients/apiMock/decorator/decorator-styles";
 import * as serviceWorker from './serviceWorker';
 import App from './App';
-import { StoreProvider } from "./redux/Provider";
-import { initialState, reducer } from "./redux/store";
+import { StoreProvider } from "./store/Provider";
+import { initialState, reducer } from "./store/store";
 
 const init = async () => {
   if (process.env.NODE_ENV === "development") {
