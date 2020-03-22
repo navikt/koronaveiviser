@@ -17,14 +17,14 @@ const cssPrefix = "lenke-seksjon";
 export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.Andre }: Props) => {
   return (
     <div className={cssPrefix}>
-      <div className={`${cssPrefix}__tittel`}>
+        <div className={`${cssPrefix}__tittel`}>
         <Undertittel>
           <SanityBlocks blocks={tittel} />
         </Undertittel>
       </div>
       <div className={`${cssPrefix}__lenker`}>
         {lenker.map((lenke, index) => {
-          const url = lenke.url[Language.Bokmaal];
+          const url = (lenke.url && lenke.url[Language.Bokmaal]) || "";
           return (
             <LenkeMedChevron
               href={url}
