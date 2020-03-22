@@ -1,9 +1,10 @@
 import React from 'react';
 import PanelBase from "nav-frontend-paneler";
-import { Systemtittel, Undertittel } from "nav-frontend-typografi";
+import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -26,10 +27,9 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <div className={`${cssPrefix}__innhold`}>
         {info && info.sections.map((section, index) => (
           <div className={`${cssPrefix}__section`} key={index}>
-            <Undertittel>
-              <SanityBlocks blocks={section.title} />
-            </Undertittel>
-            <SanityBlocks blocks={section.description} />
+            <Ekspanderbartpanel tittel={<SanityBlocks blocks={section.title} />}>
+              <SanityBlocks blocks={section.description} />
+            </Ekspanderbartpanel>
           </div>
         ))}
       </div>
