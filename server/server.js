@@ -120,6 +120,22 @@ server.get(`${basePath}/api/information`, (req, res) => {
     }
 });
 
+server.get(`${basePath}/api/related`, (req, res) => {
+    const query = "*[_id == 'related' && !(_id in path('drafts.**'))] {...}";
+    const related = cache.get("related");
+    if (related) {
+        res.send(related);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("related", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
+
 
 // Parse application/json
 server.use(express.json());
