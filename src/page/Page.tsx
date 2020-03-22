@@ -8,14 +8,15 @@ import { ToppLinje } from "./topp-linje/ToppLinje";
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, rollevalg }] = useStore();
+  const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded && rolleKontekster.isLoaded;
 
   return (
     <div className={"pagecontent"}>
       <ToppLinje />
-      <SeksjonVarsler varsler={alerts} />
-      <SeksjonDinSituasjon dinSituasjon={dinSituasjon} />
-      <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} />
-      <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} />
+      <SeksjonVarsler varsler={alerts} isLoaded={isLoaded} />
+      <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
+      <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
+      <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
     </div>
   );
 };

@@ -11,13 +11,14 @@ const cssPrefix = "seksjon-din-situasjon";
 
 type Props = {
   dinSituasjon: DinSituasjon;
+  isLoaded: boolean;
 };
 
-export const SeksjonDinSituasjon = ({ dinSituasjon }: Props) => {
+export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
   const situasjoner = dinSituasjon.situasjoner[0];
 
   return (
-    <PanelBase className={`${cssPrefix}${dinSituasjon.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {"Din situasjon"}

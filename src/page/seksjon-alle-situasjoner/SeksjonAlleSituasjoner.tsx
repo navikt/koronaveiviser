@@ -11,17 +11,18 @@ import { Language } from "../../utils/sanity/serializers";
 type Props = {
   rolleKontekst: RolleKontekster;
   rolle: Rolle;
+  isLoaded: boolean;
 };
 const cssPrefix = "seksjon-alle-situasjoner";
 
 
-export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle }: Props) => {
+export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props) => {
   const lenkerForKontekst = rolleKontekst.kontekster.find((kontekst) => (
     kontekst.context[Language.Bokmaal] === rolleTilSanityId[rolle]
   ));
 
   return (
-    <PanelBase className={`${cssPrefix}${rolleKontekst.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {"Alle situasjoner"}

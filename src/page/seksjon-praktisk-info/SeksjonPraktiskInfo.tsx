@@ -7,15 +7,16 @@ import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
+  isLoaded: boolean;
 };
 
 const cssPrefix = "seksjon-praktisk-info";
 
-export const SeksjonPraktiskInfo = ({ praktiskInfo }: Props) => {
+export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
 
   return (
-    <PanelBase className={`${cssPrefix}${praktiskInfo.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {"Praktisk informasjon"}

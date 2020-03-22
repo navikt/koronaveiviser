@@ -8,11 +8,12 @@ const cssPrefix = "seksjon-varsler";
 
 type Props = {
   varsler: Alerts;
+  isLoaded: boolean;
 };
 
-export const SeksjonVarsler = ({ varsler }: Props) => {
+export const SeksjonVarsler = ({ varsler, isLoaded }: Props) => {
   return (
-    <PanelBase className={`${cssPrefix}${varsler.isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
           {"Koronavirus - informasjon og hjelp fra NAV"}
