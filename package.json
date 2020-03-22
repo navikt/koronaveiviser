@@ -1,9 +1,10 @@
 {
   "name": "koronaveiviser",
-  "version": "0.2.9-test",
+  "version": "0.3.0-test",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "dependencies": {
+    "@navikt/nav-chatbot": "^1.2.1",
     "@sanity/block-content-to-react": "^2.0.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
