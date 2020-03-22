@@ -1,7 +1,7 @@
 @import (reference) "~nav-frontend-core/less/_variabler";
 
-@desktop-max-width: @screen-lg-desktop;
-@mobil-max-width: @screen-sm;
+@desktop-max-width: 1024px;
+@mobil-max-width: 768px;
 
 @padding-y: 2rem;
 @padding-x: @padding-y * 1.62;
@@ -24,6 +24,7 @@ body {
   max-width: @desktop-max-width;
   padding: 1rem 1rem 5rem 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .seksjon-props(@order) {
@@ -33,8 +34,8 @@ body {
   padding: @padding-y @padding-x;
   overflow: hidden;
   box-sizing: border-box;
-  transform: translateX(-50vw - 200px * @order) rotateY(90deg);
-  transition: all .4s ease-in-out;
+  transform: translateX(-100vh - 100px * @order);// rotateY(90deg);
+  transition: transform 0.5s ease-in-out;
 
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;
@@ -50,4 +51,10 @@ body {
   &:not(:nth-child(@{cols}n)) {
     margin-right: @margins;
   }
+}
+
+.big-spinner {
+  text-align: center;
+  margin: 3rem;
+  transform: scale(3);
 }

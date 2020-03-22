@@ -4,12 +4,12 @@ import { Innholdstittel } from "nav-frontend-typografi";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Alerts } from "../../utils/sanity/endpoints/alert";
 
-const cssPrefix = "seksjon-varsler";
-
 type Props = {
   varsler: Alerts;
   isLoaded: boolean;
 };
+
+const cssPrefix = "seksjon-varsler";
 
 export const SeksjonVarsler = ({ varsler, isLoaded }: Props) => {
   return (

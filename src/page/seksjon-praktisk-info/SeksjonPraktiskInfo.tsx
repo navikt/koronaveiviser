@@ -19,7 +19,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
     <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          {"Praktisk informasjon"}
+          {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />

@@ -4,21 +4,20 @@ import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./RolleValg";
-import { RolleKontekster, rolleTilSanityId } from "../../utils/sanity/endpoints/contexts";
-import { Rolle } from "../../types/roller";
+import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
 import { Language } from "../../utils/sanity/serializers";
 
 type Props = {
   rolleKontekst: RolleKontekster;
-  rolle: Rolle;
+  rolle: string;
   isLoaded: boolean;
 };
-const cssPrefix = "seksjon-alle-situasjoner";
 
+const cssPrefix = "seksjon-alle-situasjoner";
 
 export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props) => {
   const lenkerForKontekst = rolleKontekst.kontekster.find((kontekst) => (
-    kontekst.context[Language.Bokmaal] === rolleTilSanityId[rolle]
+    kontekst.context[Language.Bokmaal] === rolle
   ));
 
   return (

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useStore } from "../../store/Provider";
-import { Rolle, rolleData } from "../../types/roller";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
+import { Language } from "../../utils/sanity/serializers";
 
 const cssPrefix = "rollevalg";
 
 export const RolleValg = () => {
-  const [{ rollevalg }, dispatch] = useStore();
-  const setRolle = (event: any, rolle: Rolle) => {
+  const [{ rollevalg, rolleKontekster }, dispatch] = useStore();
+  const setRolle = (event: any, rolle: string) => {
     event.preventDefault();
     dispatch({
       type: "SETT_ROLLE",
@@ -19,22 +19,24 @@ export const RolleValg = () => {
   return (
     <div className={cssPrefix}>
       <span className={`${cssPrefix}__filler-start`} />
-      {rolleData.map((rolle, index) => (
-        rolle.rolle === rollevalg ? (
-          <Normaltekst className={`${cssPrefix}__selected`} key={index}>
-            {rolle.navn}
-          </Normaltekst>
-        ) : (
-          <Lenke
-            href={""}
-            onClick={(event) => setRolle(event, rolle.rolle)}
-            key={index}
-            className={`${cssPrefix}__lenke`}
-          >
-            <>{rolle.navn}</>
-          </Lenke>
-        )
-      ))}
+      {rolleKontekster.kontekster.map((context, index) => {
+        const rollenavn = (context.context && context.context[Language.Bokmaal]) || "";
+        return (
+          rollenavn === rollevalg ? (
+            <Normaltekst className={`${cssPrefix}__selected`} key={index}>
+              {rollenavn}
+            </Normaltekst>
+          ) : (
+            <Lenke
+              href={""}
+              onClick={(event) => setRolle(event, rollenavn)}
+              key={index}
+              className={`${cssPrefix}__lenke`}
+            >
+              <>{rollenavn}</>
+            </Lenke>
+          ))
+      })}
       <span className={`${cssPrefix}__filler-end`} />
     </div>
   );

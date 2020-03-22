@@ -7,12 +7,12 @@ import { DinSituasjon } from "../../utils/sanity/endpoints/your-situation";
 import { Language } from "../../utils/sanity/serializers";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 
-const cssPrefix = "seksjon-din-situasjon";
-
 type Props = {
   dinSituasjon: DinSituasjon;
   isLoaded: boolean;
 };
+
+const cssPrefix = "seksjon-din-situasjon";
 
 export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
   const situasjoner = dinSituasjon.situasjoner[0];
@@ -21,7 +21,7 @@ export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
     <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          {"Din situasjon"}
+          {situasjoner ? <SanityBlocks blocks={situasjoner.title}/> : "Hva er din situasjon?"}
         </Systemtittel>
       </div>
       <HeaderSeparator />

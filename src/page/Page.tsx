@@ -5,6 +5,7 @@ import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSi
 import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo";
 import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
+import NavFrontendSpinner from "nav-frontend-spinner";
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, rollevalg }] = useStore();
@@ -13,6 +14,7 @@ export const Page = () => {
   return (
     <div className={"pagecontent"}>
       <ToppLinje />
+      {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
       <SeksjonVarsler varsler={alerts} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />

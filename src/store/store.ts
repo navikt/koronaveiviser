@@ -1,12 +1,11 @@
 import { Alert, Alerts, initialAlerts } from "../utils/sanity/endpoints/alert";
-import { Rolle } from "../types/roller";
 import { Information, initialInformation, PraktiskInfo } from "../utils/sanity/endpoints/information";
 import { DinSituasjon, initialDinSituasjon, YourSituation } from "../utils/sanity/endpoints/your-situation";
 import { initialRolleKontekster, RoleContext, RolleKontekster } from "../utils/sanity/endpoints/contexts";
 
 export const initialState = {
   visTekniskFeilMelding: false,
-  rollevalg: Rolle.Privatperson,
+  rollevalg: "",
   alerts: initialAlerts as Alerts,
   praktiskInfo: initialInformation as PraktiskInfo,
   dinSituasjon: initialDinSituasjon as DinSituasjon,
@@ -16,7 +15,7 @@ export const initialState = {
 export interface Store {
   visTekniskFeilMelding: boolean;
   alerts: Alerts;
-  rollevalg: Rolle;
+  rollevalg: string;
   praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
@@ -52,7 +51,7 @@ export type Action =
 }
   | {
   type: "SETT_ROLLE";
-  payload: Rolle;
+  payload: string;
 };
 
 export const reducer = (state: Store, action: Action) => {

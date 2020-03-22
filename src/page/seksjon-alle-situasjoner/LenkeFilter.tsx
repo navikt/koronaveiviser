@@ -1,8 +1,7 @@
 import React from 'react';
-import { Rolle } from "../../types/roller";
 
 type Props = {
-  rolle: Rolle;
+  rolle: string;
 };
 
 const cssPrefix = "lenke-filter";
@@ -14,4 +13,3 @@ export const LenkeFilter = ({ rolle }: Props) => {
     </div>
   );
 };
-

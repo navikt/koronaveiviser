@@ -21,12 +21,13 @@
 
     .lenkepanel {
       min-height: 60px;
-      @media (min-width: @mobil-max-width) {
-        .col-setup(3, 1rem);
-      }
 
       @media (max-width: @mobil-max-width) {
-        .col-setup(1, 0);
+        .col-setup(1, 1px);
+      }
+
+      @media (min-width: @mobil-max-width) {
+        .col-setup(3, 1rem);
       }
     }
   }

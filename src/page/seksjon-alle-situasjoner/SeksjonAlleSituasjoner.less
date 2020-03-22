@@ -44,10 +44,12 @@
     box-sizing: border-box;
 
     .lenke-seksjon {
-      .col-setup(3, 1rem);
-
       @media (max-width: @mobil-max-width) {
         .col-setup(1, 1px);
+      }
+
+      @media (min-width: @mobil-max-width) {
+        .col-setup(3, 1px);
       }
 
       .lenke {
