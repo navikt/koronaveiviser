@@ -7,10 +7,12 @@ import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
+import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 
 export const Page = () => {
-  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, rollevalg }] = useStore();
-  const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded && rolleKontekster.isLoaded;
+  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg }] = useStore();
+  const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
+    && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
   return (
     <div className={"pagecontent"}>
@@ -20,6 +22,7 @@ export const Page = () => {
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
+      <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
       <NavChatbot
         customerKey="41155"
         queueKey="Q_CHAT_BOT"

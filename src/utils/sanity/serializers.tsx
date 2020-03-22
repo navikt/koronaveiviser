@@ -19,6 +19,8 @@ export enum Language {
   Bokmaal = "nb"
 }
 
+const language = Language.Bokmaal;
+
 enum TypoStyle {
   H1 = "h1",
   H2 = "h2",
@@ -28,8 +30,6 @@ enum TypoStyle {
   H6 = "h6",
   Normal = "normal",
 }
-
-const language = Language.Bokmaal;
 
 const typoComponents = {
   [TypoStyle.H1]: Sidetittel,

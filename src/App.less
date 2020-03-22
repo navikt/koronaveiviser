@@ -5,7 +5,7 @@
 
 @padding-y: 2rem;
 @padding-x: @padding-y * 1.62;
-@padding-mobil: 0.75rem;
+@padding-mobil: 1rem;
 @seksjon-spacing: 2rem;
 
 body {
@@ -32,15 +32,9 @@ body {
   flex-direction: column;
   align-items: center;
   padding: @padding-y @padding-x;
-  overflow: hidden;
   box-sizing: border-box;
   visibility: hidden;
   margin-top: @seksjon-spacing;
-  //transform: translateX(-100vh);
-  //transition-delay: 0.05s * @order;
-  //transition-property: transform;
-  //transition-timing-function: ease-out;
-  //transition-duration: 0.4s;
 
   &--loaded {
     visibility: visible;
@@ -66,4 +60,13 @@ body {
   text-align: center;
   margin: 3rem;
   transform: scale(3);
+}
+
+.bottom-border-lenke {
+  text-decoration: none;
+  border-bottom: @navBla solid 1px;
+  padding-bottom: 0;
+  &:hover {
+    border-bottom: none;
+  }
 }
