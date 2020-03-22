@@ -27,15 +27,24 @@ body {
   overflow: hidden;
 }
 
-.seksjon-props(@order) {
+.seksjon-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: @padding-y @padding-x;
   overflow: hidden;
   box-sizing: border-box;
-  transform: translateX(-100vh - 100px * @order);// rotateY(90deg);
-  transition: transform 0.5s ease-in-out;
+  visibility: hidden;
+  margin-top: @seksjon-spacing;
+  //transform: translateX(-100vh);
+  //transition-delay: 0.05s * @order;
+  //transition-property: transform;
+  //transition-timing-function: ease-out;
+  //transition-duration: 0.4s;
+
+  &--loaded {
+    visibility: visible;
+  }
 
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;

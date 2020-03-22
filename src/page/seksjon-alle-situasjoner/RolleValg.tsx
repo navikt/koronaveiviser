@@ -3,6 +3,7 @@ import { useStore } from "../../store/Provider";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
 import { Language } from "../../utils/sanity/serializers";
+import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 
 const cssPrefix = "rollevalg";
 
@@ -43,7 +44,13 @@ export const RolleValg = () => {
           ) : (
             <Lenke
               href={""}
-              onClick={(event) => setRolle(event, rollenavn)}
+              onClick={(event) => {
+                setRolle(event, rollenavn);
+                  triggerGaEvent(
+                    GACategory.AlleSituasjoner,
+                    `rollevalg/${rollenavn}`
+                  )
+              }}
               key={index}
               className={`${cssPrefix}__lenke`}
             >

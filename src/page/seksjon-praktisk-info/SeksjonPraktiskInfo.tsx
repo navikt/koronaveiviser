@@ -16,7 +16,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
 
   return (
-    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}

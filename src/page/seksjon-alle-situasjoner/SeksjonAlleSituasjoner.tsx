@@ -6,6 +6,7 @@ import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./RolleValg";
 import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
 import { Language } from "../../utils/sanity/serializers";
+import { GACategory } from "../../utils/react-ga";
 
 type Props = {
   rolleKontekst: RolleKontekster;
@@ -21,7 +22,7 @@ export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props
   ));
 
   return (
-    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {"Alle situasjoner"}
@@ -35,6 +36,8 @@ export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props
             <LenkeSeksjon
               tittel={lenkeSeksjon.title}
               lenker={lenkeSeksjon.links}
+              rolle={rolle}
+              gaCategory={GACategory.AlleSituasjoner}
               key={index}
             />
           ))}
