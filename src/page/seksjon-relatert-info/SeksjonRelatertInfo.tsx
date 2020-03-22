@@ -17,6 +17,9 @@ const cssPrefix = "seksjon-relatert-info";
 
 export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
   const info = relatertInfo.info[0];
+  if (!info || !info.description || info.description.length === 0) {
+    return null;
+  }
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
