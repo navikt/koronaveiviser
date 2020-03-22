@@ -6,6 +6,7 @@ import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo
 import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
+import NavChatbot from "@navikt/nav-chatbot";
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, rollevalg }] = useStore();
@@ -19,6 +20,11 @@ export const Page = () => {
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
+      <NavChatbot
+        customerKey="41155"
+        queueKey="Q_CHAT_BOT"
+        configId="599f9e7c-7f6b-4569-81a1-27202c419953"
+      />
     </div>
   );
 };
