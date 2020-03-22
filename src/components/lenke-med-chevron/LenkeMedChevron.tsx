@@ -11,10 +11,10 @@ type Props = {
 };
 
 const lenkeTekstMedChevron = (tekst: React.ReactNode) => (
-  <span>
-    <HoyreChevron className={"chevronlenke__chevron"} />
+  <>
+    <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
     {tekst}
-  </span>
+  </>
 );
 
 const LenkeMedChevron = (props: Props) => {

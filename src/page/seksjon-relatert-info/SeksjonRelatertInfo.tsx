@@ -4,9 +4,9 @@ import { Ingress, Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { RelatertInfo } from "../../utils/sanity/endpoints/related";
-import Lenke from "nav-frontend-lenker";
 import { Language } from "../../utils/sanity/serializers";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
 
 type Props = {
   relatertInfo: RelatertInfo;
@@ -32,13 +32,12 @@ export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
           return (
             <div className={`${cssPrefix}__lenke-container`} key={index}>
               <Ingress>
-                <Lenke
+                <LenkeMedChevron
                   href={url}
                   onClick={() => triggerGaEvent(GACategory.RelatertInfo, "lenke", url)}
-                  className={"bottom-border-lenke"}
                 >
                   <SanityBlocks blocks={link.title} />
-                </Lenke>
+                </LenkeMedChevron>
               </Ingress>
             </div>
           )
