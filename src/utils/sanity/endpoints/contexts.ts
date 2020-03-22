@@ -9,9 +9,9 @@ export type RoleContext = {
 export type RolleKontekster = {
   isLoaded: boolean;
   kontekster: RoleContext[];
-}
+};
 
 export const initialRolleKontekster = {
   isLoaded: false,
-  kontekster: [],
+  kontekster: []
 };

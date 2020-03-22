@@ -8,9 +8,9 @@ export type YourSituation = {
 export type DinSituasjon = {
   isLoaded: boolean;
   situasjoner: YourSituation[];
-}
+};
 
 export const initialDinSituasjon = {
   isLoaded: false,
-  situasjoner: [],
+  situasjoner: []
 };
