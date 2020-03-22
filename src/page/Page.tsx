@@ -26,7 +26,7 @@ export const Page = () => {
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
-      <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
+      {relatertInfo.info.length > 0 && <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />}
       <NavChatbot
         customerKey="41155"
         queueKey="Q_CHAT_BOT"
