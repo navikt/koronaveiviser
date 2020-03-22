@@ -23,7 +23,7 @@ const lenkeTekstMedChevron = (tekst: React.ReactNode, isExternal = false) => (
 
 const LenkeMedChevron = (props: Props) => {
   const { href, className, id, onClick, children } = props;
-  const isExternal = !href.includes("nav.no");
+  const isExternal = href !== "" && !href.includes("nav.no");
   const lenkeTekst = lenkeTekstMedChevron(children, isExternal);
 
   return (
