@@ -15,15 +15,17 @@ export const RolleValg = () => {
       payload: rolle,
     })
   };
+
+  const konteksterSorted = rolleKontekster.kontekster
+    .sort((a, b) => a.order - b.order);
+
   useEffect(() => {
-    const firstContext = rolleKontekster.kontekster[0];
-    const rolleInitial = firstContext && firstContext.context[Language.Bokmaal];
-    if (!rolleInitial) {
+    if (!konteksterSorted[0]) {
       return;
     }
     dispatch({
       type: "SETT_ROLLE",
-      payload: rolleInitial,
+      payload: konteksterSorted[0].context[Language.Bokmaal],
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster]);
@@ -31,10 +33,10 @@ export const RolleValg = () => {
   return (
     <div className={cssPrefix}>
       <span className={`${cssPrefix}__filler-start`} />
-      {rolleKontekster.kontekster.map((context, index) => {
+      {konteksterSorted.map((context, index) => {
         const rollenavn = (context.context && context.context[Language.Bokmaal]) || "";
         return (
-          (rollevalg === "" && index === 0) || rollenavn === rollevalg ? (
+          rollenavn === rollevalg ? (
             <Normaltekst className={`${cssPrefix}__selected`} key={index}>
               {rollenavn}
             </Normaltekst>

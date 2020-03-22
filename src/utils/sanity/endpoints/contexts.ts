@@ -2,6 +2,7 @@ import { LocaleString, SanityLinkList } from "../serializers";
 
 export type RoleContext = {
   context: LocaleString;
+  order: number
   description?: SanityLinkList[];
 };
 
