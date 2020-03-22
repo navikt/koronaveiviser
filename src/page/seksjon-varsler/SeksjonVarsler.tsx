@@ -13,7 +13,7 @@ const cssPrefix = "seksjon-varsler";
 
 export const SeksjonVarsler = ({ varsler, isLoaded }: Props) => {
   return (
-    <PanelBase className={`${cssPrefix}${isLoaded ? ` ${cssPrefix}--loaded` : ''}`}>
+    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
           {"Koronavirus - informasjon og hjelp fra NAV"}

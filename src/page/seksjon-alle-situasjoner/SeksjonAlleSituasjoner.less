@@ -4,13 +4,6 @@
   @border-props: 1px solid @navGra40;
   @border-radius: 4px;
 
-  .seksjon-props(3);
-  margin-top: @seksjon-spacing;
-
-  &--loaded {
-    transform: none;
-  }
-
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;
   }
@@ -35,7 +28,7 @@
     border-radius: @border-radius;
     border-top: none;
 
-    padding: 0.5rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
 
     @media (max-width: @mobil-max-width) {
       border: none;
@@ -44,12 +37,14 @@
     box-sizing: border-box;
 
     .lenke-seksjon {
+      margin-top: 1.5rem;
+
       @media (max-width: @mobil-max-width) {
-        .col-setup(1, 1px);
+        .col-setup(1, 0);
       }
 
       @media (min-width: @mobil-max-width) {
-        .col-setup(3, 1px);
+        .col-setup(3, 1rem);
       }
 
       .lenke {
@@ -60,11 +55,11 @@
 
   .rollevalg {
     &::before {
-      width: @border-radius;
+      width: @border-radius - 1px;
       content: "";
     }
     &::after {
-      width: @border-radius;
+      width: @border-radius - 1px;
       content: "";
     }
 
@@ -73,7 +68,6 @@
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
-
     box-sizing: border-box;
 
     @media (max-width: @mobil-max-width) {

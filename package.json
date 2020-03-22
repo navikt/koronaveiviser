@@ -1,6 +1,6 @@
 {
   "name": "koronaveiviser",
-  "version": "0.3.0-test",
+  "version": "0.3.0",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "dependencies": {
@@ -42,6 +42,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
+    "react-ga": "^2.7.0",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2"
   },

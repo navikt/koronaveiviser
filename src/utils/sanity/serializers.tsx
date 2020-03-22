@@ -13,6 +13,7 @@ import BlockContent from "@sanity/block-content-to-react";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Varsel } from "../../components/varsler/Varsel";
 import Lenke from "nav-frontend-lenker";
+import { GACategory, triggerGaEvent } from "../react-ga";
 
 export enum Language {
   Bokmaal = "nb"
@@ -65,6 +66,7 @@ export type TextBlockWithTitle = {
   title: LocaleString;
   description: LocaleBlock;
 };
+
 export type LinkMark = {
   mark: { href: string };
   children: any;
@@ -99,7 +101,10 @@ const alertSerializer = (props: any) => {
 
 const linkMarkSerializer = (mark: LinkMark) => {
   return (
-    <Lenke href={mark.mark.href}>
+    <Lenke
+      href={mark.mark.href}
+      onClick={() => triggerGaEvent(GACategory.PraktiskInfo, "lenke", mark.mark.href)}
+    >
       {mark.children}
     </Lenke>
   );
