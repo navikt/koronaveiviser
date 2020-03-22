@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useStore } from "../../store/Provider";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
-import { Language } from "../../utils/sanity/serializers";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { defaultLang } from "../../types/language";
 
 const cssPrefix = "rollevalg";
 
@@ -26,7 +26,7 @@ export const RolleValg = () => {
     }
     dispatch({
       type: "SETT_ROLLE",
-      payload: konteksterSorted[0].context[Language.Bokmaal],
+      payload: konteksterSorted[0].context[defaultLang],
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster]);
@@ -35,7 +35,7 @@ export const RolleValg = () => {
     <div className={cssPrefix}>
       <span className={`${cssPrefix}__filler-start`} />
       {konteksterSorted.map((context, index) => {
-        const rollenavn = (context.context && context.context[Language.Bokmaal]) || "";
+        const rollenavn = (context.context && context.context[defaultLang]) || "";
         return (
           rollenavn === rollevalg ? (
             <Normaltekst className={`${cssPrefix}__selected`} key={index}>

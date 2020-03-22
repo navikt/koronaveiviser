@@ -14,12 +14,8 @@ import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Varsel } from "../../components/varsler/Varsel";
 import Lenke from "nav-frontend-lenker";
 import { GACategory, triggerGaEvent } from "../react-ga";
-
-export enum Language {
-  Bokmaal = "nb"
-}
-
-const language = Language.Bokmaal;
+import { localeString } from "../localeString";
+import { defaultLang, Language } from "../../types/language";
 
 enum TypoStyle {
   H1 = "h1",
@@ -73,12 +69,12 @@ export type LinkMark = {
 }
 
 const localeStringSerializer = (block: { node: LocaleString }) => {
-  return block.node[language];
+  return localeString(block.node);
 };
 
 const localeBlockSerializer = (block: { node: LocaleBlock }) => {
-  const blocks = block.node[language];
-  return blocks ? <BlockContent blocks={block.node[language]} serializers={serializers} /> : null;
+  const blocks = block.node[defaultLang];
+  return blocks ? <BlockContent blocks={blocks} serializers={serializers} /> : null;
 };
 
 const blockSerializer = (block: TextBlock) => {

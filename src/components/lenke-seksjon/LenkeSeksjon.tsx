@@ -1,9 +1,10 @@
 import React from 'react';
 import { Undertittel } from "nav-frontend-typografi";
 import LenkeMedChevron from "../lenke-med-chevron/LenkeMedChevron";
-import { Language, LocaleString, SanityLink } from "../../utils/sanity/serializers";
+import { LocaleString, SanityLink } from "../../utils/sanity/serializers";
 import { SanityBlocks } from "../sanity-blocks/SanityBlocks";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { localeString } from "../../utils/localeString";
 
 type Props = {
   tittel: LocaleString;
@@ -24,7 +25,7 @@ export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.An
       </div>
       <div className={`${cssPrefix}__lenker`}>
         {lenker.map((lenke, index) => {
-          const url = (lenke.url && lenke.url[Language.Bokmaal]) || "";
+          const url = localeString(lenke.url);
           return (
             <LenkeMedChevron
               href={url}
@@ -32,7 +33,7 @@ export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.An
               onClick={() => {
                 triggerGaEvent(
                   gaCategory,
-                  `${rolle}/${tittel[Language.Bokmaal]}`,
+                  `${rolle}/${localeString(tittel)}`,
                   url
                 )}}
             >

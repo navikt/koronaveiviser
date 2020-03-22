@@ -5,8 +5,8 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./RolleValg";
 import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
-import { Language } from "../../utils/sanity/serializers";
 import { GACategory } from "../../utils/react-ga";
+import { localeString } from "../../utils/localeString";
 
 type Props = {
   rolleKontekst: RolleKontekster;
@@ -18,7 +18,7 @@ const cssPrefix = "seksjon-alle-situasjoner";
 
 export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props) => {
   const lenkerForKontekst = rolleKontekst.kontekster.find((kontekst) => (
-    kontekst.context[Language.Bokmaal] === rolle
+    localeString(kontekst.context) === rolle
   ));
 
   return (
