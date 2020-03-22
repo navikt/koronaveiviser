@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from "../../store/Provider";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
@@ -15,6 +15,18 @@ export const RolleValg = () => {
       payload: rolle,
     })
   };
+  useEffect(() => {
+    const firstContext = rolleKontekster.kontekster[0];
+    const rolleInitial = firstContext && firstContext.context[Language.Bokmaal];
+    if (!rolleInitial) {
+      return;
+    }
+    dispatch({
+      type: "SETT_ROLLE",
+      payload: rolleInitial,
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rolleKontekster]);
 
   return (
     <div className={cssPrefix}>
@@ -22,7 +34,7 @@ export const RolleValg = () => {
       {rolleKontekster.kontekster.map((context, index) => {
         const rollenavn = (context.context && context.context[Language.Bokmaal]) || "";
         return (
-          rollenavn === rollevalg ? (
+          (rollevalg === "" && index === 0) || rollenavn === rollevalg ? (
             <Normaltekst className={`${cssPrefix}__selected`} key={index}>
               {rollenavn}
             </Normaltekst>
