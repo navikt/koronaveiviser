@@ -26,9 +26,11 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info && info.sections.map((section, index) => (
-          <div className={`${cssPrefix}__section`} key={index}>
-            <Ekspanderbartpanel tittel={<SanityBlocks blocks={section.title} />}>
-              <SanityBlocks blocks={section.description} />
+          <div className={`${cssPrefix}__section`}>
+            <Ekspanderbartpanel tittel={<SanityBlocks blocks={section.title} key={index} />}>
+              <div className={`${cssPrefix}__panel-innhold`}>
+                <SanityBlocks blocks={section.description} />
+              </div>
             </Ekspanderbartpanel>
           </div>
         ))}

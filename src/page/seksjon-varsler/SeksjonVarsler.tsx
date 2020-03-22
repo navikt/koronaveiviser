@@ -16,7 +16,7 @@ export const SeksjonVarsler = ({ varsler, isLoaded }: Props) => {
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
-          {"Koronavirus - informasjon og hjelp fra NAV"}
+          {"Koronavirus - hva gjelder i min situasjon?"}
         </Innholdstittel>
       </div>
       <div className={`${cssPrefix}__innhold`}>

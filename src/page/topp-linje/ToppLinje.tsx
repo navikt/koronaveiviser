@@ -25,7 +25,7 @@ export const ToppLinje = () => {
       </Lenke>
       <HoyreChevron className={`${cssPrefix}__chevron`} />
       <Element className={`${cssPrefix}__tekst`}>
-        {"Koronavirus - informasjon og hjelp fra NAV"}
+        {"Koronavirus - hva gjelder i min situasjon?"}
       </Element>
     </div>
   );
