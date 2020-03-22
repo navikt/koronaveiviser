@@ -15,7 +15,7 @@ export const Page = () => {
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
   useEffect(() => {
-    document.title = "Koronavirus - hva gjelder i min situasjon?";
+    document.title = "Koronavirus - hva gjelder i min situasjon? - www.nav.no";
   }, []);
 
   return (
