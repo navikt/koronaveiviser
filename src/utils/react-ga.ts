@@ -12,7 +12,7 @@ export enum GACategory {
 export const initGA = () => {
   ReactGA.initialize(trackingId, {
     titleCase: false,
-    debug: true,
+    debug: false,
   });
   ReactGA.pageview(window.location.pathname + window.location.search);
 };
