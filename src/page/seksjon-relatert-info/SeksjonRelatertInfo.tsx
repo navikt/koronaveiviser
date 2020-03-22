@@ -4,9 +4,9 @@ import { Ingress, Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { RelatertInfo } from "../../utils/sanity/endpoints/related";
-import { Language } from "../../utils/sanity/serializers";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
+import { localeString } from "../../utils/localeString";
 
 type Props = {
   relatertInfo: RelatertInfo;
@@ -28,7 +28,7 @@ export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info && info.description.map((link, index) => {
-          const url = link.url[Language.Bokmaal];
+          const url = localeString(link.url);
           return (
             <div className={`${cssPrefix}__lenke-container`} key={index}>
               <Ingress>

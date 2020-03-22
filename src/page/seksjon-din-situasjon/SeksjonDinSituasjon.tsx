@@ -4,9 +4,9 @@ import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import Lenkepanel from "nav-frontend-lenkepanel/lib";
 import { DinSituasjon } from "../../utils/sanity/endpoints/your-situation";
-import { Language } from "../../utils/sanity/serializers";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { localeString } from "../../utils/localeString";
 
 type Props = {
   dinSituasjon: DinSituasjon;
@@ -28,7 +28,7 @@ export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {situasjoner && situasjoner.links.map((lenke, index) => {
-          const url = (lenke.url && lenke.url[Language.Bokmaal]) || "#";
+          const url = localeString(lenke.url);
           return (
             <Lenkepanel
               href={url}
@@ -37,7 +37,7 @@ export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
               onClick={() => {
                 triggerGaEvent(
                   GACategory.DinSituasjon,
-                  lenke.title[Language.Bokmaal],
+                  localeString(lenke.title),
                   url
                 )
               }}
