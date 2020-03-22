@@ -9,9 +9,9 @@ export type Information = {
 export type PraktiskInfo = {
   isLoaded: boolean;
   info: Information[];
-}
+};
 
 export const initialInformation = {
   isLoaded: false,
-  info: [],
+  info: []
 };

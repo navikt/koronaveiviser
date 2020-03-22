@@ -1,8 +1,20 @@
 import { Alert, Alerts, initialAlerts } from "../utils/sanity/endpoints/alert";
 import { Rolle } from "../types/roller";
-import { Information, initialInformation, PraktiskInfo } from "../utils/sanity/endpoints/information";
-import { DinSituasjon, initialDinSituasjon, YourSituation } from "../utils/sanity/endpoints/your-situation";
-import { initialRolleKontekster, RoleContext, RolleKontekster } from "../utils/sanity/endpoints/contexts";
+import {
+  Information,
+  initialInformation,
+  PraktiskInfo
+} from "../utils/sanity/endpoints/information";
+import {
+  DinSituasjon,
+  initialDinSituasjon,
+  YourSituation
+} from "../utils/sanity/endpoints/your-situation";
+import {
+  initialRolleKontekster,
+  RoleContext,
+  RolleKontekster
+} from "../utils/sanity/endpoints/contexts";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -24,36 +36,37 @@ export interface Store {
 
 export type Action =
   | {
-  type: "SETT_ALERTS";
-  payload: Alert[];
-}
+      type: "SETT_ALERTS";
+      payload: Alert[];
+    }
   | {
-  type: "SETT_ALERTS_FETCH_FAILED";
-} | {
-  type: "SETT_INFORMATION";
-  payload: Information[];
-}
+      type: "SETT_ALERTS_FETCH_FAILED";
+    }
   | {
-  type: "SETT_INFORMATION_FETCH_FAILED";
-}
+      type: "SETT_INFORMATION";
+      payload: Information[];
+    }
   | {
-  type: "SETT_YOUR_SITUATION";
-  payload: YourSituation[];
-}
+      type: "SETT_INFORMATION_FETCH_FAILED";
+    }
   | {
-  type: "SETT_YOUR_SITUATION_FETCH_FAILED";
-}
+      type: "SETT_YOUR_SITUATION";
+      payload: YourSituation[];
+    }
   | {
-  type: "SETT_CONTEXTS";
-  payload: RoleContext[];
-}
+      type: "SETT_YOUR_SITUATION_FETCH_FAILED";
+    }
   | {
-  type: "SETT_CONTEXTS_FETCH_FAILED";
-}
+      type: "SETT_CONTEXTS";
+      payload: RoleContext[];
+    }
   | {
-  type: "SETT_ROLLE";
-  payload: Rolle;
-};
+      type: "SETT_CONTEXTS_FETCH_FAILED";
+    }
+  | {
+      type: "SETT_ROLLE";
+      payload: Rolle;
+    };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
