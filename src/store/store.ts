@@ -14,6 +14,7 @@ import {
   RoleContext,
   RolleKontekster
 } from "../utils/sanity/endpoints/contexts";
+import { initialRelatertInfo, RelatedInfo, RelatertInfo } from "../utils/sanity/endpoints/related";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -21,7 +22,8 @@ export const initialState = {
   alerts: initialAlerts as Alerts,
   praktiskInfo: initialInformation as PraktiskInfo,
   dinSituasjon: initialDinSituasjon as DinSituasjon,
-  rolleKontekster: initialRolleKontekster as RolleKontekster
+  rolleKontekster: initialRolleKontekster as RolleKontekster,
+  relatertInfo: initialRelatertInfo as RelatertInfo
 };
 
 export interface Store {
@@ -31,6 +33,7 @@ export interface Store {
   praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
+  relatertInfo: RelatertInfo
 }
 
 export type Action =
@@ -61,6 +64,13 @@ export type Action =
     }
   | {
       type: "SETT_CONTEXTS_FETCH_FAILED";
+    }
+  | {
+    type: "SETT_RELATED_INFO";
+    payload: RelatedInfo[];
+    }
+  | {
+    type: "SETT_RELATED_INFO_FETCH_FAILED";
     }
   | {
     type: "SETT_ROLLE";
@@ -117,6 +127,18 @@ export const reducer = (state: Store, action: Action) => {
       return {
         ...state,
         rolleKontekster: { ...state.rolleKontekster, isLoaded: true },
+        visTekniskFeilMelding: true
+      };
+    }
+    case "SETT_RELATED_INFO":
+      return {
+        ...state,
+        relatertInfo: { info: action.payload, isLoaded: true }
+      };
+    case "SETT_RELATED_INFO_FETCH_FAILED": {
+      return {
+        ...state,
+        relatertInfo: { ...state.relatertInfo, isLoaded: true },
         visTekniskFeilMelding: true
       };
     }

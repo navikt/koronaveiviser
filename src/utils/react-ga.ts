@@ -6,6 +6,7 @@ export enum GACategory {
   DinSituasjon = 'koronaveiviser-dinsituasjon',
   AlleSituasjoner = 'koronaveiviser-allesituasjoner',
   PraktiskInfo = 'koronaveiviser-praktiskinfo',
+  RelatertInfo = "koronaveiviser-relatertinfo",
   Andre = "koronaveiviser-andre"
 }
 

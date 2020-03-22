@@ -1,0 +1,28 @@
+@import (reference) "src/App";
+
+.seksjon-relatert-info {
+  @media (max-width: @mobil-max-width) {
+    padding: @padding-mobil;
+  }
+
+  &__header {
+    text-align: center;
+  }
+
+  &__innhold {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__lenke-container {
+    @media (max-width: @mobil-max-width) {
+      .col-setup(1, 1px);
+    }
+
+    @media (min-width: @mobil-max-width) {
+      .col-setup(3, 1rem);
+    }
+  }
+}
