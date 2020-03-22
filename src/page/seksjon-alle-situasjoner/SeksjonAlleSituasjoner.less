@@ -1,9 +1,9 @@
 @import (reference) "src/App";
 
-.seksjon-alle-situasjoner {
-  @border-props: 1px solid @navGra40;
-  @border-radius: 4px;
+@border-props-alle-situasjoner: 1px solid @navGra40;
+@border-radius-alle-situasjoner: 4px;
 
+.seksjon-alle-situasjoner {
   @media (max-width: @mobil-max-width) {
     padding: @padding-mobil;
   }
@@ -24,8 +24,8 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    border: @border-props;
-    border-radius: @border-radius;
+    border: @border-props-alle-situasjoner;
+    border-radius: @border-radius-alle-situasjoner;
     border-top: none;
 
     padding: 0 1.5rem 1.5rem 1.5rem;
@@ -49,66 +49,6 @@
 
       .lenke {
         margin-bottom: 0.25rem;
-      }
-    }
-  }
-
-  .rollevalg {
-    &::before {
-      width: @border-radius - 1px;
-      content: "";
-    }
-    &::after {
-      width: @border-radius - 1px;
-      content: "";
-    }
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: flex-start;
-    box-sizing: border-box;
-
-    @media (max-width: @mobil-max-width) {
-      flex-direction: column;
-    }
-
-    * > {
-      padding: 1rem 1.5rem;
-      border-bottom: @border-props;
-      @media (max-width: @mobil-max-width) {
-        padding: 0.5rem 1.5rem;
-        border-bottom: none;
-      }
-    }
-
-    &__selected {
-      position: relative;
-      z-index: 1;
-      font-weight: bold;
-      border: @border-props;
-      border-top: 2px solid @navGra40;
-      border-radius: @border-radius;
-      @media (min-width: @mobil-max-width) {
-        border-bottom: none;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
-
-    &__filler-start {
-      padding: 0 1rem;
-      @media (max-width: @mobil-max-width) {
-        visibility: hidden;
-      }
-    }
-
-    &__filler-end {
-      flex-grow: 1;
-      border-bottom: @border-props;
-      @media (max-width: @mobil-max-width) {
-        visibility: hidden;
       }
     }
   }

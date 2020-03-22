@@ -1,0 +1,61 @@
+@import (reference) "SeksjonAlleSituasjoner";
+
+.rollevalg {
+  &::before {
+    width: @border-radius-alle-situasjoner - 1px;
+    content: "";
+  }
+  &::after {
+    width: @border-radius-alle-situasjoner - 1px;
+    content: "";
+  }
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  @media (max-width: @mobil-max-width) {
+    flex-direction: column;
+  }
+
+  * > {
+    padding: 1rem 1.5rem;
+    border-bottom: @border-props-alle-situasjoner;
+    @media (max-width: @mobil-max-width) {
+      padding: 0.5rem 1.5rem;
+      border-bottom: none;
+    }
+  }
+
+  &__selected {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 1px black;
+    border: @border-props-alle-situasjoner;
+    border-top: 2px solid @navGra40;
+    border-radius: @border-radius-alle-situasjoner;
+    @media (min-width: @mobil-max-width) {
+      border-bottom: none;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &__filler-start {
+    padding: 0 1rem;
+    @media (max-width: @mobil-max-width) {
+      visibility: hidden;
+    }
+  }
+
+  &__filler-end {
+    flex-grow: 1;
+    border-bottom: @border-props-alle-situasjoner;
+    @media (max-width: @mobil-max-width) {
+      visibility: hidden;
+    }
+  }
+}
