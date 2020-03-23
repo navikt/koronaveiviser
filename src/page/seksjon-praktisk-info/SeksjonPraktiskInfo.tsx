@@ -39,17 +39,19 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
           info.sections.map((section, index) => {
             const sectionAnchor = section.anchor && section.anchor.current;
             return (
-              <ScrollableAnchor key={index} id={sectionAnchor}>
-                <Ekspanderbartpanel
-                  apen={anchor === sectionAnchor}
-                  className={`${cssPrefix}__section`}
-                  tittel={<SanityBlocks blocks={section.title} key={index} />}
-                >
-                  <div className={`${cssPrefix}__panel-innhold`}>
-                    <SanityBlocks blocks={section.description} />
-                  </div>
-                </Ekspanderbartpanel>
-              </ScrollableAnchor>
+              <div key={index}>
+                <ScrollableAnchor id={sectionAnchor || `section-${index}`}>
+                  <Ekspanderbartpanel
+                    apen={anchor === sectionAnchor}
+                    className={`${cssPrefix}__section`}
+                    tittel={<SanityBlocks blocks={section.title} key={index} />}
+                  >
+                    <div className={`${cssPrefix}__panel-innhold`}>
+                      <SanityBlocks blocks={section.description} />
+                    </div>
+                  </Ekspanderbartpanel>
+                </ScrollableAnchor>
+              </div>
             );
           })}
       </div>
