@@ -18,7 +18,7 @@ const cssPrefix = "lenke-seksjon";
 export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.Andre }: Props) => {
   return (
     <div className={cssPrefix}>
-        <div className={`${cssPrefix}__tittel`}>
+      <div className={`${cssPrefix}__tittel`}>
         <Undertittel>
           <SanityBlocks blocks={tittel} />
         </Undertittel>
@@ -35,7 +35,8 @@ export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.An
                   gaCategory,
                   `${rolle}/${localeString(tittel)}`,
                   url
-                )}}
+                )
+              }}
             >
               <SanityBlocks blocks={lenke.title} />
             </LenkeMedChevron>
