@@ -9,11 +9,19 @@ import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/localeString";
+import MetaTags from "react-meta-tags";
+import { defaultLang } from "../types/language";
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
+
+
+  // @ts-ignore
+  // uggggh
+  const metaDesc = frontpage.metaDescription && frontpage.metaDescription[defaultLang] && frontpage.metaDescription[defaultLang][0].children
+    .reduce((acc: string, span: any) => (acc + span.text), "");
 
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
@@ -22,6 +30,13 @@ export const Page = () => {
 
   return (
     <div className={"pagecontent"}>
+      <MetaTags>
+        <title>{sideTittel}</title>
+        <meta
+          name="description"
+          content={metaDesc}
+        />
+      </MetaTags>
       <ToppLinje tittel={sideTittel} />
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
       <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
