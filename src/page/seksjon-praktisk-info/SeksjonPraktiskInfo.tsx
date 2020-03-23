@@ -5,7 +5,7 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import ScrollableAnchor from "react-scrollable-anchor";
+import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -13,6 +13,10 @@ type Props = {
 };
 
 const cssPrefix = "seksjon-praktisk-info";
+
+configureAnchors({
+  keepLastAnchorHash: true
+});
 
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
@@ -32,19 +36,22 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info &&
-          info.sections.map((section, index) => (
-            <ScrollableAnchor id={section.anchor}>
-              <Ekspanderbartpanel
-                apen={anchor === section.anchor}
-                className={`${cssPrefix}__section`}
-                tittel={<SanityBlocks blocks={section.title} key={index} />}
-              >
-                <div className={`${cssPrefix}__panel-innhold`}>
-                  <SanityBlocks blocks={section.description} />
-                </div>
-              </Ekspanderbartpanel>
-            </ScrollableAnchor>
-          ))}
+          info.sections.map((section, index) => {
+            const sectionAnchor = section.anchor && section.anchor.current;
+            return (
+              <ScrollableAnchor key={index} id={sectionAnchor}>
+                <Ekspanderbartpanel
+                  apen={anchor === sectionAnchor}
+                  className={`${cssPrefix}__section`}
+                  tittel={<SanityBlocks blocks={section.title} key={index} />}
+                >
+                  <div className={`${cssPrefix}__panel-innhold`}>
+                    <SanityBlocks blocks={section.description} />
+                  </div>
+                </Ekspanderbartpanel>
+              </ScrollableAnchor>
+            );
+          })}
       </div>
     </PanelBase>
   );

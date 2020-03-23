@@ -24,7 +24,7 @@ enum TypoStyle {
   H4 = "h4",
   H5 = "h5",
   H6 = "h6",
-  Normal = "normal",
+  Normal = "normal"
 }
 
 const typoComponents = {
@@ -60,14 +60,14 @@ export type LocaleUrl = { [key in Language]: string };
 
 export type TextBlockWithTitle = {
   title: LocaleString;
-  anchor: string;
+  anchor: { current: string };
   description: LocaleBlock;
 };
 
 export type LinkMark = {
   mark: { href: string };
   children: any;
-}
+};
 
 const localeStringSerializer = (block: { node: LocaleString }) => {
   return localeString(block.node);
@@ -75,16 +75,17 @@ const localeStringSerializer = (block: { node: LocaleString }) => {
 
 const localeBlockSerializer = (block: { node: LocaleBlock }) => {
   const blocks = block.node[defaultLang];
-  return blocks ? <BlockContent blocks={blocks} serializers={serializers} /> : null;
+  return blocks ? (
+    <BlockContent blocks={blocks} serializers={serializers} />
+  ) : null;
 };
 
 const blockSerializer = (block: TextBlock) => {
-  const TypoComponent = typoComponents[block.node.style] || typoComponents[TypoStyle.Normal];
+  const TypoComponent =
+    typoComponents[block.node.style] || typoComponents[TypoStyle.Normal];
   return (
     <div className={"block"}>
-      <TypoComponent>
-        {block.children}
-      </TypoComponent>
+      <TypoComponent>{block.children}</TypoComponent>
     </div>
   );
 };
@@ -102,7 +103,9 @@ const linkMarkSerializer = (mark: LinkMark) => {
   return (
     <Lenke
       href={mark.mark.href}
-      onClick={() => triggerGaEvent(GACategory.PraktiskInfo, "lenke", mark.mark.href)}
+      onClick={() =>
+        triggerGaEvent(GACategory.PraktiskInfo, "lenke", mark.mark.href)
+      }
     >
       {mark.children}
     </Lenke>
@@ -114,9 +117,9 @@ export const serializers = {
     alert: alertSerializer,
     localeBlock: localeBlockSerializer,
     localeString: localeStringSerializer,
-    block: blockSerializer,
+    block: blockSerializer
   },
   marks: {
-    link: linkMarkSerializer,
+    link: linkMarkSerializer
   }
 };
