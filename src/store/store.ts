@@ -89,7 +89,7 @@ export type Action =
   | {
       type: "SETT_ROLLE";
       payload: string;
-  };
+    };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
