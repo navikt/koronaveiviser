@@ -1,6 +1,6 @@
 {
   "name": "koronaveiviser",
-  "version": "1.1.0-test",
+  "version": "1.1.0",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "dependencies": {
