@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
@@ -18,9 +18,22 @@ configureAnchors({
   keepLastAnchorHash: true
 });
 
+const getHash = () => {
+  const parts = window.location.href.split("#");
+  if (parts.length > 1) {
+    return parts[1];
+  } else {
+    return undefined;
+  }
+};
+
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
-  const anchor = window.location.hash.substr(1);
+  const [anchor, setAnchor] = useState(getHash());
+
+  window.onhashchange = () => {
+    setAnchor(getHash());
+  };
 
   return (
     <PanelBase
@@ -39,9 +52,10 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
           info.sections.map((section, index) => {
             const sectionAnchor = section.anchor && section.anchor.current;
             return (
-              <div key={index}>
+              <div key={Math.random()}>
                 <ScrollableAnchor id={sectionAnchor || `section-${index}`}>
                   <Ekspanderbartpanel
+                    renderContentWhenClosed={true}
                     apen={anchor === sectionAnchor}
                     className={`${cssPrefix}__section`}
                     tittel={<SanityBlocks blocks={section.title} key={index} />}
