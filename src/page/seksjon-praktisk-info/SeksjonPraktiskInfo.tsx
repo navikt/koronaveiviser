@@ -36,9 +36,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   }, [isLoaded, anchor]);
 
   window.onhashchange = () => {
-    const hash = getHash();
-    scrollToAnchor(hash);
-    setAnchor(hash);
+    setAnchor(getHash());
   };
 
   return (
