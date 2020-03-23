@@ -1,6 +1,6 @@
 {
   "name": "koronaveiviser",
-  "version": "1.0.4",
+  "version": "1.1.1-test",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "dependencies": {
@@ -48,7 +48,6 @@
     "react-ga": "^2.7.0",
     "react-meta-tags": "^0.7.4",
     "react-scripts": "3.4.1",
-    "react-scrollable-anchor": "^0.6.1",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -89,7 +88,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@types/react-scrollable-anchor": "^0.6.0",
     "babel-polyfill": "^6.26.0",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.14.6",
