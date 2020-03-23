@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
@@ -46,9 +46,12 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
         {info &&
           info.sections.map((section, index) => {
             const sectionAnchor = section.anchor && section.anchor.current;
+            const anchorName = sectionAnchor || `section-${index}`;
             return (
-              <div key={Math.random()}>
-                <a id={sectionAnchor || `section-${index}`}></a>
+              <Fragment key={Math.random()}>
+                <a href={"/"} id={anchorName} className={`${cssPrefix}__anker`}>
+                  {`Anker ${anchorName}`}
+                </a>
                 <Ekspanderbartpanel
                   renderContentWhenClosed={true}
                   apen={anchor === sectionAnchor}
@@ -59,7 +62,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
                     <SanityBlocks blocks={section.description} />
                   </div>
                 </Ekspanderbartpanel>
-              </div>
+              </Fragment>
             );
           })}
       </div>
