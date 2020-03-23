@@ -6,6 +6,7 @@ import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 import { Element, scroller } from "react-scroll";
+import { seksjonIds } from "../Page";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -45,7 +46,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
         isLoaded ? ` seksjon-panel--loaded` : ""
       }`}
     >
-      <div className={`${cssPrefix}__header`}>
+      <div className={`${cssPrefix}__header`} id={seksjonIds[3]}>
         <Systemtittel>
           {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}
         </Systemtittel>

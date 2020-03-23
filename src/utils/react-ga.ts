@@ -8,6 +8,7 @@ export enum GACategory {
   AlleSituasjoner = "koronaveiviser-allesituasjoner",
   PraktiskInfo = "koronaveiviser-praktiskinfo",
   RelatertInfo = "koronaveiviser-relatertinfo",
+  ScrollDepth = "koronaveiviser-scrolldypde",
   Andre = "koronaveiviser-andre"
 }
 
@@ -25,6 +26,7 @@ export const triggerGaEvent = (
   label?: string
 ) => {
   if (Environment().miljo !== "PROD") {
+    console.log("GA event data: ", category, action, label);
     return;
   }
 
