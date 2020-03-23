@@ -10,6 +10,7 @@ import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
+import { GACategory, triggerGaEvent } from "../utils/react-ga";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -19,23 +20,35 @@ export const seksjonIds = [
   "seksjon-relatertinfo",
 ];
 
+// TODO: Få seksjons-baserte breakpoints til å fungere konsistent...
+// const getNormalizedSectionPositions = () => {
+//   const bodyHeight = window.document.body.clientHeight;
+//   return seksjonIds.reduce((acc, id) => {
+//     const element = document.getElementById(id);
+//     return element ? acc.concat(element.offsetTop / bodyHeight) : acc;
+//   }, [] as number[]);
+// };
+
+const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
+
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
-
   const prevScrollPos = useRef(0);
 
-  const scrollHandler = (scrollBreakpoints: number[]) => (event: Event) => {
-    const currentScrollPos = (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
-    const breakPointPassed = scrollBreakpoints
-      .findIndex(breakPoint => {
-        const pred = breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos;
-        return pred;
-      });
-    if (breakPointPassed) {
-      console.log(seksjonIds[breakPointPassed]);
+  const scrollHandler = (scrollBreakpoints: number[]) => () => {
+    const currentScrollPos = getScrollPosition();
+    const breakPointPassedIndex = scrollBreakpoints
+      .findIndex(breakPoint =>
+        (breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos) ||
+        (breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos));
+    if (breakPointPassedIndex >= 0) {
+      triggerGaEvent(
+        GACategory.ScrollDepth,
+        Math.floor(currentScrollPos * 100 + 0.5).toString(),
+      );
     }
     prevScrollPos.current = currentScrollPos;
   };
@@ -43,17 +56,9 @@ export const Page = () => {
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
-      const bodyHeight = window.document.body.clientHeight;
-      const seksjonBreakpoints = seksjonIds.reduce((acc, id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          return acc.concat(element.offsetTop / bodyHeight);
-        }
-        return acc;
-      }, [] as number[]);
-
-
-      window.addEventListener("scroll", scrollHandler(seksjonBreakpoints));
+      const handler = scrollHandler([0.2, 0.4, 0.6, 0.8, 0.99]);
+      window.addEventListener("scroll", handler);
+      return () => window.removeEventListener("scroll", handler);
     }
   }, [isLoaded]);
 
