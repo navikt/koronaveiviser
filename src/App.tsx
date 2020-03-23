@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Page } from "./page/Page";
 import {
   fetchAlerts,
-  fetchContexts, fetchFrontpage,
-  fetchInformation, fetchRelated,
+  fetchContexts,
+  fetchFrontpage,
+  fetchInformation,
+  fetchRelated,
   fetchTimeoutMs,
   fetchYourSituation,
   timeoutPromise
@@ -21,7 +23,10 @@ function App() {
 
   // TODO: refaktorer dette
   useEffect(() => {
-    Promise.race<any>([fetchAlerts(), timeoutPromise(fetchTimeoutMs, "Fetching alerts failed!")])
+    Promise.race<any>([
+      fetchAlerts(),
+      timeoutPromise(fetchTimeoutMs, "Fetching alerts failed!")
+    ])
       .then((alerts: Alert[]) => {
         dispatch({
           type: "SETT_ALERTS",
@@ -33,7 +38,10 @@ function App() {
         console.error(err);
       });
 
-    Promise.race<any>([fetchInformation(), timeoutPromise(fetchTimeoutMs, "Fetching information failed!")])
+    Promise.race<any>([
+      fetchInformation(),
+      timeoutPromise(fetchTimeoutMs, "Fetching information failed!")
+    ])
       .then((information: Information[]) => {
         dispatch({
           type: "SETT_INFORMATION",
@@ -45,7 +53,10 @@ function App() {
         console.error(err);
       });
 
-    Promise.race<any>([fetchYourSituation(), timeoutPromise(fetchTimeoutMs, "Fetching 'whats your situation' failed!")])
+    Promise.race<any>([
+      fetchYourSituation(),
+      timeoutPromise(fetchTimeoutMs, "Fetching 'whats your situation' failed!")
+    ])
       .then((yourSituation: YourSituation[]) => {
         dispatch({
           type: "SETT_YOUR_SITUATION",
@@ -57,7 +68,10 @@ function App() {
         console.error(err);
       });
 
-    Promise.race<any>([fetchContexts(), timeoutPromise(fetchTimeoutMs, "Fetching contexts failed!")])
+    Promise.race<any>([
+      fetchContexts(),
+      timeoutPromise(fetchTimeoutMs, "Fetching contexts failed!")
+    ])
       .then((contexts: RoleContext[]) => {
         dispatch({
           type: "SETT_CONTEXTS",
@@ -69,7 +83,10 @@ function App() {
         console.error(err);
       });
 
-    Promise.race<any>([fetchRelated(), timeoutPromise(fetchTimeoutMs, "Fetching related info failed!")])
+    Promise.race<any>([
+      fetchRelated(),
+      timeoutPromise(fetchTimeoutMs, "Fetching related info failed!")
+    ])
       .then((relatedInfo: RelatedInfo[]) => {
         dispatch({
           type: "SETT_RELATED_INFO",

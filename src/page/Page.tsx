@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
@@ -10,18 +10,57 @@ import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
+import { GACategory, triggerGaEvent } from "../utils/react-ga";
+
+export const seksjonIds = [
+  "seksjon-varsler",
+  "seksjon-dinsituasjon",
+  "seksjon-allesituasjoner",
+  "seksjon-praktiskinfo",
+  "seksjon-relatertinfo",
+];
+
+// TODO: Få seksjons-baserte breakpoints til å fungere konsistent...
+// const getNormalizedSectionPositions = () => {
+//   const bodyHeight = window.document.body.clientHeight;
+//   return seksjonIds.reduce((acc, id) => {
+//     const element = document.getElementById(id);
+//     return element ? acc.concat(element.offsetTop / bodyHeight) : acc;
+//   }, [] as number[]);
+// };
+
+const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
+  const prevScrollPos = useRef(0);
+
+  const scrollHandler = (scrollBreakpoints: number[]) => () => {
+    const currentScrollPos = getScrollPosition();
+    const breakPointPassedIndex = scrollBreakpoints
+      .findIndex(breakPoint =>
+        (breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos) ||
+        (breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos));
+    if (breakPointPassedIndex >= 0) {
+      triggerGaEvent(
+        GACategory.ScrollDepth,
+        Math.floor(currentScrollPos * 100 + 0.5).toString(),
+      );
+    }
+    prevScrollPos.current = currentScrollPos;
+  };
+
   const sideTittel = localeString(frontpage.pageTitle);
-
   useEffect(() => {
-    document.title = `${sideTittel} - www.nav.no`;
-  }, [sideTittel]);
-
+    if (isLoaded) {
+      const handler = scrollHandler([0.2, 0.4, 0.6, 0.8, 0.99]);
+      window.addEventListener("scroll", handler);
+      return () => window.removeEventListener("scroll", handler);
+    }
+  }, [isLoaded]);
 
   return (
     <div className={"pagecontent"}>
