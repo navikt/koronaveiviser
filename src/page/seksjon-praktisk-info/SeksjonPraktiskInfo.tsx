@@ -27,12 +27,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const [anchor, setAnchor] = useState(getHash());
 
   window.onhashchange = () => {
-    const hash = getHash();
-    setAnchor(hash);
-    const element = document.getElementById(hash || ``);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    setAnchor(getHash());
   };
 
   return (
