@@ -1,7 +1,7 @@
 import React from "react";
 import Lenke from "nav-frontend-lenker";
 import { HoyreChevron } from "nav-frontend-chevron";
-import eksternIkon from "../../assets/arrow-right.svg";
+import { ExternalLinkIcon } from "../../assets/ExternalLinkIcon";
 
 type Props = {
   href: string;
@@ -16,7 +16,7 @@ const lenkeTekstMedChevron = (tekst: React.ReactNode, isExternal = false) => (
     <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
     <div className={"chevronlenke__tekst"}>
       {tekst}
-      {isExternal && <img src={eksternIkon} alt={""} className={"chevronlenke__ekstern-ikon"} />}
+      {isExternal && <div className={"chevronlenke__ekstern-ikon"}><ExternalLinkIcon /></div>}
     </div>
   </>
 );

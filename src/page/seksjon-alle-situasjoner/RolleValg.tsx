@@ -4,13 +4,16 @@ import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { defaultLang } from "../../types/language";
+import { localeString } from "../../utils/localeString";
 
 const cssPrefix = "rollevalg";
 
+const storageKey = "nav-korona-context";
+
 export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster }, dispatch] = useStore();
-  const setRolle = (event: any, rolle: string) => {
-    event.preventDefault();
+  const setRolle = (rolle: string) => {
+    sessionStorage.setItem(storageKey, rolle);
     dispatch({
       type: "SETT_ROLLE",
       payload: rolle,
@@ -24,10 +27,18 @@ export const RolleValg = () => {
     if (!konteksterSorted[0]) {
       return;
     }
-    dispatch({
-      type: "SETT_ROLLE",
-      payload: konteksterSorted[0].context[defaultLang],
-    })
+
+    const rollenavnFromStorage = sessionStorage.getItem(storageKey);
+    if (rollenavnFromStorage) {
+      const context = konteksterSorted.find((context) =>
+        localeString(context.context) === rollenavnFromStorage);
+      if (context) {
+        setRolle(localeString(context.context));
+        return;
+      }
+    }
+
+    setRolle(localeString(konteksterSorted[0].context))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster]);
 
@@ -45,11 +56,12 @@ export const RolleValg = () => {
             <Lenke
               href={""}
               onClick={(event) => {
-                setRolle(event, rollenavn);
-                  triggerGaEvent(
-                    GACategory.AlleSituasjoner,
-                    `rollevalg/${rollenavn}`
-                  )
+                event.preventDefault();
+                setRolle(rollenavn);
+                triggerGaEvent(
+                  GACategory.AlleSituasjoner,
+                  `rollevalg/${rollenavn}`
+                )
               }}
               key={index}
               className={`${cssPrefix}__lenke`}
