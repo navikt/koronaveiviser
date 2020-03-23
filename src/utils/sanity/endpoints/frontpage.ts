@@ -7,6 +7,8 @@ export type Frontpage = {
 };
 
 export const initialFrontpage: Frontpage = {
-  pageTitle: {[Language.Bokmaal]: "Koronavirus - hva gjelder i min situasjon?"},
-  metaDescription: {[Language.Bokmaal]: ""}
+  pageTitle: {
+    [Language.Bokmaal]: "Koronavirus - hva gjelder i min situasjon?"
+  },
+  metaDescription: { [Language.Bokmaal]: "" }
 };

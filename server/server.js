@@ -152,6 +152,10 @@ server.get(`${basePath}/api/frontpage`, (req, res) => {
     }
 });
 
+// Cache debug
+cache.on("set", key => console.log(`Setting cache ${key}`));
+cache.on("del", key => console.log(`Clearing cache ${key}`));
+
 // Parse application/json
 server.use(express.json());
 server.use((req, res, next) => {
