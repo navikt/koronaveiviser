@@ -5,6 +5,7 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
+import { seksjonIds } from "../Page";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -18,7 +19,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
-      <div className={`${cssPrefix}__header`}>
+      <div className={`${cssPrefix}__header`} id={seksjonIds[3]}>
         <Systemtittel>
           {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}
         </Systemtittel>

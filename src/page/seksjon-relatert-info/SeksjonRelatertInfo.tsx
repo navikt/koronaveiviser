@@ -7,6 +7,7 @@ import { RelatertInfo } from "../../utils/sanity/endpoints/related";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
 import { localeString } from "../../utils/localeString";
+import { seksjonIds } from "../Page";
 
 type Props = {
   relatertInfo: RelatertInfo;
@@ -23,7 +24,7 @@ export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
-      <div className={`${cssPrefix}__header`}>
+      <div className={`${cssPrefix}__header`}  id={seksjonIds[4]}>
         <Systemtittel>
           {info ? <SanityBlocks blocks={info.title} /> : "Relatert informasjon"}
         </Systemtittel>

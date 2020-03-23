@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
@@ -9,10 +9,49 @@ import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 
+export const seksjonIds = [
+  "seksjon-varsler",
+  "seksjon-dinsituasjon",
+  "seksjon-allesituasjoner",
+  "seksjon-praktiskinfo",
+  "seksjon-relatertinfo",
+];
+
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
+
+  const prevScrollPos = useRef(0);
+
+  const scrollHandler = (scrollBreakpoints: number[]) => (event: Event) => {
+    const currentScrollPos = (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
+    const breakPointPassed = scrollBreakpoints
+      .findIndex(breakPoint => {
+        const pred = breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos;
+        return pred;
+      });
+    if (breakPointPassed) {
+      console.log(seksjonIds[breakPointPassed]);
+    }
+    prevScrollPos.current = currentScrollPos;
+  };
+
+  useEffect(() => {
+    if (isLoaded) {
+      const bodyHeight = window.document.body.clientHeight;
+      const seksjonBreakpoints = seksjonIds.reduce((acc, id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          return acc.concat(element.offsetTop / bodyHeight);
+        }
+        return acc;
+      }, [] as number[]);
+
+
+      window.addEventListener("scroll", scrollHandler(seksjonBreakpoints));
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
     document.title = "Koronavirus - hva gjelder i min situasjon? - www.nav.no";

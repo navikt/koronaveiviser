@@ -3,7 +3,8 @@ import { Page } from "./page/Page";
 import {
   fetchAlerts,
   fetchContexts,
-  fetchInformation, fetchRelated,
+  fetchInformation,
+  fetchRelated,
   fetchTimeoutMs,
   fetchYourSituation,
   timeoutPromise
