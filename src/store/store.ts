@@ -37,8 +37,8 @@ export const initialState = {
 
 export interface Store {
   visTekniskFeilMelding: boolean;
-  alerts: Alerts;
   rollevalg: string;
+  alerts: Alerts;
   praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
