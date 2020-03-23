@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -14,13 +13,22 @@ type Props = {
 
 const cssPrefix = "seksjon-praktisk-info";
 
-configureAnchors({
-  keepLastAnchorHash: true
-});
+const getHash = () => {
+  const parts = window.location.href.split("#");
+  if (parts.length > 1) {
+    return parts[1];
+  } else {
+    return undefined;
+  }
+};
 
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
-  const anchor = window.location.hash.substr(1);
+  const [anchor, setAnchor] = useState(getHash());
+
+  window.onhashchange = () => {
+    setAnchor(getHash());
+  };
 
   return (
     <PanelBase
@@ -38,20 +46,23 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
         {info &&
           info.sections.map((section, index) => {
             const sectionAnchor = section.anchor && section.anchor.current;
+            const anchorName = sectionAnchor || `section-${index}`;
             return (
-              <div key={index}>
-                <ScrollableAnchor id={sectionAnchor || `section-${index}`}>
-                  <Ekspanderbartpanel
-                    apen={anchor === sectionAnchor}
-                    className={`${cssPrefix}__section`}
-                    tittel={<SanityBlocks blocks={section.title} key={index} />}
-                  >
-                    <div className={`${cssPrefix}__panel-innhold`}>
-                      <SanityBlocks blocks={section.description} />
-                    </div>
-                  </Ekspanderbartpanel>
-                </ScrollableAnchor>
-              </div>
+              <Fragment key={Math.random()}>
+                <a href={"/"} id={anchorName} className={`${cssPrefix}__anker`}>
+                  {`Anker ${anchorName}`}
+                </a>
+                <Ekspanderbartpanel
+                  renderContentWhenClosed={true}
+                  apen={anchor === sectionAnchor}
+                  className={`${cssPrefix}__section`}
+                  tittel={<SanityBlocks blocks={section.title} key={index} />}
+                >
+                  <div className={`${cssPrefix}__panel-innhold`}>
+                    <SanityBlocks blocks={section.description} />
+                  </div>
+                </Ekspanderbartpanel>
+              </Fragment>
             );
           })}
       </div>
