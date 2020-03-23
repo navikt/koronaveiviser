@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
+import { configureAnchors } from "react-scrollable-anchor";
+import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -15,12 +15,23 @@ type Props = {
 const cssPrefix = "seksjon-praktisk-info";
 
 configureAnchors({
-  keepLastAnchorHash: true
+  keepLastAnchorHash: false
 });
 
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
-  const anchor = window.location.hash.substr(1);
+  const [currentHash, setCurrentHash] = useState<{ hash: string, timestamp: number }>();
+  console.log(currentHash);
+
+  useEffect(() => {
+    const hashChangeHandler = (event: HashChangeEvent) => {
+      const newHash = event.newURL.split("#")[1];
+      setCurrentHash({ hash: newHash, timestamp: Date.now() });
+      window.scrollTo()
+    };
+    window.addEventListener("hashchange", hashChangeHandler);
+    return () => window.removeEventListener("hashchange", hashChangeHandler);
+  }, []);
 
   return (
     <PanelBase
@@ -36,24 +47,24 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info &&
-          info.sections.map((section, index) => {
-            const sectionAnchor = section.anchor && section.anchor.current;
-            return (
-              <div key={index}>
-                <ScrollableAnchor id={sectionAnchor || `section-${index}`}>
-                  <Ekspanderbartpanel
-                    apen={anchor === sectionAnchor}
-                    className={`${cssPrefix}__section`}
-                    tittel={<SanityBlocks blocks={section.title} key={index} />}
-                  >
-                    <div className={`${cssPrefix}__panel-innhold`}>
-                      <SanityBlocks blocks={section.description} />
-                    </div>
-                  </Ekspanderbartpanel>
-                </ScrollableAnchor>
+        info.sections.map((section, index) => {
+          const sectionAnchor = section.anchor && section.anchor.current;
+          const shouldOpen = sectionAnchor === currentHash?.hash;
+          return (
+              <div id={sectionAnchor}>
+                <EkspanderbartPanel
+                  apen={shouldOpen}
+                  className={`${cssPrefix}__section`}
+                  tittel={<SanityBlocks blocks={section.title} key={index} />}
+                  toggleTime={shouldOpen ? currentHash?.timestamp : undefined}
+                >
+                  <div className={`${cssPrefix}__panel-innhold`}>
+                    <SanityBlocks blocks={section.description} />
+                  </div>
+                </EkspanderbartPanel>
               </div>
-            );
-          })}
+          );
+        })}
       </div>
     </PanelBase>
   );

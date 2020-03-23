@@ -32,7 +32,7 @@ export const initialState = {
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
   relatertInfo: initialRelatertInfo as RelatertInfo,
-  frontpage: initialFrontpage as Frontpage
+  frontpage: initialFrontpage as Frontpage,
 };
 
 export interface Store {
@@ -87,9 +87,9 @@ export type Action =
       payload: Frontpage;
     }
   | {
-      type: "SETT_ROLLE";
+     type: "SETT_ROLLE";
       payload: string;
-    };
+};
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
