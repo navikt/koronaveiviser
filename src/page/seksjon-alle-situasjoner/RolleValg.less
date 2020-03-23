@@ -17,14 +17,14 @@
   justify-content: flex-start;
   box-sizing: border-box;
 
-  @media (max-width: @mobil-max-width) {
+  @media (max-width: @desktop-max-width) {
     flex-direction: column;
   }
 
   * > {
     padding: 1rem 1.5rem;
     border-bottom: @border-props-alle-situasjoner;
-    @media (max-width: @mobil-max-width) {
+    @media (max-width: @desktop-max-width) {
       padding: 0.5rem 1.5rem;
       border-bottom: none;
     }
@@ -37,7 +37,7 @@
     border: @border-props-alle-situasjoner;
     border-top: 2px solid @navGra40;
     border-radius: @border-radius-alle-situasjoner;
-    @media (min-width: @mobil-max-width) {
+    @media (min-width: @desktop-max-width) {
       border-bottom: none;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -46,7 +46,7 @@
 
   &__filler-start {
     padding: 0 0.5rem;
-    @media (max-width: @mobil-max-width) {
+    @media (max-width: @desktop-max-width) {
       visibility: hidden;
     }
   }
@@ -55,7 +55,7 @@
     padding: 0;
     flex-grow: 1;
     border-bottom: @border-props-alle-situasjoner;
-    @media (max-width: @mobil-max-width) {
+    @media (max-width: @desktop-max-width) {
       visibility: hidden;
     }
   }
