@@ -20,7 +20,7 @@ configureAnchors({
 
 const getHash = () => {
   const parts = window.location.href.split("#");
-  if (parts.length > 0) {
+  if (parts.length > 1) {
     return parts[1];
   } else {
     return undefined;
