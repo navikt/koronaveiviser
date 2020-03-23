@@ -8,6 +8,8 @@ import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
+import { localeString } from "../utils/localeString";
+import MetaTags from "react-meta-tags";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -18,9 +20,10 @@ export const seksjonIds = [
 ];
 
 export const Page = () => {
-  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg }] = useStore();
+  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
+
 
   const prevScrollPos = useRef(0);
 
@@ -37,6 +40,7 @@ export const Page = () => {
     prevScrollPos.current = currentScrollPos;
   };
 
+  const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
       const bodyHeight = window.document.body.clientHeight;
@@ -54,14 +58,22 @@ export const Page = () => {
   }, [isLoaded]);
 
   useEffect(() => {
-    document.title = "Koronavirus - hva gjelder i min situasjon? - www.nav.no";
-  }, []);
+    document.title = `${sideTittel} - www.nav.no`;
+  }, [sideTittel]);
+
 
   return (
     <div className={"pagecontent"}>
-      <ToppLinje />
+      <MetaTags>
+        <title>{sideTittel}</title>
+        <meta
+          name="description"
+          content={localeString(frontpage.metaDescription)}
+        />
+      </MetaTags>
+      <ToppLinje tittel={sideTittel} />
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
-      <SeksjonVarsler varsler={alerts} isLoaded={isLoaded} />
+      <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />

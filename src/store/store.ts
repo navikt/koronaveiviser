@@ -14,7 +14,12 @@ import {
   RoleContext,
   RolleKontekster
 } from "../utils/sanity/endpoints/contexts";
-import { initialRelatertInfo, RelatedInfo, RelatertInfo } from "../utils/sanity/endpoints/related";
+import {
+  initialRelatertInfo,
+  RelatedInfo,
+  RelatertInfo
+} from "../utils/sanity/endpoints/related";
+import { Frontpage, initialFrontpage } from "../utils/sanity/endpoints/frontpage";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -23,7 +28,8 @@ export const initialState = {
   praktiskInfo: initialInformation as PraktiskInfo,
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
-  relatertInfo: initialRelatertInfo as RelatertInfo
+  relatertInfo: initialRelatertInfo as RelatertInfo,
+  frontpage: initialFrontpage as Frontpage
 };
 
 export interface Store {
@@ -33,7 +39,8 @@ export interface Store {
   praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
-  relatertInfo: RelatertInfo
+  relatertInfo: RelatertInfo;
+  frontpage: Frontpage;
 }
 
 export type Action =
@@ -66,16 +73,20 @@ export type Action =
       type: "SETT_CONTEXTS_FETCH_FAILED";
     }
   | {
-    type: "SETT_RELATED_INFO";
-    payload: RelatedInfo[];
+      type: "SETT_RELATED_INFO";
+      payload: RelatedInfo[];
     }
   | {
-    type: "SETT_RELATED_INFO_FETCH_FAILED";
+      type: "SETT_RELATED_INFO_FETCH_FAILED";
     }
   | {
-    type: "SETT_ROLLE";
-    payload: string;
-};
+      type: "SETT_FRONTPAGE";
+      payload: Frontpage;
+    }
+  | {
+      type: "SETT_ROLLE";
+      payload: string;
+    };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
@@ -142,6 +153,11 @@ export const reducer = (state: Store, action: Action) => {
         visTekniskFeilMelding: true
       };
     }
+    case "SETT_FRONTPAGE":
+      return {
+        ...state,
+        frontpage: action.payload
+      };
     case "SETT_ROLLE": {
       return {
         ...state,

@@ -1,4 +1,3 @@
-
 export enum Language {
   Bokmaal = "nb"
 }

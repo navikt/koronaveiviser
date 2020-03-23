@@ -80,9 +80,11 @@ const localeBlockSerializer = (block: { node: LocaleBlock }) => {
 const blockSerializer = (block: TextBlock) => {
   const TypoComponent = typoComponents[block.node.style] || typoComponents[TypoStyle.Normal];
   return (
-    <TypoComponent>
-      {block.children}
-    </TypoComponent>
+    <div className={"block"}>
+      <TypoComponent>
+        {block.children}
+      </TypoComponent>
+    </div>
   );
 };
 
