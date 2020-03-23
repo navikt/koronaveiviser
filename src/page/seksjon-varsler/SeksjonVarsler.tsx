@@ -6,17 +6,18 @@ import { Alerts } from "../../utils/sanity/endpoints/alert";
 
 type Props = {
   varsler: Alerts;
+  tittel: string;
   isLoaded: boolean;
 };
 
 const cssPrefix = "seksjon-varsler";
 
-export const SeksjonVarsler = ({ varsler, isLoaded }: Props) => {
+export const SeksjonVarsler = ({ varsler, tittel, isLoaded }: Props) => {
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
-          {"Koronavirus - hva gjelder i min situasjon?"}
+          {tittel}
         </Innholdstittel>
       </div>
       <div className={`${cssPrefix}__innhold`}>

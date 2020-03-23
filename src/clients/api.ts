@@ -35,6 +35,8 @@ export const fetchContexts = () => hentJson(`${apiUrl}/contexts`);
 
 export const fetchRelated = () => hentJson(`${apiUrl}/related`);
 
+export const fetchFrontpage = () => hentJson(`${apiUrl}/frontpage`);
+
 /*
     Utils
  */
