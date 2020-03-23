@@ -5,7 +5,6 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
-import ScrollableAnchor, { configureAnchors } from "react-scrollable-anchor";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -13,10 +12,6 @@ type Props = {
 };
 
 const cssPrefix = "seksjon-praktisk-info";
-
-configureAnchors({
-  keepLastAnchorHash: true
-});
 
 const getHash = () => {
   const parts = window.location.href.split("#");
@@ -32,7 +27,12 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const [anchor, setAnchor] = useState(getHash());
 
   window.onhashchange = () => {
-    setAnchor(getHash());
+    const hash = getHash();
+    setAnchor(hash);
+    const element = document.getElementById(hash || ``);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -53,18 +53,17 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
             const sectionAnchor = section.anchor && section.anchor.current;
             return (
               <div key={Math.random()}>
-                <ScrollableAnchor id={sectionAnchor || `section-${index}`}>
-                  <Ekspanderbartpanel
-                    renderContentWhenClosed={true}
-                    apen={anchor === sectionAnchor}
-                    className={`${cssPrefix}__section`}
-                    tittel={<SanityBlocks blocks={section.title} key={index} />}
-                  >
-                    <div className={`${cssPrefix}__panel-innhold`}>
-                      <SanityBlocks blocks={section.description} />
-                    </div>
-                  </Ekspanderbartpanel>
-                </ScrollableAnchor>
+                <a id={sectionAnchor || `section-${index}`}></a>
+                <Ekspanderbartpanel
+                  renderContentWhenClosed={true}
+                  apen={anchor === sectionAnchor}
+                  className={`${cssPrefix}__section`}
+                  tittel={<SanityBlocks blocks={section.title} key={index} />}
+                >
+                  <div className={`${cssPrefix}__panel-innhold`}>
+                    <SanityBlocks blocks={section.description} />
+                  </div>
+                </Ekspanderbartpanel>
               </div>
             );
           })}
