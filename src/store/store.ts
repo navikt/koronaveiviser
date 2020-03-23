@@ -14,7 +14,11 @@ import {
   RoleContext,
   RolleKontekster
 } from "../utils/sanity/endpoints/contexts";
-import { initialRelatertInfo, RelatedInfo, RelatertInfo } from "../utils/sanity/endpoints/related";
+import {
+  initialRelatertInfo,
+  RelatedInfo,
+  RelatertInfo
+} from "../utils/sanity/endpoints/related";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -33,7 +37,7 @@ export interface Store {
   praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
-  relatertInfo: RelatertInfo
+  relatertInfo: RelatertInfo;
 }
 
 export type Action =
@@ -66,16 +70,16 @@ export type Action =
       type: "SETT_CONTEXTS_FETCH_FAILED";
     }
   | {
-    type: "SETT_RELATED_INFO";
-    payload: RelatedInfo[];
+      type: "SETT_RELATED_INFO";
+      payload: RelatedInfo[];
     }
   | {
-    type: "SETT_RELATED_INFO_FETCH_FAILED";
+      type: "SETT_RELATED_INFO_FETCH_FAILED";
     }
   | {
-    type: "SETT_ROLLE";
-    payload: string;
-};
+      type: "SETT_ROLLE";
+      payload: string;
+    };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {

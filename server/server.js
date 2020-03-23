@@ -136,6 +136,21 @@ server.get(`${basePath}/api/related`, (req, res) => {
     }
 });
 
+server.get(`${basePath}/api/frontpage`, (req, res) => {
+    const query = "*[_id == 'frontpage' && !(_id in path('drafts.**'))] {...}";
+    const frontpage = cache.get("frontpage");
+    if (frontpage) {
+        res.send(frontpage);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("frontpage", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
 
 // Parse application/json
 server.use(express.json());
