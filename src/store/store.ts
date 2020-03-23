@@ -32,7 +32,7 @@ export const initialState = {
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
   relatertInfo: initialRelatertInfo as RelatertInfo,
-  frontpage: initialFrontpage as Frontpage,
+  frontpage: initialFrontpage as Frontpage
 };
 
 export interface Store {
