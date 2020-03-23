@@ -60,6 +60,7 @@ export type LocaleUrl = { [key in Language]: string };
 
 export type TextBlockWithTitle = {
   title: LocaleString;
+  anchor: string;
   description: LocaleBlock;
 };
 
