@@ -8,23 +8,29 @@ type Props = {
   className?: string;
   border?: boolean;
   toggleTime?: number;
+  renderContentWhenClosed?: boolean;
+  onClick?: (event: React.SyntheticEvent<HTMLButtonElement>) => void;
   children: JSX.Element;
 };
 
-export const EkspanderbartPanel = ({ apen, className, tittel, border, toggleTime, children }: Props) => {
+export const EkspanderbartPanel = ({ apen, className, tittel, border, toggleTime, renderContentWhenClosed, onClick, children }: Props) => {
   const [isOpen, setIsOpen] = useState();
 
   useEffect(() => {
     setIsOpen(apen);
-  }, [toggleTime]);
+  }, [toggleTime, apen]);
 
   return (
     <EkspanderbartpanelBase
       className={className}
       apen={isOpen}
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={(event) => {
+        setIsOpen(!isOpen);
+        onClick && onClick(event);
+      }}
       tittel={tittel}
       border={border}
+      renderContentWhenClosed={renderContentWhenClosed}
     >
       {children}
     </EkspanderbartpanelBase>

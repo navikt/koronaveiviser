@@ -1,12 +1,14 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 import { Element, scroller } from "react-scroll";
 import { seksjonIds } from "../Page";
+import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
+import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { localeString } from "../../utils/localeString";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -26,33 +28,23 @@ const scrollToAnchor = (id: string) => {
   });
 };
 
+const removeHash = () =>
+  window.history.pushState(null, "", " ");
+
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
-  const [anchor, setAnchor] = useState(getHash());
-  // const [currentHash, setCurrentHash] = useState<{ hash: string, timestamp: number }>();
-  // console.log(currentHash);
-
+  const [anchor, setAnchor] = useState({hash: getHash(), timestamp: Date.now()});
 
   useEffect(() => {
     if (isLoaded) {
-      scrollToAnchor(anchor);
+      scrollToAnchor(anchor.hash);
+      removeHash();
     }
   }, [isLoaded, anchor]);
 
   window.onhashchange = () => {
-    setAnchor(getHash());
+    setAnchor({hash: getHash(), timestamp: Date.now()});
   };
-
-  // useEffect(() => {
-  //   const hashChangeHandler = (event: HashChangeEvent) => {
-  //     const newHash = event.newURL.split("#")[1];
-  //     setCurrentHash({ hash: newHash, timestamp: Date.now() });
-  //     window.scrollTo()
-  //   };
-  //   window.addEventListener("hashchange", hashChangeHandler);
-  //   return () => window.removeEventListener("hashchange", hashChangeHandler);
-  // }, []);
-
 
   return (
     <PanelBase
@@ -68,25 +60,31 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info &&
-          info.sections.map((section, index) => {
-            const sectionAnchor = section.anchor && section.anchor.current;
-            const anchorName = sectionAnchor || `section-${index}`;
-            return (
-              <Fragment key={Math.random()}>
-                <Element name={anchorName}></Element>
-                <Ekspanderbartpanel
-                  renderContentWhenClosed={true}
-                  apen={anchor === sectionAnchor}
-                  className={`${cssPrefix}__section`}
-                  tittel={<SanityBlocks blocks={section.title} key={index} />}
-                >
-                  <div className={`${cssPrefix}__panel-innhold`}>
-                    <SanityBlocks blocks={section.description} />
-                  </div>
-                </Ekspanderbartpanel>
-              </Fragment>
-            );
-          })}
+        info.sections.map((section, index) => {
+          const sectionAnchor = section.anchor && section.anchor.current;
+          const anchorName = sectionAnchor || `section-${index}`;
+          const shouldOpen = anchor.hash === sectionAnchor;
+          return (
+            <Fragment key={index}>
+              <Element name={anchorName} />
+              <EkspanderbartPanel
+                renderContentWhenClosed={true}
+                apen={shouldOpen}
+                className={`${cssPrefix}__section`}
+                tittel={<SanityBlocks blocks={section.title} key={index} />}
+                onClick={() => triggerGaEvent(
+                  GACategory.PraktiskInfo,
+                  `ekspander/${localeString(section.title)}`
+                )}
+                toggleTime={shouldOpen ? anchor.timestamp : undefined}
+              >
+                <div className={`${cssPrefix}__panel-innhold`}>
+                  <SanityBlocks blocks={section.description} />
+                </div>
+              </EkspanderbartPanel>
+            </Fragment>
+          );
+        })}
       </div>
     </PanelBase>
   );
