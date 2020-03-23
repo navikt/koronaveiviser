@@ -87,9 +87,9 @@ export type Action =
       payload: Frontpage;
     }
   | {
-     type: "SETT_ROLLE";
+      type: "SETT_ROLLE";
       payload: string;
-};
+  };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
