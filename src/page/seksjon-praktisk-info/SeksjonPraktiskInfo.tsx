@@ -1,10 +1,10 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
+import Ekspanderbartpanel from "nav-frontend-ekspanderbartpanel";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -61,7 +61,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
                 </a>
                 <Ekspanderbartpanel
                   renderContentWhenClosed={true}
-                  apen={anchor === sectionAnchor}
+                  apen={anchorName === sectionAnchor}
                   className={`${cssPrefix}__section`}
                   tittel={<SanityBlocks blocks={section.title} key={index} />}
                 >
