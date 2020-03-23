@@ -8,21 +8,23 @@ import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
+import { localeString } from "../utils/localeString";
 
 export const Page = () => {
-  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg }] = useStore();
+  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
+  const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
-    document.title = "Koronavirus - hva gjelder i min situasjon? - www.nav.no";
-  }, []);
+    document.title = `${sideTittel} - www.nav.no`;
+  }, [sideTittel]);
 
   return (
     <div className={"pagecontent"}>
-      <ToppLinje />
+      <ToppLinje tittel={sideTittel} />
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
-      <SeksjonVarsler varsler={alerts} isLoaded={isLoaded} />
+      <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
