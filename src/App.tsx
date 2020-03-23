@@ -17,6 +17,7 @@ import { YourSituation } from "./utils/sanity/endpoints/your-situation";
 import { RoleContext } from "./utils/sanity/endpoints/contexts";
 import { RelatedInfo } from "./utils/sanity/endpoints/related";
 import { Frontpage } from "./utils/sanity/endpoints/frontpage";
+import { hookChatbotOpenWithGaEvent } from "./utils/chatbotUtils";
 
 function App() {
   const [, dispatch] = useStore();
@@ -111,6 +112,7 @@ function App() {
       })
       .catch(console.error);
 
+    hookChatbotOpenWithGaEvent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
