@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
@@ -56,11 +56,6 @@ export const Page = () => {
       window.addEventListener("scroll", scrollHandler(seksjonBreakpoints));
     }
   }, [isLoaded]);
-
-  useEffect(() => {
-    document.title = `${sideTittel} - www.nav.no`;
-  }, [sideTittel]);
-
 
   return (
     <div className={"pagecontent"}>
