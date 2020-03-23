@@ -19,7 +19,10 @@ import {
   RelatedInfo,
   RelatertInfo
 } from "../utils/sanity/endpoints/related";
-import { Frontpage, initialFrontpage } from "../utils/sanity/endpoints/frontpage";
+import {
+  Frontpage,
+  initialFrontpage
+} from "../utils/sanity/endpoints/frontpage";
 
 export const initialState = {
   visTekniskFeilMelding: false,
