@@ -1,4 +1,5 @@
 import ReactGA from "react-ga";
+import Environment from "../Environment";
 
 const trackingId = "UA-9127381-16";
 
@@ -23,6 +24,10 @@ export const triggerGaEvent = (
   action: string,
   label?: string
 ) => {
+  if (Environment().miljo !== "PROD") {
+    return;
+  }
+
   ReactGA.event({
     category: category,
     action: action,

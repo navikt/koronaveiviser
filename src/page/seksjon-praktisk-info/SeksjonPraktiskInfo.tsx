@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, Fragment } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import { configureAnchors } from "react-scrollable-anchor";
 import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
 
 type Props = {
@@ -14,9 +13,14 @@ type Props = {
 
 const cssPrefix = "seksjon-praktisk-info";
 
-configureAnchors({
-  keepLastAnchorHash: false
-});
+const getHash = () => {
+  const parts = window.location.href.split("#");
+  if (parts.length > 1) {
+    return parts[1];
+  } else {
+    return undefined;
+  }
+};
 
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
@@ -47,24 +51,27 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {info &&
-        info.sections.map((section, index) => {
-          const sectionAnchor = section.anchor && section.anchor.current;
-          const shouldOpen = sectionAnchor === currentHash?.hash;
-          return (
-              <div id={sectionAnchor}>
-                <EkspanderbartPanel
-                  apen={shouldOpen}
+          info.sections.map((section, index) => {
+            const sectionAnchor = section.anchor && section.anchor.current;
+            const anchorName = sectionAnchor || `section-${index}`;
+            return (
+              <Fragment key={Math.random()}>
+                <a href={"/"} id={anchorName} className={`${cssPrefix}__anker`}>
+                  {`Anker ${anchorName}`}
+                </a>
+                <Ekspanderbartpanel
+                  renderContentWhenClosed={true}
+                  apen={anchor === sectionAnchor}
                   className={`${cssPrefix}__section`}
                   tittel={<SanityBlocks blocks={section.title} key={index} />}
-                  toggleTime={shouldOpen ? currentHash?.timestamp : undefined}
                 >
                   <div className={`${cssPrefix}__panel-innhold`}>
                     <SanityBlocks blocks={section.description} />
                   </div>
-                </EkspanderbartPanel>
-              </div>
-          );
-        })}
+                </Ekspanderbartpanel>
+              </Fragment>
+            );
+          })}
       </div>
     </PanelBase>
   );
