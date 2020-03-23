@@ -17,7 +17,6 @@ export const Page = () => {
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
-
   // @ts-ignore
   // uggggh
   const metaDesc = frontpage.metaDescription && frontpage.metaDescription[defaultLang] && frontpage.metaDescription[defaultLang][0].children
