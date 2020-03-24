@@ -47,6 +47,7 @@ const init = async () => {
   }
 
   initGA();
+  // fixLocalStorageForSafari();
 
   ReactDOM.render(
     <StoreProvider reducer={reducer} initialState={initialState}>
