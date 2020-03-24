@@ -17,7 +17,6 @@ const hentJson = (url: string) =>
     headers: { "Content-Type": "application/json;charset=UTF-8" },
     credentials: "include"
   })
-    // .then((res) => Object.isExtensible(res) ? res : res.clone())
     .then(response => sjekkForFeil(url, response))
     .then(parseJson)
     .catch(err => {
