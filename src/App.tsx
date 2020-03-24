@@ -23,7 +23,7 @@ function App() {
   {
     Promise.race<any>([
       fetchCall(),
-      timeoutPromise(fetchTimeoutMs, "Fetch failed!")
+      timeoutPromise(fetchTimeoutMs, "Fetch timed out")
     ])
       .then((data: any) => {
         dispatch({

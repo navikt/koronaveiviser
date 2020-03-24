@@ -29,7 +29,11 @@ export const seksjonIds = [
 //   }, [] as number[]);
 // };
 
+const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
+
 const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
+
+const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
 
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
@@ -38,25 +42,37 @@ export const Page = () => {
 
   const prevScrollPos = useRef(0);
 
-  const scrollHandler = (scrollBreakpoints: number[]) => () => {
+  const scrollHandler = () => {
     const currentScrollPos = getScrollPosition();
-    const breakPointPassedIndex = scrollBreakpoints
-      .findIndex(breakPoint =>
-        (breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos) ||
-        (breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos));
-    if (breakPointPassedIndex >= 0) {
+    const breakPointPassedDown = scrollBreakpoints
+      .find(breakPoint =>
+        breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos);
+    if (breakPointPassedDown) {
       triggerGaEvent(
         GACategory.ScrollDepth,
-        Math.floor(currentScrollPos * 100 + 0.5).toString(),
+        getPercentage(breakPointPassedDown),
+        "scroller ned"
       );
+    } else {
+      const breakPointPassedUp = scrollBreakpoints
+        .find(breakPoint =>
+          breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos);
+      if (breakPointPassedUp) {
+        triggerGaEvent(
+          GACategory.ScrollDepth,
+          getPercentage(breakPointPassedUp),
+          "scroller opp"
+        );
+      }
     }
+
     prevScrollPos.current = currentScrollPos;
   };
 
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
-      const handler = scrollHandler([0.2, 0.4, 0.6, 0.8, 0.99]);
+      const handler = scrollHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
     }
