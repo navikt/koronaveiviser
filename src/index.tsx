@@ -12,7 +12,6 @@ import App from './App';
 import { StoreProvider } from "./store/Provider";
 import { initialState, reducer } from "./store/store";
 import { initGA } from "./utils/react-ga";
-import { fixLocalStorageForSafari } from "./utils/StorageSafariFix";
 
 const init = async () => {
   if (process.env.NODE_ENV === "development") {
@@ -48,7 +47,7 @@ const init = async () => {
   }
 
   initGA();
-  fixLocalStorageForSafari();
+  // fixLocalStorageForSafari();
 
   ReactDOM.render(
     <StoreProvider reducer={reducer} initialState={initialState}>
