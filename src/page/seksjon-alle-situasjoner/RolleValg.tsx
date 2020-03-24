@@ -5,6 +5,7 @@ import { Normaltekst } from "nav-frontend-typografi";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { defaultLang } from "../../types/language";
 import { localeString } from "../../utils/localeString";
+import { getStorageItem, setStorageItem } from "../../utils/sessionStorage";
 
 const cssPrefix = "rollevalg";
 
@@ -13,7 +14,7 @@ const storageKey = "nav-korona-context";
 export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster }, dispatch] = useStore();
   const setRolle = (rolle: string) => {
-    sessionStorage.setItem(storageKey, rolle);
+    setStorageItem(storageKey, rolle);
     dispatch({
       type: "SETT_ROLLE",
       payload: rolle,
@@ -28,7 +29,7 @@ export const RolleValg = () => {
       return;
     }
 
-    const rollenavnFromStorage = sessionStorage.getItem(storageKey);
+    const rollenavnFromStorage = getStorageItem(storageKey);
     if (rollenavnFromStorage) {
       const context = konteksterSorted.find((context) =>
         localeString(context.context) === rollenavnFromStorage);
