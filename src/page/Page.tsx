@@ -12,6 +12,7 @@ import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { ExceptionHandler } from "../components/exception-handler/ExceptionHandler";
+import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -54,6 +55,7 @@ export const Page = () => {
         getPercentage(breakPointPassedDown),
         "scroller ned"
       );
+      setStorageItem("nav-korona-scroll-depth", currentScrollPos.toString());
       prevScrollPos.current = currentScrollPos;
     }
   };
@@ -61,6 +63,11 @@ export const Page = () => {
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
+      const sessionScrollDepth = getStorageItem("nav-korona-scroll-depth");
+      if (sessionScrollDepth && sessionScrollDepth !== "") {
+        prevScrollPos.current = parseFloat(sessionScrollDepth);
+      }
+
       const handler = scrollHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
