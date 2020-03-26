@@ -32,7 +32,11 @@ export const seksjonIds = [
 
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
-const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / window.document.body.clientHeight;
+const getScrollPosition = () =>
+  (window.pageYOffset + window.innerHeight) / Math.max(
+    window.document.body.clientHeight, window.document.body.scrollHeight,
+    window.document.documentElement.clientHeight, window.document.documentElement.scrollHeight
+  );
 
 const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
 
