@@ -11,6 +11,7 @@ import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo
 import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
+import { ExceptionHandler } from "../components/exception-handler/ExceptionHandler";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -53,20 +54,8 @@ export const Page = () => {
         getPercentage(breakPointPassedDown),
         "scroller ned"
       );
-    } else {
-      const breakPointPassedUp = scrollBreakpoints
-        .find(breakPoint =>
-          breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos);
-      if (breakPointPassedUp) {
-        triggerGaEvent(
-          GACategory.ScrollDepth,
-          getPercentage(breakPointPassedUp),
-          "scroller opp"
-        );
-      }
+      prevScrollPos.current = currentScrollPos;
     }
-
-    prevScrollPos.current = currentScrollPos;
   };
 
   const sideTittel = localeString(frontpage.pageTitle);
@@ -94,11 +83,13 @@ export const Page = () => {
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
-      <NavChatbot
-        customerKey="41155"
-        queueKey="Q_CHAT_BOT"
-        configId="599f9e7c-7f6b-4569-81a1-27202c419953"
-      />
+      <ExceptionHandler>
+        <NavChatbot
+          customerKey="41155"
+          queueKey="Q_CHAT_BOT"
+          configId="599f9e7c-7f6b-4569-81a1-27202c419953"
+        />
+      </ExceptionHandler>
     </div>
   );
 };
