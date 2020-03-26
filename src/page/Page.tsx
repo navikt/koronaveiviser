@@ -11,7 +11,6 @@ import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo
 import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
-import { ExceptionHandler } from "../components/exception-handler/ExceptionHandler";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 
 export const seksjonIds = [
@@ -91,13 +90,11 @@ export const Page = () => {
       <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
-      <ExceptionHandler>
-        <NavChatbot
-          customerKey="41155"
-          queueKey="Q_CHAT_BOT"
-          configId="599f9e7c-7f6b-4569-81a1-27202c419953"
-        />
-      </ExceptionHandler>
+      <NavChatbot
+        customerKey="41155"
+        queueKey="Q_CHAT_BOT"
+        configId="599f9e7c-7f6b-4569-81a1-27202c419953"
+      />
     </div>
   );
 };
