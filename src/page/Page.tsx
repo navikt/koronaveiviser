@@ -65,7 +65,10 @@ export const Page = () => {
     if (isLoaded) {
       const sessionScrollDepth = getStorageItem(storageKey);
       if (sessionScrollDepth && sessionScrollDepth !== "") {
-        prevScrollPos.current = parseFloat(sessionScrollDepth);
+        const num = parseFloat(sessionScrollDepth);
+        if (!isNaN(num)) {
+          prevScrollPos.current = parseFloat(sessionScrollDepth);
+        }
       }
 
       const handler = scrollHandler;
