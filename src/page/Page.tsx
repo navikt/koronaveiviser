@@ -37,6 +37,8 @@ const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / wind
 
 const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
 
+const storageKey = "nav-korona-scroll-depth";
+
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
@@ -52,10 +54,9 @@ export const Page = () => {
     if (breakPointPassedDown) {
       triggerGaEvent(
         GACategory.ScrollDepth,
-        getPercentage(breakPointPassedDown),
-        "scroller ned"
+        getPercentage(breakPointPassedDown)
       );
-      setStorageItem("nav-korona-scroll-depth", currentScrollPos.toString());
+      setStorageItem(storageKey, currentScrollPos.toString());
       prevScrollPos.current = currentScrollPos;
     }
   };
@@ -63,7 +64,7 @@ export const Page = () => {
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
-      const sessionScrollDepth = getStorageItem("nav-korona-scroll-depth");
+      const sessionScrollDepth = getStorageItem(storageKey);
       if (sessionScrollDepth && sessionScrollDepth !== "") {
         prevScrollPos.current = parseFloat(sessionScrollDepth);
       }
