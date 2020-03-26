@@ -11,6 +11,7 @@ import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo
 import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
+import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -35,6 +36,8 @@ const getScrollPosition = () => (window.pageYOffset + window.innerHeight) / wind
 
 const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
 
+const storageKey = "nav-korona-scroll-depth";
+
 export const Page = () => {
   const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
@@ -50,28 +53,24 @@ export const Page = () => {
     if (breakPointPassedDown) {
       triggerGaEvent(
         GACategory.ScrollDepth,
-        getPercentage(breakPointPassedDown),
-        "scroller ned"
+        getPercentage(breakPointPassedDown)
       );
-    } else {
-      const breakPointPassedUp = scrollBreakpoints
-        .find(breakPoint =>
-          breakPoint < prevScrollPos.current && breakPoint >= currentScrollPos);
-      if (breakPointPassedUp) {
-        triggerGaEvent(
-          GACategory.ScrollDepth,
-          getPercentage(breakPointPassedUp),
-          "scroller opp"
-        );
-      }
+      setStorageItem(storageKey, currentScrollPos.toString());
+      prevScrollPos.current = currentScrollPos;
     }
-
-    prevScrollPos.current = currentScrollPos;
   };
 
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
+      const sessionScrollDepth = getStorageItem(storageKey);
+      if (sessionScrollDepth && sessionScrollDepth !== "") {
+        const num = parseFloat(sessionScrollDepth);
+        if (!isNaN(num)) {
+          prevScrollPos.current = parseFloat(sessionScrollDepth);
+        }
+      }
+
       const handler = scrollHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
