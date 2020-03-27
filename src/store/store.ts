@@ -76,14 +76,14 @@ export type Action =
       payload: RoleContext[];
     }
   | {
-     type: "SETT_CONTEXTS_FETCH_FAILED";
+      type: "SETT_CONTEXTS_FETCH_FAILED";
     }
   | {
       type: "SETT_RELATED_INFO";
       payload: RelatedInfo[];
     }
   | {
-     type: "SETT_RELATED_INFO_FETCH_FAILED";
+      type: "SETT_RELATED_INFO_FETCH_FAILED";
     }
   | {
       type: "SETT_FRONTPAGE";
