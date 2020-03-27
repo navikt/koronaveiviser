@@ -23,6 +23,7 @@ import {
   Frontpage,
   initialFrontpage
 } from "../utils/sanity/endpoints/frontpage";
+import { Anchor } from "../types/lenker";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -45,57 +46,57 @@ export interface Store {
   rolleKontekster: RolleKontekster;
   relatertInfo: RelatertInfo;
   frontpage: Frontpage;
-  anchor: { hash: string, timestamp: number };
+  anchor: Anchor;
 }
 
 export type Action =
   | {
-  type: "SETT_ALERTS";
-  payload: Alert[];
-}
+    type: "SETT_ALERTS";
+    payload: Alert[];
+  }
   | {
-  type: "SETT_ALERTS_FETCH_FAILED";
-}
+    type: "SETT_ALERTS_FETCH_FAILED";
+  }
   | {
-  type: "SETT_INFORMATION";
-  payload: Information[];
-}
+    type: "SETT_INFORMATION";
+    payload: Information[];
+  }
   | {
-  type: "SETT_INFORMATION_FETCH_FAILED";
-}
+    type: "SETT_INFORMATION_FETCH_FAILED";
+  }
   | {
-  type: "SETT_YOUR_SITUATION";
-  payload: YourSituation[];
-}
+    type: "SETT_YOUR_SITUATION";
+    payload: YourSituation[];
+  }
   | {
-  type: "SETT_YOUR_SITUATION_FETCH_FAILED";
-}
+    type: "SETT_YOUR_SITUATION_FETCH_FAILED";
+  }
   | {
-  type: "SETT_CONTEXTS";
-  payload: RoleContext[];
-}
+    type: "SETT_CONTEXTS";
+    payload: RoleContext[];
+  }
   | {
-  type: "SETT_CONTEXTS_FETCH_FAILED";
-}
+    type: "SETT_CONTEXTS_FETCH_FAILED";
+  }
   | {
-  type: "SETT_RELATED_INFO";
-  payload: RelatedInfo[];
-}
+    type: "SETT_RELATED_INFO";
+    payload: RelatedInfo[];
+  }
   | {
-  type: "SETT_RELATED_INFO_FETCH_FAILED";
-}
+    type: "SETT_RELATED_INFO_FETCH_FAILED";
+  }
   | {
-  type: "SETT_FRONTPAGE";
-  payload: Frontpage;
-}
+    type: "SETT_FRONTPAGE";
+    payload: Frontpage;
+  }
   | {
-  type: "SETT_ANCHOR";
-  payload: string;
-}
+    type: "SETT_ANCHOR";
+    payload: string;
+  }
   | {
-  type: "SETT_ROLLE";
-  payload: string;
-};
+    type: "SETT_ROLLE";
+    payload: string;
+  };
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
