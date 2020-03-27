@@ -4,6 +4,7 @@ export type RoleContext = {
   context: LocaleString;
   order: number;
   description?: SanityLinkList[];
+  anchor?: { current: string };
 };
 
 export type RolleKontekster = {

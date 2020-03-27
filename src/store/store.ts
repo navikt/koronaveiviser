@@ -23,6 +23,7 @@ import {
   Frontpage,
   initialFrontpage
 } from "../utils/sanity/endpoints/frontpage";
+import { Anchor } from "../types/lenker";
 
 export const initialState = {
   visTekniskFeilMelding: false,
@@ -32,7 +33,8 @@ export const initialState = {
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
   relatertInfo: initialRelatertInfo as RelatertInfo,
-  frontpage: initialFrontpage as Frontpage
+  frontpage: initialFrontpage as Frontpage,
+  anchor: { hash: "", timestamp: 0 }
 };
 
 export interface Store {
@@ -44,6 +46,7 @@ export interface Store {
   rolleKontekster: RolleKontekster;
   relatertInfo: RelatertInfo;
   frontpage: Frontpage;
+  anchor: Anchor;
 }
 
 export type Action =
@@ -85,6 +88,10 @@ export type Action =
   | {
       type: "SETT_FRONTPAGE";
       payload: Frontpage;
+    }
+  | {
+      type: "SETT_ANCHOR";
+      payload: string;
     }
   | {
       type: "SETT_ROLLE";
@@ -160,6 +167,11 @@ export const reducer = (state: Store, action: Action) => {
       return {
         ...state,
         frontpage: action.payload
+      };
+    case "SETT_ANCHOR":
+      return {
+        ...state,
+        anchor: { hash: action.payload, timestamp: Date.now() }
       };
     case "SETT_ROLLE": {
       return {
