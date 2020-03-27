@@ -6,6 +6,7 @@ import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { defaultLang } from "../../types/language";
 import { localeString } from "../../utils/localeString";
 import { getStorageItem, setStorageItem } from "../../utils/sessionStorage";
+import { Element } from "react-scroll";
 
 const cssPrefix = "rollevalg";
 
@@ -49,27 +50,31 @@ export const RolleValg = () => {
       {konteksterSorted.map((context, index) => {
         const rollenavn = (context.context && context.context[defaultLang]) || "";
         return (
-          rollenavn === rollevalg ? (
-            <Normaltekst className={`${cssPrefix}__selected`} key={index}>
-              {rollenavn}
-            </Normaltekst>
-          ) : (
-            <Lenke
-              href={""}
-              onClick={(event) => {
-                event.preventDefault();
-                setRolle(rollenavn);
-                triggerGaEvent(
-                  GACategory.AlleSituasjoner,
-                  `rollevalg/${rollenavn}`
-                )
-              }}
-              key={index}
-              className={`${cssPrefix}__lenke`}
-            >
-              <>{rollenavn}</>
-            </Lenke>
-          ))
+          <>
+            <Element name={"rolle-valg"} />
+            {rollenavn === rollevalg ? (
+              <Normaltekst className={`${cssPrefix}__selected`} key={index}>
+                {rollenavn}
+              </Normaltekst>
+            ) : (
+              <Lenke
+                href={""}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setRolle(rollenavn);
+                  triggerGaEvent(
+                    GACategory.AlleSituasjoner,
+                    `rollevalg/${rollenavn}`
+                  )
+                }}
+                key={index}
+                className={`${cssPrefix}__lenke`}
+              >
+                <>{rollenavn}</>
+              </Lenke>
+            )}
+          </>
+        )
       })}
       <span className={`${cssPrefix}__filler-end`} />
     </div>

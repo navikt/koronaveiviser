@@ -12,6 +12,7 @@ import { localeString } from "../utils/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
+import { scroller } from "react-scroll";
 
 export const seksjonIds = [
   "seksjon-varsler",
@@ -21,33 +22,49 @@ export const seksjonIds = [
   "seksjon-relatertinfo",
 ];
 
-// TODO: Få seksjons-baserte breakpoints til å fungere konsistent...
-// const getNormalizedSectionPositions = () => {
-//   const bodyHeight = window.document.body.clientHeight;
-//   return seksjonIds.reduce((acc, id) => {
-//     const element = document.getElementById(id);
-//     return element ? acc.concat(element.offsetTop / bodyHeight) : acc;
-//   }, [] as number[]);
-// };
-
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
 const getScrollPosition = () =>
   (window.pageYOffset + window.innerHeight) / Math.max(
-    window.document.body.clientHeight, window.document.body.scrollHeight,
-    window.document.documentElement.clientHeight, window.document.documentElement.scrollHeight
+  window.document.body.clientHeight, window.document.body.scrollHeight,
+  window.document.documentElement.clientHeight, window.document.documentElement.scrollHeight
   );
 
 const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
 
 const storageKey = "nav-korona-scroll-depth";
 
+const getHash = () => {
+  const parts = window.location.href.split("#");
+  return parts.length > 1 ? parts[1] : ``;
+};
+
+const scrollToAnchor = (id: string) => {
+  scroller.scrollTo(id, {
+    smooth: true
+  });
+};
+
+const removeHash = () =>
+  window.history.pushState(null, "", " ");
+
 export const Page = () => {
-  const [{ alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }] = useStore();
+  const [{ anchor, alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
   const prevScrollPos = useRef(0);
+
+  useEffect(() => {
+    if (isLoaded) {
+      scrollToAnchor(anchor.hash);
+      removeHash();
+    }
+  }, [isLoaded, anchor]);
+
+  window.onhashchange = () => {
+    dispatch({ type: "SETT_ANCHOR", payload: getHash() });
+  };
 
   const scrollHandler = () => {
     const currentScrollPos = getScrollPosition();

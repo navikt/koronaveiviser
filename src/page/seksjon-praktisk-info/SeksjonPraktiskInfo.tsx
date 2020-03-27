@@ -1,14 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import { Element, scroller } from "react-scroll";
+import { Element } from "react-scroll";
 import { seksjonIds } from "../Page";
 import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { localeString } from "../../utils/localeString";
+import { useStore } from "../../store/Provider";
 
 type Props = {
   praktiskInfo: PraktiskInfo;
@@ -17,34 +18,9 @@ type Props = {
 
 const cssPrefix = "seksjon-praktisk-info";
 
-const getHash = () => {
-  const parts = window.location.href.split("#");
-  return parts.length > 1 ? parts[1] : ``;
-};
-
-const scrollToAnchor = (id: string) => {
-  scroller.scrollTo(id, {
-    smooth: true
-  });
-};
-
-const removeHash = () =>
-  window.history.pushState(null, "", " ");
-
 export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
   const info = praktiskInfo.info[0];
-  const [anchor, setAnchor] = useState({hash: getHash(), timestamp: Date.now()});
-
-  useEffect(() => {
-    if (isLoaded) {
-      scrollToAnchor(anchor.hash);
-      removeHash();
-    }
-  }, [isLoaded, anchor]);
-
-  window.onhashchange = () => {
-    setAnchor({hash: getHash(), timestamp: Date.now()});
-  };
+  const [{ anchor }] = useStore();
 
   return (
     <PanelBase
