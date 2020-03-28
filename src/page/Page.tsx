@@ -39,14 +39,14 @@ const getHash = () => {
   return parts.length > 1 ? parts[1] : ``;
 };
 
+const removeHash = () =>
+  window.history.pushState(null, "", " ");
+
 const scrollToAnchor = (id: string) => {
   scroller.scrollTo(id, {
     smooth: true
   });
 };
-
-const removeHash = () =>
-  window.history.pushState(null, "", " ");
 
 export const Page = () => {
   const [{ anchor, alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
@@ -54,17 +54,7 @@ export const Page = () => {
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
 
   const prevScrollPos = useRef(0);
-
-  useEffect(() => {
-    if (isLoaded) {
-      scrollToAnchor(anchor.hash);
-      removeHash();
-    }
-  }, [isLoaded, anchor]);
-
-  window.onhashchange = () => {
-    dispatch({ type: "SETT_ANCHOR", payload: getHash() });
-  };
+  const dispatchAnchor = () => dispatch({ type: "SETT_ANCHOR", payload: getHash() });
 
   const scrollHandler = () => {
     const currentScrollPos = getScrollPosition();
@@ -84,6 +74,7 @@ export const Page = () => {
   const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
+      dispatchAnchor();
       const sessionScrollDepth = getStorageItem(storageKey);
       if (sessionScrollDepth && sessionScrollDepth !== "") {
         const num = parseFloat(sessionScrollDepth);
@@ -91,12 +82,22 @@ export const Page = () => {
           prevScrollPos.current = parseFloat(sessionScrollDepth);
         }
       }
-
       const handler = scrollHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
+
+  window.onload = () => scrollToAnchor(getHash());
+  window.onhashchange = dispatchAnchor;
+  useEffect(() => {
+    if (isLoaded) {
+      scrollToAnchor(anchor.hash);
+      removeHash();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [anchor]);
 
   return (
     <div className={"pagecontent"}>
