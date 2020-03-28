@@ -1,11 +1,11 @@
 import React, { useEffect, Fragment } from 'react';
-import { useStore } from "../../store/Provider";
+import { useStore } from "../../../store/Provider";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
-import { GACategory, triggerGaEvent } from "../../utils/react-ga";
-import { defaultLang } from "../../types/language";
-import { localeString } from "../../utils/localeString";
-import { getStorageItem, setStorageItem } from "../../utils/sessionStorage";
+import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
+import { defaultLang } from "../../../types/language";
+import { localeString } from "../../../utils/localeString";
+import { getStorageItem, setStorageItem } from "../../../utils/sessionStorage";
 import { Element } from "react-scroll";
 
 const cssPrefix = "rollevalg";

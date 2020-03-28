@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
-import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo";
 import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
@@ -13,14 +12,6 @@ import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 import { scroller } from "react-scroll";
-
-export const seksjonIds = [
-  "seksjon-varsler",
-  "seksjon-dinsituasjon",
-  "seksjon-allesituasjoner",
-  "seksjon-praktiskinfo",
-  "seksjon-relatertinfo",
-];
 
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
@@ -49,8 +40,8 @@ const scrollToAnchor = (id: string) => {
 };
 
 export const Page = () => {
-  const [{ anchor, alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
-  const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
+  const [{ anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
+  const isLoaded = alerts.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
   const sideTittel = localeString(frontpage.pageTitle);
   const prevScrollPos = useRef(0);
@@ -110,8 +101,7 @@ export const Page = () => {
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
       <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
-      <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
-      <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
+      <SeksjonAlleSituasjoner kontekster={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
       <NavChatbot
         customerKey="41155"

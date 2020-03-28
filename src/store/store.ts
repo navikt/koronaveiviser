@@ -1,10 +1,5 @@
 import { Alert, Alerts, initialAlerts } from "../utils/sanity/endpoints/alert";
 import {
-  Information,
-  initialInformation,
-  PraktiskInfo
-} from "../utils/sanity/endpoints/information";
-import {
   DinSituasjon,
   initialDinSituasjon,
   YourSituation
@@ -29,7 +24,6 @@ export const initialState = {
   visTekniskFeilMelding: false,
   rollevalg: "",
   alerts: initialAlerts as Alerts,
-  praktiskInfo: initialInformation as PraktiskInfo,
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
   relatertInfo: initialRelatertInfo as RelatertInfo,
@@ -41,7 +35,6 @@ export interface Store {
   visTekniskFeilMelding: boolean;
   rollevalg: string;
   alerts: Alerts;
-  praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
   relatertInfo: RelatertInfo;
@@ -56,13 +49,6 @@ export type Action =
     }
   | {
       type: "SETT_ALERTS_FETCH_FAILED";
-    }
-  | {
-      type: "SETT_INFORMATION";
-      payload: Information[];
-    }
-  | {
-      type: "SETT_INFORMATION_FETCH_FAILED";
     }
   | {
       type: "SETT_YOUR_SITUATION";
@@ -112,18 +98,6 @@ export const reducer = (state: Store, action: Action) => {
       return {
         ...state,
         alerts: { ...state.alerts, isLoaded: true },
-        visTekniskFeilMelding: true
-      };
-    }
-    case "SETT_INFORMATION":
-      return {
-        ...state,
-        praktiskInfo: { info: action.payload, isLoaded: true }
-      };
-    case "SETT_INFORMATION_FETCH_FAILED": {
-      return {
-        ...state,
-        praktiskInfo: { ...state.praktiskInfo, isLoaded: true },
         visTekniskFeilMelding: true
       };
     }

@@ -1,42 +1,37 @@
 import React, { Fragment } from "react";
 import PanelBase from "nav-frontend-paneler";
 import { Systemtittel } from "nav-frontend-typografi";
-import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
-import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
-import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
+import { HeaderSeparator } from "../../../components/header-separator/HeaderSeparator";
+import { SanityBlocks } from "../../../components/sanity-blocks/SanityBlocks";
 import { Element } from "react-scroll";
-import { seksjonIds } from "../Page";
-import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
-import { GACategory, triggerGaEvent } from "../../utils/react-ga";
-import { localeString } from "../../utils/localeString";
-import { useStore } from "../../store/Provider";
+import { EkspanderbartPanel } from "../../../components/ekspanderbart-panel/EkspanderbartPanel";
+import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
+import { localeString } from "../../../utils/localeString";
+import { useStore } from "../../../store/Provider";
+import { Information } from "../../../utils/sanity/endpoints/contexts";
 
 type Props = {
-  praktiskInfo: PraktiskInfo;
-  isLoaded: boolean;
+  praktiskInfo: Information;
 };
 
-const cssPrefix = "seksjon-praktisk-info";
+const cssPrefix = "praktisk-info";
 
-export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
-  const info = praktiskInfo.info[0];
+export const PraktiskInfoPanel = ({ praktiskInfo }: Props) => {
   const [{ anchor }] = useStore();
 
   return (
     <PanelBase
-      className={`${cssPrefix} seksjon-panel${
-        isLoaded ? ` seksjon-panel--loaded` : ""
-      }`}
+      className={`${cssPrefix}`}
     >
-      <div className={`${cssPrefix}__header`} id={seksjonIds[3]}>
+      <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}
+          {praktiskInfo ? <SanityBlocks blocks={praktiskInfo.title} /> : "Praktisk informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
-        {info &&
-        info.sections.map((section, index) => {
+        {praktiskInfo &&
+        praktiskInfo.sections.map((section, index) => {
           const sectionAnchor = section.anchor && section.anchor.current;
           const anchorName = sectionAnchor || `section-${index}`;
           const shouldOpen = anchor.hash === sectionAnchor;

@@ -26,8 +26,6 @@ const hentJson = (url: string) =>
 
 export const fetchAlerts = () => hentJson(`${apiUrl}/alerts`);
 
-export const fetchInformation = () => hentJson(`${apiUrl}/information`);
-
 export const fetchYourSituation = () =>
   hentJson(`${apiUrl}/whats-your-situation`);
 
