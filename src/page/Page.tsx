@@ -52,9 +52,10 @@ export const Page = () => {
   const [{ anchor, alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
   const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
-
+  const sideTittel = localeString(frontpage.pageTitle);
   const prevScrollPos = useRef(0);
   const dispatchAnchor = () => dispatch({ type: "SETT_ANCHOR", payload: getHash() });
+  window.onhashchange = dispatchAnchor;
 
   const scrollHandler = () => {
     const currentScrollPos = getScrollPosition();
@@ -71,7 +72,6 @@ export const Page = () => {
     }
   };
 
-  const sideTittel = localeString(frontpage.pageTitle);
   useEffect(() => {
     if (isLoaded) {
       dispatchAnchor();
@@ -89,8 +89,6 @@ export const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
-  window.onload = () => scrollToAnchor(getHash());
-  window.onhashchange = dispatchAnchor;
   useEffect(() => {
     if (isLoaded) {
       scrollToAnchor(anchor.hash);
