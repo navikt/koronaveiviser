@@ -10,6 +10,7 @@ import { Systemtittel } from "nav-frontend-typografi";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { useStore } from "../../store/Provider";
+import { Information } from "../../utils/sanity/endpoints/information";
 
 type Props = {
   kontekster: RolleKontekster;
@@ -18,18 +19,17 @@ type Props = {
 
 const cssPrefix = "seksjon-alle-situasjoner";
 
-
-
 export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
   const [{ praktiskInfo, rollevalg }] = useStore();
   const kontekst = kontekster.kontekster.find((kontekst) => (
     localeString(kontekst.context) === rollevalg
   ));
-  const infoSeksjoner = kontekst?.inforefs?.map(infoRef => {
+  const infoSeksjoner = kontekst?.inforefs?.reduce((acc, infoRef) => {
     const idFromRef = infoRef.ref._ref;
     const anchor = `${kontekst.anchor?.current}_${infoRef.anchor?.current}`;
-    return {...praktiskInfo.info[idFromRef], anchor: anchor}
-  });
+    const infoSeksjon = praktiskInfo.info[idFromRef];
+    return infoSeksjon ? acc.concat([{...infoSeksjon, anchor: anchor}]) : acc;
+  }, [] as Information[]);
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
