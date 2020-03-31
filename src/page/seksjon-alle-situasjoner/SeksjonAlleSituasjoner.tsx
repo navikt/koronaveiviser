@@ -13,16 +13,15 @@ import { useStore } from "../../store/Provider";
 
 type Props = {
   kontekster: RolleKontekster;
-  rolle: string;
   isLoaded: boolean;
 };
 
 const cssPrefix = "seksjon-alle-situasjoner";
 
-export const SeksjonAlleSituasjoner = ({ kontekster, rolle, isLoaded }: Props) => {
-  const [{ praktiskInfo }] = useStore();
+export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
+  const [{ praktiskInfo, rollevalg }] = useStore();
   const kontekst = kontekster.kontekster.find((kontekst) => (
-    localeString(kontekst.context) === rolle
+    localeString(kontekst.context) === rollevalg
   ));
   const infoSeksjoner = kontekst?.inforefs?.map(infoRef =>
     ({...praktiskInfo.info[infoRef.ref._ref], anchor: `${kontekst.anchor?.current}_${infoRef.anchor?.current}`}));
@@ -45,7 +44,7 @@ export const SeksjonAlleSituasjoner = ({ kontekster, rolle, isLoaded }: Props) =
               <LenkeSeksjon
                 tittel={lenkeSeksjon.title}
                 lenker={lenkeSeksjon.links}
-                rolle={rolle}
+                rolle={rollevalg}
                 gaCategory={GACategory.AlleSituasjoner}
                 key={index}
               />

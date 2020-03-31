@@ -40,7 +40,7 @@ const scrollToAnchor = (id: string) => {
 };
 
 export const Page = () => {
-  const [{ anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
+  const [{ anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, frontpage }, dispatch] = useStore();
   const isLoaded = alerts.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
   const sideTittel = localeString(frontpage.pageTitle);
@@ -103,7 +103,7 @@ export const Page = () => {
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
       <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
-      <SeksjonAlleSituasjoner kontekster={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
+      <SeksjonAlleSituasjoner kontekster={rolleKontekster} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
       <NavChatbot
         customerKey="41155"
