@@ -1,18 +1,12 @@
-import { LocaleString, SanityLinkList, TextBlockWithTitle } from "../serializers";
+import { LocaleString, SanityLinkList } from "../serializers";
 
 export type RoleContext = {
-  title: LocaleString;
+  title?: LocaleString;
   context: LocaleString;
   order: number;
-  info: Information;
+  infoRefs?: SanityRef[];
   description?: SanityLinkList[];
   anchor?: { current: string };
-};
-
-export type Information = {
-  sections: TextBlockWithTitle[];
-  title?: LocaleString;
-  _updatedAt?: string;
 };
 
 export type RolleKontekster = {
@@ -24,3 +18,7 @@ export const initialRolleKontekster = {
   isLoaded: false,
   kontekster: []
 };
+
+type SanityRef = {
+  _ref: string
+}

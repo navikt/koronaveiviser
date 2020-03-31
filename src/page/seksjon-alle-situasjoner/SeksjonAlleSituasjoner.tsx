@@ -9,6 +9,7 @@ import { PraktiskInfoPanel } from "./praktisk-info/PraktiskInfoPanel";
 import { Systemtittel } from "nav-frontend-typografi";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
+import { useStore } from "../../store/Provider";
 
 type Props = {
   kontekster: RolleKontekster;
@@ -19,25 +20,28 @@ type Props = {
 const cssPrefix = "seksjon-alle-situasjoner";
 
 export const SeksjonAlleSituasjoner = ({ kontekster, rolle, isLoaded }: Props) => {
-  const aktivKontekst = kontekster.kontekster.find((kontekst) => (
+  const [{ praktiskInfo }] = useStore();
+  const kontekst = kontekster.kontekster.find((kontekst) => (
     localeString(kontekst.context) === rolle
   ));
+  const infoSeksjoner = kontekst?.infoRefs?.map(infoRef =>
+    praktiskInfo.info[infoRef._ref]);
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <RolleValg />
       <div className={`${cssPrefix}__fane`}>
-        {aktivKontekst?.title && (
+        {kontekst?.title && (
           <div className={`${cssPrefix}__fane-tittel`}>
             <Systemtittel>
-              <SanityBlocks blocks={aktivKontekst.title} />
+              <SanityBlocks blocks={kontekst.title} />
             </Systemtittel>
             <HeaderSeparator />
           </div>
         )}
-        {aktivKontekst && aktivKontekst.description ? (
+        {kontekst && kontekst.description ? (
           <div className={`${cssPrefix}__lenkeseksjoner`}>
-            {aktivKontekst?.description?.map((lenkeSeksjon, index) => (
+            {kontekst?.description?.map((lenkeSeksjon, index) => (
               <LenkeSeksjon
                 tittel={lenkeSeksjon.title}
                 lenker={lenkeSeksjon.links}
@@ -46,8 +50,7 @@ export const SeksjonAlleSituasjoner = ({ kontekster, rolle, isLoaded }: Props) =
                 key={index}
               />
             ))}
-            {aktivKontekst?.info?.sections?.length > 0 &&
-            <PraktiskInfoPanel praktiskInfo={aktivKontekst.info} />}
+            {infoSeksjoner && <PraktiskInfoPanel praktiskInfo={infoSeksjoner} />}
           </div>
         ) : null}
       </div>

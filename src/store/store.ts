@@ -1,5 +1,10 @@
 import { Alert, Alerts, initialAlerts } from "../utils/sanity/endpoints/alert";
 import {
+  Information,
+  initialInformation,
+  PraktiskInfo
+} from "../utils/sanity/endpoints/information";
+import {
   DinSituasjon,
   initialDinSituasjon,
   YourSituation
@@ -24,6 +29,7 @@ export const initialState = {
   visTekniskFeilMelding: false,
   rollevalg: "",
   alerts: initialAlerts as Alerts,
+  praktiskInfo: initialInformation as PraktiskInfo,
   dinSituasjon: initialDinSituasjon as DinSituasjon,
   rolleKontekster: initialRolleKontekster as RolleKontekster,
   relatertInfo: initialRelatertInfo as RelatertInfo,
@@ -35,6 +41,7 @@ export interface Store {
   visTekniskFeilMelding: boolean;
   rollevalg: string;
   alerts: Alerts;
+  praktiskInfo: PraktiskInfo;
   dinSituasjon: DinSituasjon;
   rolleKontekster: RolleKontekster;
   relatertInfo: RelatertInfo;
@@ -44,45 +51,52 @@ export interface Store {
 
 export type Action =
   | {
-      type: "SETT_ALERTS";
-      payload: Alert[];
-    }
+  type: "SETT_ALERTS";
+  payload: Alert[];
+}
   | {
-      type: "SETT_ALERTS_FETCH_FAILED";
-    }
+  type: "SETT_ALERTS_FETCH_FAILED";
+}
   | {
-      type: "SETT_YOUR_SITUATION";
-      payload: YourSituation[];
-    }
+  type: "SETT_INFORMATION";
+  payload: Information[];
+}
   | {
-      type: "SETT_YOUR_SITUATION_FETCH_FAILED";
-    }
+  type: "SETT_INFORMATION_FETCH_FAILED";
+}
   | {
-      type: "SETT_CONTEXTS";
-      payload: RoleContext[];
-    }
+  type: "SETT_YOUR_SITUATION";
+  payload: YourSituation[];
+}
   | {
-      type: "SETT_CONTEXTS_FETCH_FAILED";
-    }
+  type: "SETT_YOUR_SITUATION_FETCH_FAILED";
+}
   | {
-      type: "SETT_RELATED_INFO";
-      payload: RelatedInfo[];
-    }
+  type: "SETT_CONTEXTS";
+  payload: RoleContext[];
+}
   | {
-      type: "SETT_RELATED_INFO_FETCH_FAILED";
-    }
+  type: "SETT_CONTEXTS_FETCH_FAILED";
+}
   | {
-      type: "SETT_FRONTPAGE";
-      payload: Frontpage;
-    }
+  type: "SETT_RELATED_INFO";
+  payload: RelatedInfo[];
+}
   | {
-      type: "SETT_ANCHOR";
-      payload: string;
-    }
+  type: "SETT_RELATED_INFO_FETCH_FAILED";
+}
   | {
-      type: "SETT_ROLLE";
-      payload: string;
-    };
+  type: "SETT_FRONTPAGE";
+  payload: Frontpage;
+}
+  | {
+  type: "SETT_ANCHOR";
+  payload: string;
+}
+  | {
+  type: "SETT_ROLLE";
+  payload: string;
+};
 
 export const reducer = (state: Store, action: Action) => {
   switch (action.type) {
@@ -98,6 +112,22 @@ export const reducer = (state: Store, action: Action) => {
       return {
         ...state,
         alerts: { ...state.alerts, isLoaded: true },
+        visTekniskFeilMelding: true
+      };
+    }
+    case "SETT_INFORMATION":
+      return {
+        ...state,
+        praktiskInfo: {
+          info: action.payload
+            .reduce((acc, info) => ({ ...acc, [info._id]: info }), {}),
+          isLoaded: true
+        }
+      };
+    case "SETT_INFORMATION_FETCH_FAILED": {
+      return {
+        ...state,
+        praktiskInfo: { ...state.praktiskInfo, isLoaded: true },
         visTekniskFeilMelding: true
       };
     }
@@ -157,3 +187,4 @@ export const reducer = (state: Store, action: Action) => {
       return state;
   }
 };
+

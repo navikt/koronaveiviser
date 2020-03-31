@@ -8,10 +8,10 @@ import { EkspanderbartPanel } from "../../../components/ekspanderbart-panel/Eksp
 import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
 import { localeString } from "../../../utils/localeString";
 import { useStore } from "../../../store/Provider";
-import { Information } from "../../../utils/sanity/endpoints/contexts";
+import { Information } from "../../../utils/sanity/endpoints/information";
 
 type Props = {
-  praktiskInfo: Information;
+  praktiskInfo: Information[];
 };
 
 const cssPrefix = "praktisk-info";
@@ -25,14 +25,14 @@ export const PraktiskInfoPanel = ({ praktiskInfo }: Props) => {
     >
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          {praktiskInfo ? <SanityBlocks blocks={praktiskInfo.title} /> : "Praktisk informasjon"}
+          {"Praktisk informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {praktiskInfo &&
-        praktiskInfo.sections.map((section, index) => {
-          const sectionAnchor = section.anchor && section.anchor.current;
+        praktiskInfo.map((seksjon, index) => {
+          const sectionAnchor = seksjon.anchor && seksjon.anchor.current;
           const anchorName = sectionAnchor || `section-${index}`;
           const shouldOpen = anchor.hash === sectionAnchor;
           return (
@@ -42,15 +42,15 @@ export const PraktiskInfoPanel = ({ praktiskInfo }: Props) => {
                 renderContentWhenClosed={true}
                 apen={shouldOpen}
                 className={`${cssPrefix}__section`}
-                tittel={<SanityBlocks blocks={section.title} key={index} />}
+                tittel={<SanityBlocks blocks={seksjon.title} key={index} />}
                 onClick={() => triggerGaEvent(
                   GACategory.PraktiskInfo,
-                  `ekspander/${localeString(section.title)}`
+                  `ekspander/${localeString(seksjon.title)}`
                 )}
                 toggleTime={shouldOpen ? anchor.timestamp : undefined}
               >
                 <div className={`${cssPrefix}__panel-innhold`}>
-                  <SanityBlocks blocks={section.description} />
+                  <SanityBlocks blocks={seksjon.description} />
                 </div>
               </EkspanderbartPanel>
             </Fragment>

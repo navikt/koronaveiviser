@@ -26,6 +26,8 @@ const hentJson = (url: string) =>
 
 export const fetchAlerts = () => hentJson(`${apiUrl}/alerts`);
 
+export const fetchInformation = () => hentJson(`${apiUrl}/information`);
+
 export const fetchYourSituation = () =>
   hentJson(`${apiUrl}/whats-your-situation`);
 
@@ -58,3 +60,4 @@ const sjekkForFeil = async (url: string, response: Response) => {
 
 export const timeoutPromise = (ms: number, msg?: string) =>
   new Promise((_, rej) => setTimeout(() => rej(msg), ms));
+

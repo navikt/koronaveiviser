@@ -58,12 +58,6 @@ export type LocaleString = { [key in Language]: string };
 
 export type LocaleUrl = { [key in Language]: string };
 
-export type TextBlockWithTitle = {
-  title: LocaleString;
-  anchor: { current: string };
-  description: LocaleBlock;
-};
-
 export type LinkMark = {
   mark: { href: string };
   children: any;

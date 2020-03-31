@@ -105,7 +105,7 @@ server.get(`${basePath}/api/whats-your-situation`, (req, res) => {
 });
 
 server.get(`${basePath}/api/information`, (req, res) => {
-    const query = "*[_id == 'information' && !(_id in path('drafts.**'))] {...}";
+    const query = "*[_type == 'information' && !(_id in path('drafts.**'))] {...}";
     const information = cache.get("information");
     if (information) {
         res.send(information);

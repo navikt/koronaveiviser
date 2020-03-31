@@ -4,6 +4,7 @@ import {
   fetchAlerts,
   fetchContexts,
   fetchFrontpage,
+  fetchInformation,
   fetchRelated,
   fetchTimeoutMs,
   fetchYourSituation,
@@ -38,6 +39,7 @@ function App() {
 
   useEffect(() => {
     fetchAndDispatchWithTimeout(fetchAlerts, "SETT_ALERTS", "SETT_ALERTS_FAILED");
+    fetchAndDispatchWithTimeout(fetchInformation, "SETT_INFORMATION", "SETT_INFORMATION_FETCH_FAILED");
     fetchAndDispatchWithTimeout(fetchYourSituation, "SETT_YOUR_SITUATION", "SETT_YOUR_SITUATION_FETCH_FAILED");
     fetchAndDispatchWithTimeout(fetchContexts, "SETT_CONTEXTS", "SETT_CONTEXTS_FETCH_FAILED");
     fetchAndDispatchWithTimeout(fetchRelated, "SETT_RELATED_INFO", "SETT_RELATED_INFO_FETCH_FAILED");

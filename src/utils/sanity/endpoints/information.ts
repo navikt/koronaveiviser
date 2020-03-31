@@ -1,17 +1,18 @@
-import { LocaleString, TextBlockWithTitle } from "../serializers";
+import { LocaleBlock, LocaleString } from "../serializers";
 
 export type Information = {
-  sections: TextBlockWithTitle[];
-  title?: LocaleString;
-  _updatedAt?: string;
+  _id: string;
+  title: LocaleString;
+  description: LocaleBlock;
+  anchor?: { current: string };
 };
 
 export type PraktiskInfo = {
   isLoaded: boolean;
-  info: Information[];
+  info: { [id: string]: Information };
 };
 
 export const initialInformation = {
   isLoaded: false,
-  info: []
+  info: {}
 };
