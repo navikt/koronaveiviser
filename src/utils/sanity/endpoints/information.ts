@@ -1,4 +1,4 @@
-import { LocaleBlock, LocaleString } from "../serializers";
+import { LocaleBlock, LocaleString } from "../common-types";
 
 export type Information = {
   _id: string;

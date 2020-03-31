@@ -4,7 +4,7 @@ import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
 import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
 import { defaultLang } from "../../../types/language";
-import { localeString } from "../../../utils/localeString";
+import { localeString } from "../../../utils/sanity/localeString";
 import { getStorageItem, setStorageItem } from "../../../utils/sessionStorage";
 import { Element } from "react-scroll";
 

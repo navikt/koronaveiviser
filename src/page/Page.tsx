@@ -7,7 +7,7 @@ import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
-import { localeString } from "../utils/localeString";
+import { localeString } from "../utils/sanity/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
@@ -40,12 +40,16 @@ const scrollToAnchor = (id: string) => {
 };
 
 export const Page = () => {
-  const [{ anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, frontpage }, dispatch] = useStore();
+  const [
+    { anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, frontpage },
+    dispatch
+  ] = useStore();
   const isLoaded = alerts.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
   const sideTittel = localeString(frontpage.pageTitle);
   const prevScrollPos = useRef(0);
-  const dispatchAnchor = () => dispatch({ type: "SETT_ANCHOR", payload: getHash() });
+  const dispatchAnchor = () =>
+    dispatch({ type: "SETT_ANCHOR", payload: getHash() });
   window.onhashchange = dispatchAnchor;
 
   const scrollDepthHandler = () => {
@@ -66,6 +70,7 @@ export const Page = () => {
   useEffect(() => {
     if (isLoaded) {
       dispatchAnchor();
+
       const sessionScrollDepth = getStorageItem(storageKey);
       if (sessionScrollDepth && sessionScrollDepth !== "") {
         const num = parseFloat(sessionScrollDepth);

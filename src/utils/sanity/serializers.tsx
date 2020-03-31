@@ -14,18 +14,10 @@ import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Varsel } from "../../components/varsler/Varsel";
 import Lenke from "nav-frontend-lenker";
 import { GACategory, triggerGaEvent } from "../react-ga";
-import { localeString } from "../localeString";
-import { defaultLang, Language } from "../../types/language";
+import { localeString } from "./localeString";
+import { defaultLang } from "../../types/language";
+import { LocaleBlock, LocaleString, TextBlock, TypoStyle } from "./common-types";
 
-enum TypoStyle {
-  H1 = "h1",
-  H2 = "h2",
-  H3 = "h3",
-  H4 = "h4",
-  H5 = "h5",
-  H6 = "h6",
-  Normal = "normal"
-}
 
 const typoComponents = {
   [TypoStyle.H1]: Sidetittel,
@@ -37,28 +29,7 @@ const typoComponents = {
   [TypoStyle.Normal]: Normaltekst
 };
 
-export type TextBlock = {
-  node: { style: TypoStyle };
-  children: React.ReactElement[];
-};
-
-export type SanityLink = {
-  title: LocaleString;
-  url: LocaleUrl;
-};
-
-export type SanityLinkList = {
-  title: LocaleString;
-  links: SanityLink[];
-};
-
-export type LocaleBlock = { [key in Language]: TextBlock };
-
-export type LocaleString = { [key in Language]: string };
-
-export type LocaleUrl = { [key in Language]: string };
-
-export type LinkMark = {
+type LinkMark = {
   mark: { href: string };
   children: any;
 };

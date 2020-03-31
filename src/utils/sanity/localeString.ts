@@ -1,4 +1,4 @@
-import { Language } from "../types/language";
+import { Language } from "../../types/language";
 
 const language = Language.Bokmaal;
 

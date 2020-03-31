@@ -52,15 +52,7 @@
     .lenke-seksjon {
       max-width: 35rem;
 
-      @media (max-width: @mobil-max-width) {
-        margin-bottom: 0.75rem;
-      }
-
-      @media (min-width: @mobil-max-width) {
-        margin-bottom: 1.5rem;
-      }
-
-      .lenke {
+      .lenke:not(:last-child) {
         margin-bottom: 0.25rem;
       }
     }
@@ -68,10 +60,12 @@
     .lenke-seksjon:not(:only-child) {
       @media (max-width: @mobil-max-width) {
         .col-setup(1, 0);
+        margin-bottom: 0.75rem;
       }
 
       @media (min-width: @mobil-max-width) {
         .col-setup(3, 1rem);
+        margin-bottom: 1.5rem;
       }
     }
   }

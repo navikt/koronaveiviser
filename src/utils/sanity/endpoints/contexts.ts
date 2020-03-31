@@ -1,5 +1,4 @@
-import { LocaleString, SanityLinkList } from "../serializers";
-import { SanityAnchor } from "../common-types";
+import { LocaleString, SanityAnchor, SanityLinkList } from "../common-types";
 
 export type RoleContext = {
   title?: LocaleString;

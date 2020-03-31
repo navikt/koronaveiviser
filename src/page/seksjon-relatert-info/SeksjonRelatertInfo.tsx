@@ -6,7 +6,7 @@ import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { RelatertInfo } from "../../utils/sanity/endpoints/related";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
 
 type Props = {
   relatertInfo: RelatertInfo;

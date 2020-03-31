@@ -6,10 +6,10 @@ import { SanityBlocks } from "../../../components/sanity-blocks/SanityBlocks";
 import { Element } from "react-scroll";
 import { EkspanderbartPanel } from "../../../components/ekspanderbart-panel/EkspanderbartPanel";
 import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
-import { localeString } from "../../../utils/localeString";
+import { localeString } from "../../../utils/sanity/localeString";
 import { useStore } from "../../../store/Provider";
 import { Information } from "../../../utils/sanity/endpoints/information";
-import { LocaleString } from "../../../utils/sanity/serializers";
+import { LocaleString } from "../../../utils/sanity/common-types";
 
 type Props = {
   praktiskInfo: Information[];
@@ -35,9 +35,8 @@ export const PraktiskInfoPanel = ({ praktiskInfo, tittel }: Props) => {
       <div className={`${cssPrefix}__innhold`}>
         {praktiskInfo &&
         praktiskInfo.map((seksjon, index) => {
-          const sectionAnchor = seksjon.anchor;
-          const anchorName = sectionAnchor || `section-${index}`;
-          const shouldOpen = anchor.hash === sectionAnchor;
+          const anchorName = seksjon.anchor || `section-${index}`;
+          const shouldOpen = seksjon.anchor === anchor.hash;
           return (
             <Fragment key={index}>
               <Element name={anchorName} />

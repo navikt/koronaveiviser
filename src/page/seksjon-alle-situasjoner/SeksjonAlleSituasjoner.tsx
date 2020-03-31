@@ -4,7 +4,7 @@ import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./rollevalg/RolleValg";
 import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
 import { GACategory } from "../../utils/react-ga";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
 import { PraktiskInfoPanel } from "./praktisk-info/PraktiskInfoPanel";
 import { Systemtittel } from "nav-frontend-typografi";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
@@ -18,13 +18,18 @@ type Props = {
 
 const cssPrefix = "seksjon-alle-situasjoner";
 
+
+
 export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
   const [{ praktiskInfo, rollevalg }] = useStore();
   const kontekst = kontekster.kontekster.find((kontekst) => (
     localeString(kontekst.context) === rollevalg
   ));
-  const infoSeksjoner = kontekst?.inforefs?.map(infoRef =>
-    ({...praktiskInfo.info[infoRef.ref._ref], anchor: `${kontekst.anchor?.current}_${infoRef.anchor?.current}`}));
+  const infoSeksjoner = kontekst?.inforefs?.map(infoRef => {
+    const idFromRef = infoRef.ref._ref;
+    const anchor = `${kontekst.anchor?.current}_${infoRef.anchor?.current}`;
+    return {...praktiskInfo.info[idFromRef], anchor: anchor}
+  });
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
@@ -49,9 +54,9 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
                 key={index}
               />
             ))}
-            {infoSeksjoner && <PraktiskInfoPanel praktiskInfo={infoSeksjoner} tittel={kontekst.infotitle} />}
           </div>
         ) : null}
+        {infoSeksjoner && <PraktiskInfoPanel praktiskInfo={infoSeksjoner} tittel={kontekst?.infotitle} />}
       </div>
     </PanelBase>
   );
