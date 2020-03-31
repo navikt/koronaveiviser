@@ -25,7 +25,7 @@ export const SeksjonAlleSituasjoner = ({ kontekster, rolle, isLoaded }: Props) =
     localeString(kontekst.context) === rolle
   ));
   const infoSeksjoner = kontekst?.infoRefs?.map(infoRef =>
-    praktiskInfo.info[infoRef._ref]);
+    ({...praktiskInfo.info[infoRef.ref._ref], anchor: `${kontekst.anchor?.current}_${infoRef.anchor?.current}`}));
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>

@@ -1,12 +1,13 @@
 import { LocaleString, SanityLinkList } from "../serializers";
+import { SanityAnchor } from "../common-types";
 
 export type RoleContext = {
   title?: LocaleString;
   context: LocaleString;
   order: number;
-  infoRefs?: SanityRef[];
+  infoRefs?: InfoRef[];
   description?: SanityLinkList[];
-  anchor?: { current: string };
+  anchor?: SanityAnchor;
 };
 
 export type RolleKontekster = {
@@ -18,6 +19,11 @@ export const initialRolleKontekster = {
   isLoaded: false,
   kontekster: []
 };
+
+type InfoRef = {
+  ref: SanityRef;
+  anchor?: SanityAnchor;
+}
 
 type SanityRef = {
   _ref: string

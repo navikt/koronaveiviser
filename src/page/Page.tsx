@@ -48,7 +48,7 @@ export const Page = () => {
   const dispatchAnchor = () => dispatch({ type: "SETT_ANCHOR", payload: getHash() });
   window.onhashchange = dispatchAnchor;
 
-  const scrollHandler = () => {
+  const scrollDepthHandler = () => {
     const currentScrollPos = getScrollPosition();
     const breakPointPassedDown = scrollBreakpoints
       .find(breakPoint =>
@@ -73,7 +73,7 @@ export const Page = () => {
           prevScrollPos.current = parseFloat(sessionScrollDepth);
         }
       }
-      const handler = scrollHandler;
+      const handler = scrollDepthHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
     }
@@ -82,8 +82,10 @@ export const Page = () => {
 
   useEffect(() => {
     if (isLoaded) {
-      scrollToAnchor(anchor.hash);
-      removeHash();
+      window.requestAnimationFrame(() => {
+        scrollToAnchor(anchor.hash);
+        removeHash();
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);

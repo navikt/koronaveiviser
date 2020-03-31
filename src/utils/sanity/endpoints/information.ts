@@ -4,7 +4,7 @@ export type Information = {
   _id: string;
   title: LocaleString;
   description: LocaleBlock;
-  anchor?: { current: string };
+  anchor: string;
 };
 
 export type PraktiskInfo = {

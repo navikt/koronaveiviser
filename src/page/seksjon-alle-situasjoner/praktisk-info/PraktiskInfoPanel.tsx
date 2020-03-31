@@ -32,7 +32,7 @@ export const PraktiskInfoPanel = ({ praktiskInfo }: Props) => {
       <div className={`${cssPrefix}__innhold`}>
         {praktiskInfo &&
         praktiskInfo.map((seksjon, index) => {
-          const sectionAnchor = seksjon.anchor && seksjon.anchor.current;
+          const sectionAnchor = seksjon.anchor;
           const anchorName = sectionAnchor || `section-${index}`;
           const shouldOpen = anchor.hash === sectionAnchor;
           return (

@@ -30,8 +30,9 @@ export const RolleValg = () => {
       return;
     }
 
-    const contextFromAnchor = konteksterSorted
-      .find(context => context.anchor && context.anchor.current === anchor.hash);
+    const anchorSegment = anchor.hash.split("_")[0];
+    const contextFromAnchor = anchorSegment && konteksterSorted
+      .find(context => context.anchor && context.anchor.current === anchorSegment);
     if (contextFromAnchor) {
       setRolle(localeString(contextFromAnchor.context));
       return;
