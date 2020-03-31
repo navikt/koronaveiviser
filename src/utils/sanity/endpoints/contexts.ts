@@ -5,7 +5,8 @@ export type RoleContext = {
   title?: LocaleString;
   context: LocaleString;
   order: number;
-  infoRefs?: InfoRef[];
+  infotitle?: LocaleString;
+  inforefs?: InfoRef[];
   description?: SanityLinkList[];
   anchor?: SanityAnchor;
 };

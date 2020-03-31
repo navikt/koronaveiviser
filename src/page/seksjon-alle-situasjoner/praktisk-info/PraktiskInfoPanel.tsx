@@ -9,25 +9,28 @@ import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
 import { localeString } from "../../../utils/localeString";
 import { useStore } from "../../../store/Provider";
 import { Information } from "../../../utils/sanity/endpoints/information";
+import { LocaleString } from "../../../utils/sanity/serializers";
 
 type Props = {
   praktiskInfo: Information[];
+  tittel?: LocaleString;
 };
 
 const cssPrefix = "praktisk-info";
 
-export const PraktiskInfoPanel = ({ praktiskInfo }: Props) => {
+export const PraktiskInfoPanel = ({ praktiskInfo, tittel }: Props) => {
   const [{ anchor }] = useStore();
 
   return (
     <PanelBase
       className={`${cssPrefix}`}
     >
-      <div className={`${cssPrefix}__header`}>
-        <Systemtittel>
-          {"Praktisk informasjon"}
-        </Systemtittel>
-      </div>
+      {tittel && (
+        <div className={`${cssPrefix}__header`}>
+          <Systemtittel>
+            <SanityBlocks blocks={tittel} />
+          </Systemtittel>
+        </div>)}
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
         {praktiskInfo &&
