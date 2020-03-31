@@ -120,6 +120,22 @@ server.get(`${basePath}/api/information`, (req, res) => {
     }
 });
 
+server.get(`${basePath}/api/informationNew`, (req, res) => {
+    const query = "*[_type == 'infopanel' && !(_id in path('drafts.**'))] {...}";
+    const information = cache.get("informationNew");
+    if (information) {
+        res.send(information);
+    } else {
+        client
+            .fetch(query)
+            .then(result => {
+                cache.set("informationNew", result);
+                res.send(result);
+            })
+            .catch(error => res.send(error));
+    }
+});
+
 server.get(`${basePath}/api/related`, (req, res) => {
     const query = "*[_id == 'related' && !(_id in path('drafts.**'))] {...}";
     const related = cache.get("related");
