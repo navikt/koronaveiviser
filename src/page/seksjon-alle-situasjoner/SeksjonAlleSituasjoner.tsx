@@ -26,9 +26,9 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
   ));
   const infoSeksjoner = kontekst?.inforefs?.reduce((acc, infoRef) => {
     const idFromRef = infoRef.ref._ref;
-    const anchor = `${kontekst.anchor?.current}_${infoRef.anchor?.current}`;
+    const anchor = infoRef.anchor?.current;
     const infoSeksjon = praktiskInfo.info[idFromRef];
-    return infoSeksjon ? acc.concat([{...infoSeksjon, anchor: anchor}]) : acc;
+    return infoSeksjon ? acc.concat([{ ...infoSeksjon, anchor: anchor }]) : acc;
   }, [] as Information[]);
 
   return (
@@ -43,7 +43,7 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
             <HeaderSeparator />
           </div>
         )}
-        {kontekst && kontekst.description ? (
+        {kontekst?.description ? (
           <div className={`${cssPrefix}__lenkeseksjoner`}>
             {kontekst?.description?.map((lenkeSeksjon, index) => (
               <LenkeSeksjon

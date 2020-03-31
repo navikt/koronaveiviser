@@ -7,10 +7,16 @@ import { defaultLang } from "../../../types/language";
 import { localeString } from "../../../utils/sanity/localeString";
 import { getStorageItem, setStorageItem } from "../../../utils/sessionStorage";
 import { Element } from "react-scroll";
+import { RoleContext } from "../../../utils/sanity/endpoints/contexts";
 
 const cssPrefix = "rollevalg";
 
 const storageKey = "nav-korona-context";
+
+const findContextFromAnchor = (contexts: RoleContext[], anchor: string) => (
+  anchor && contexts.find(context => context.anchor?.current === anchor ||
+    context.inforefs?.some(inforef => inforef.anchor?.current === anchor))
+);
 
 export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
@@ -26,13 +32,11 @@ export const RolleValg = () => {
     .sort((a, b) => a.order - b.order);
 
   useEffect(() => {
-    if (!konteksterSorted[0]) {
+    if (konteksterSorted.length === 0) {
       return;
     }
 
-    const anchorSegment = anchor.hash.split("_")[0];
-    const contextFromAnchor = anchorSegment && konteksterSorted
-      .find(context => context.anchor && context.anchor.current === anchorSegment);
+    const contextFromAnchor = findContextFromAnchor(konteksterSorted, anchor.hash);
     if (contextFromAnchor) {
       setRolle(localeString(contextFromAnchor.context));
       return;
