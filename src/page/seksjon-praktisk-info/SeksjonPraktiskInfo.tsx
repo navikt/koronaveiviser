@@ -5,7 +5,6 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import { PraktiskInfo } from "../../utils/sanity/endpoints/information";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Element } from "react-scroll";
-import { seksjonIds } from "../Page";
 import { EkspanderbartPanel } from "../../components/ekspanderbart-panel/EkspanderbartPanel";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { localeString } from "../../utils/localeString";
@@ -28,15 +27,14 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
         isLoaded ? ` seksjon-panel--loaded` : ""
       }`}
     >
-      <div className={`${cssPrefix}__header`} id={seksjonIds[3]}>
+      <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {info ? <SanityBlocks blocks={info.title} /> : "Praktisk informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
-        {info &&
-        info.sections.map((section, index) => {
+        {info?.sections?.map((section, index) => {
           const sectionAnchor = section.anchor && section.anchor.current;
           const anchorName = sectionAnchor || `section-${index}`;
           const shouldOpen = anchor.hash === sectionAnchor;
