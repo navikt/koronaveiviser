@@ -14,14 +14,6 @@ import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 import { scroller } from "react-scroll";
 
-export const seksjonIds = [
-  "seksjon-varsler",
-  "seksjon-dinsituasjon",
-  "seksjon-allesituasjoner",
-  "seksjon-praktiskinfo",
-  "seksjon-relatertinfo",
-];
-
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
 const getScrollPosition = () =>

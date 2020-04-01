@@ -7,7 +7,6 @@ import { DinSituasjon } from "../../utils/sanity/endpoints/your-situation";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import { localeString } from "../../utils/localeString";
-import { seksjonIds } from "../Page";
 
 type Props = {
   dinSituasjon: DinSituasjon;
@@ -21,7 +20,7 @@ export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
-      <div className={`${cssPrefix}__header`} id={seksjonIds[1]}>
+      <div className={`${cssPrefix}__header`}>
         <Systemtittel>
           {situasjoner ? <SanityBlocks blocks={situasjoner.title} /> : "Hva er din situasjon?"}
         </Systemtittel>
