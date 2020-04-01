@@ -14,15 +14,17 @@ const cssPrefix = "seksjon-varsler";
 
 export const SeksjonVarsler = ({ varsler, tittel, isLoaded }: Props) => {
   return (
-    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`} >
+    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Innholdstittel>
           {tittel}
         </Innholdstittel>
       </div>
-      <div className={`${cssPrefix}__innhold`}>
-        <SanityBlocks blocks={varsler.alerts} />
-      </div>
+      {varsler.alerts?.length > 0 && (
+        <div className={`${cssPrefix}__innhold`}>
+          <SanityBlocks blocks={varsler.alerts} />
+        </div>
+      )}
     </PanelBase>
   );
 };
