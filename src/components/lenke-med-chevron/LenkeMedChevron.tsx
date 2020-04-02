@@ -14,9 +14,9 @@ type Props = {
 const lenkeTekstMedChevron = (tekst: React.ReactNode, isExternal = false) => (
   <>
     <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
-    <div className={"chevronlenke__tekst"}>
+    <div>
       {tekst}
-      {isExternal && <div className={"chevronlenke__ekstern-ikon"}><ExternalLinkIcon /></div>}
+      {isExternal && <span className={"chevronlenke__ekstern-ikon"}><ExternalLinkIcon /></span>}
     </div>
   </>
 );
