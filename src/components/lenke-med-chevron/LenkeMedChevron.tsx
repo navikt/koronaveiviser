@@ -16,7 +16,6 @@ const getHostname = (url: string) => url
   .replace(/www\./i, "")
   .split('/')[0];
 
-
 const lenkeTekstMedChevron = (tekst: React.ReactNode, externalHostname?: string) => (
   <>
     <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
