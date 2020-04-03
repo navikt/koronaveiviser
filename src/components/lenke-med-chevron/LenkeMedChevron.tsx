@@ -16,16 +16,18 @@ const getHostname = (url: string) => url
   .replace(/www\./i, "")
   .split('/')[0];
 
+const cssPrefix = "chevronlenke";
+
 const lenkeTekstMedChevron = (tekst: React.ReactNode, externalHostname?: string) => (
   <>
-    <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
+    <div><HoyreChevron className={`${cssPrefix}__chevron`} /></div>
     <div>
       {tekst}
       {externalHostname && (
-        <>
-          <span className={"chevronlenke__ekstern-ikon"}><ExternalLinkIcon /></span>
-          {`[${externalHostname}]`}
-        </>
+        <span className={`${cssPrefix}__ekstern`}>
+          <span className={`${cssPrefix}__ekstern-ikon`}><ExternalLinkIcon /></span>
+          {`(${externalHostname})`}
+        </span>
       )}
     </div>
   </>
@@ -39,7 +41,7 @@ const LenkeMedChevron = (props: Props) => {
   return (
     <Lenke
       href={href}
-      className={`chevronlenke${className ? ` ${className}` : ''}`}
+      className={`${cssPrefix}${className ? ` ${className}` : ''}`}
       onClick={onClick}
       id={id}
     >
