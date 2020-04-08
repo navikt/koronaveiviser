@@ -42,7 +42,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
             <Fragment key={index}>
               <Element name={anchorName} />
               <EkspanderbartPanel
-                renderContentWhenClosed={true}
+                renderContentWhenClosed={false}
                 apen={shouldOpen}
                 className={`${cssPrefix}__section`}
                 tittel={<SanityBlocks blocks={section.title} key={index} />}
