@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { EkspanderbartpanelBase } from "nav-frontend-ekspanderbartpanel";
 import { useEffect, useState } from "react";
+import { Undertittel } from 'nav-frontend-typografi';
 
 type Props = {
   apen: boolean;
-  tittel: JSX.Element;
+  tittel: string;
   className?: string;
   border?: boolean;
   toggleTime?: number;
@@ -28,7 +29,7 @@ export const EkspanderbartPanel = ({ apen, className, tittel, border, toggleTime
         setIsOpen(!isOpen);
         onClick && onClick(event);
       }}
-      tittel={tittel}
+      tittel={<Undertittel>{tittel}</Undertittel>}
       border={border}
       renderContentWhenClosed={renderContentWhenClosed}
     >

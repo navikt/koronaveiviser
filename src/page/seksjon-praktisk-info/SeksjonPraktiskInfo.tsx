@@ -45,7 +45,7 @@ export const SeksjonPraktiskInfo = ({ praktiskInfo, isLoaded }: Props) => {
                 renderContentWhenClosed={false}
                 apen={shouldOpen}
                 className={`${cssPrefix}__section`}
-                tittel={<SanityBlocks blocks={section.title} key={index} />}
+                tittel={localeString(section.title)}
                 onClick={() => triggerGaEvent(
                   GACategory.PraktiskInfo,
                   `ekspander/${localeString(section.title)}`
