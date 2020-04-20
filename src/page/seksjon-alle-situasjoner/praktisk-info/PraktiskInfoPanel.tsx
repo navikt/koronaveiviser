@@ -37,6 +37,7 @@ export const PraktiskInfoPanel = ({ praktiskInfo, tittel }: Props) => {
         praktiskInfo.map((seksjon, index) => {
           const anchorName = seksjon.anchor || `section-${index}`;
           const shouldOpen = seksjon.anchor === anchor.hash;
+          const title = localeString(seksjon.title);
           return (
             <Fragment key={index}>
               <Element name={anchorName} />
@@ -44,10 +45,10 @@ export const PraktiskInfoPanel = ({ praktiskInfo, tittel }: Props) => {
                 renderContentWhenClosed={true}
                 apen={shouldOpen}
                 className={`${cssPrefix}__section`}
-                tittel={<SanityBlocks blocks={seksjon.title} key={index} />}
+                tittel={title}
                 onClick={() => triggerGaEvent(
                   GACategory.PraktiskInfo,
-                  `ekspander/${localeString(seksjon.title)}`
+                  `ekspander/${title}`
                 )}
                 toggleTime={shouldOpen ? anchor.timestamp : undefined}
               >
