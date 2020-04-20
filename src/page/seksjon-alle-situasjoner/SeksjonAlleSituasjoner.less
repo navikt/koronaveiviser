@@ -8,13 +8,36 @@
     padding: @padding-mobil;
   }
 
-  &__header {
-    text-align: center;
+  .rollevalg {
+    width: 100%;
+
+    @media (max-width: @desktop-max-width) {
+      margin-bottom: 0.75rem;
+    }
   }
 
-  &__rollevalg {
-    margin-top: 2rem;
+  &__fane {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    border: @border-props-alle-situasjoner;
+    border-radius: @border-radius-alle-situasjoner;
+    border-top: none;
+    padding: 1.5rem;
+    box-sizing: border-box;
+
+    @media (max-width: @desktop-max-width) {
+      border: none;
+      padding: @padding-mobil;
+    }
+  }
+
+  &__fane-tittel {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
   }
 
   &__lenkeseksjoner {
@@ -24,33 +47,12 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    border: @border-props-alle-situasjoner;
-    border-radius: @border-radius-alle-situasjoner;
-    border-top: none;
-
-    padding: 0 1.5rem 1.5rem 1.5rem;
-
-    @media (max-width: @desktop-max-width) {
-      border: none;
-      padding: 0;
-    }
-
     box-sizing: border-box;
-
-
 
     .lenke-seksjon {
       max-width: 35rem;
 
-      @media (max-width: @mobil-max-width) {
-        margin-top: 0.75rem;
-      }
-
-      @media (min-width: @mobil-max-width) {
-        margin-top: 1.5rem;
-      }
-
-      .lenke {
+      .lenke:not(:last-child) {
         margin-bottom: 0.25rem;
       }
     }
@@ -58,10 +60,12 @@
     .lenke-seksjon:not(:only-child) {
       @media (max-width: @mobil-max-width) {
         .col-setup(1, 0);
+        margin-bottom: 0.75rem;
       }
 
       @media (min-width: @mobil-max-width) {
         .col-setup(3, 1rem);
+        margin-bottom: 1.5rem;
       }
     }
   }

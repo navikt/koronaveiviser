@@ -1,4 +1,4 @@
-import { LocaleString, SanityLink } from "../serializers";
+import { LocaleString, SanityLink } from "../common-types";
 
 export type RelatedInfo = {
   description: SanityLink[];
