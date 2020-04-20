@@ -11,25 +11,37 @@ type Props = {
   id?: string;
 };
 
-const lenkeTekstMedChevron = (tekst: React.ReactNode, isExternal = false) => (
+const getHostname = (url: string) => url
+  .replace(/https?:\/\//i, "")
+  .replace(/www\./i, "")
+  .split('/')[0];
+
+const cssPrefix = "chevronlenke";
+
+const lenkeTekstMedChevron = (tekst: React.ReactNode, externalHostname?: string) => (
   <>
-    <div><HoyreChevron className={"chevronlenke__chevron"} /></div>
-    <div className={"chevronlenke__tekst"}>
+    <div><HoyreChevron className={`${cssPrefix}__chevron`} /></div>
+    <div>
       {tekst}
-      {isExternal && <div className={"chevronlenke__ekstern-ikon"}><ExternalLinkIcon /></div>}
+      {externalHostname && (
+        <span className={`${cssPrefix}__ekstern`}>
+          <span className={`${cssPrefix}__ekstern-ikon`}><ExternalLinkIcon /></span>
+          {`(${externalHostname})`}
+        </span>
+      )}
     </div>
   </>
 );
 
 const LenkeMedChevron = (props: Props) => {
   const { href, className, id, onClick, children } = props;
-  const isExternal = href !== "" && !href.includes("nav.no");
-  const lenkeTekst = lenkeTekstMedChevron(children, isExternal);
+  const externalHostname = !href.includes("nav.no") ? getHostname(href) : undefined;
+  const lenkeTekst = lenkeTekstMedChevron(children, externalHostname);
 
   return (
     <Lenke
       href={href}
-      className={`chevronlenke${className ? ` ${className}` : ''}`}
+      className={`${cssPrefix}${className ? ` ${className}` : ''}`}
       onClick={onClick}
       id={id}
     >
