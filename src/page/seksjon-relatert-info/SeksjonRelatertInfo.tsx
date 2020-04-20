@@ -6,7 +6,7 @@ import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { RelatertInfo } from "../../utils/sanity/endpoints/related";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
 import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
 
 type Props = {
   relatertInfo: RelatertInfo;
@@ -25,12 +25,12 @@ export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
       <div className={`${cssPrefix}__header`}>
         <Systemtittel>
-          <SanityBlocks blocks={info.title} />
+          {info ? <SanityBlocks blocks={info.title} /> : "Relatert informasjon"}
         </Systemtittel>
       </div>
       <HeaderSeparator />
       <div className={`${cssPrefix}__innhold`}>
-        {info.description.map((link, index) => {
+        {info && info.description.map((link, index) => {
           const url = localeString(link.url);
           return (
             <div className={`${cssPrefix}__lenke-container`} key={index}>

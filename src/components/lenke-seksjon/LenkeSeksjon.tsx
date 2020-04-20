@@ -1,10 +1,10 @@
 import React from 'react';
 import { Undertittel } from "nav-frontend-typografi";
 import LenkeMedChevron from "../lenke-med-chevron/LenkeMedChevron";
-import { LocaleString, SanityLink } from "../../utils/sanity/serializers";
 import { SanityBlocks } from "../sanity-blocks/SanityBlocks";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
+import { LocaleString, SanityLink } from "../../utils/sanity/common-types";
 
 type Props = {
   tittel: LocaleString;

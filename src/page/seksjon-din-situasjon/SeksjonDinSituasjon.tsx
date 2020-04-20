@@ -6,7 +6,7 @@ import Lenkepanel from "nav-frontend-lenkepanel/lib";
 import { DinSituasjon } from "../../utils/sanity/endpoints/your-situation";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { GACategory, triggerGaEvent } from "../../utils/react-ga";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
 
 type Props = {
   dinSituasjon: DinSituasjon;

@@ -60,3 +60,4 @@ const sjekkForFeil = async (url: string, response: Response) => {
 
 export const timeoutPromise = (ms: number, msg?: string) =>
   new Promise((_, rej) => setTimeout(() => rej(msg), ms));
+

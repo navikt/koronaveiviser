@@ -1,48 +1,63 @@
 import React from 'react';
 import PanelBase from "nav-frontend-paneler";
-import { Systemtittel } from "nav-frontend-typografi";
-import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
-import { RolleValg } from "./RolleValg";
+import { RolleValg } from "./rollevalg/RolleValg";
 import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
 import { GACategory } from "../../utils/react-ga";
-import { localeString } from "../../utils/localeString";
+import { localeString } from "../../utils/sanity/localeString";
+import { PraktiskInfoPanel } from "./praktisk-info/PraktiskInfoPanel";
+import { Systemtittel } from "nav-frontend-typografi";
+import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
+import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
+import { useStore } from "../../store/Provider";
+import { Information } from "../../utils/sanity/endpoints/information";
 
 type Props = {
-  rolleKontekst: RolleKontekster;
-  rolle: string;
+  kontekster: RolleKontekster;
   isLoaded: boolean;
 };
 
 const cssPrefix = "seksjon-alle-situasjoner";
 
-export const SeksjonAlleSituasjoner = ({ rolleKontekst, rolle, isLoaded }: Props) => {
-  const lenkerForKontekst = rolleKontekst.kontekster.find((kontekst) => (
-    localeString(kontekst.context) === rolle
+export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
+  const [{ praktiskInfo, rollevalg }] = useStore();
+  const kontekst = kontekster.kontekster.find((kontekst) => (
+    localeString(kontekst.context) === rollevalg
   ));
+  const infoSeksjoner = kontekst?.inforefs?.reduce((acc, infoRef) => {
+    const idFromRef = infoRef.ref._ref;
+    const anchor = infoRef.anchor?.current;
+    const infoSeksjon = praktiskInfo.info[idFromRef];
+    return infoSeksjon ? acc.concat([{ ...infoSeksjon, anchor: anchor }]) : acc;
+  }, [] as Information[]);
 
   return (
     <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
-      <div className={`${cssPrefix}__header`}>
-        <Systemtittel>
-          {"Alle situasjoner"}
-        </Systemtittel>
-      </div>
-      <HeaderSeparator />
       <RolleValg />
-      {lenkerForKontekst?.description ? (
-        <div className={`${cssPrefix}__lenkeseksjoner`}>
-          {lenkerForKontekst.description.map((lenkeSeksjon, index) => (
-            <LenkeSeksjon
-              tittel={lenkeSeksjon.title}
-              lenker={lenkeSeksjon.links}
-              rolle={rolle}
-              gaCategory={GACategory.AlleSituasjoner}
-              key={index}
-            />
-          ))}
-        </div>
-      ) : null}
+      <div className={`${cssPrefix}__fane`}>
+        {kontekst?.title && (
+          <div className={`${cssPrefix}__fane-tittel`}>
+            <Systemtittel>
+              <SanityBlocks blocks={kontekst.title} />
+            </Systemtittel>
+            <HeaderSeparator />
+          </div>
+        )}
+        {kontekst?.description ? (
+          <div className={`${cssPrefix}__lenkeseksjoner`}>
+            {kontekst?.description?.map((lenkeSeksjon, index) => (
+              <LenkeSeksjon
+                tittel={lenkeSeksjon.title}
+                lenker={lenkeSeksjon.links}
+                rolle={rollevalg}
+                gaCategory={GACategory.AlleSituasjoner}
+                key={index}
+              />
+            ))}
+          </div>
+        ) : null}
+        {infoSeksjoner && <PraktiskInfoPanel praktiskInfo={infoSeksjoner} tittel={kontekst?.infotitle} />}
+      </div>
     </PanelBase>
   );
 };

@@ -1,5 +1,5 @@
 import { AlertStripeType } from "nav-frontend-alertstriper";
-import { LocaleBlock } from "../serializers";
+import { LocaleBlock } from "../common-types";
 
 export type Alert = {
   type: AlertStripeType;

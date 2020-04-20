@@ -1,5 +1,5 @@
-import { LocaleString } from "../serializers";
 import { Language } from "../../../types/language";
+import { LocaleString } from "../common-types";
 
 export type Frontpage = {
   pageTitle: LocaleString;

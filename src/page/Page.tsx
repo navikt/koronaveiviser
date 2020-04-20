@@ -2,13 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
-import { SeksjonPraktiskInfo } from "./seksjon-praktisk-info/SeksjonPraktiskInfo";
 import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
-import { localeString } from "../utils/localeString";
+import { localeString } from "../utils/sanity/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
@@ -41,15 +40,19 @@ const scrollToAnchor = (id: string) => {
 };
 
 export const Page = () => {
-  const [{ anchor, alerts, praktiskInfo, dinSituasjon, rolleKontekster, relatertInfo, rollevalg, frontpage }, dispatch] = useStore();
-  const isLoaded = alerts.isLoaded && praktiskInfo.isLoaded && dinSituasjon.isLoaded
+  const [
+    { anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, frontpage },
+    dispatch
+  ] = useStore();
+  const isLoaded = alerts.isLoaded && dinSituasjon.isLoaded
     && rolleKontekster.isLoaded && relatertInfo.isLoaded;
   const sideTittel = localeString(frontpage.pageTitle);
   const prevScrollPos = useRef(0);
-  const dispatchAnchor = () => dispatch({ type: "SETT_ANCHOR", payload: getHash() });
+  const dispatchAnchor = () =>
+    dispatch({ type: "SETT_ANCHOR", payload: getHash() });
   window.onhashchange = dispatchAnchor;
 
-  const scrollHandler = () => {
+  const scrollDepthHandler = () => {
     const currentScrollPos = getScrollPosition();
     const breakPointPassedDown = scrollBreakpoints
       .find(breakPoint =>
@@ -67,6 +70,7 @@ export const Page = () => {
   useEffect(() => {
     if (isLoaded) {
       dispatchAnchor();
+
       const sessionScrollDepth = getStorageItem(storageKey);
       if (sessionScrollDepth && sessionScrollDepth !== "") {
         const num = parseFloat(sessionScrollDepth);
@@ -74,7 +78,7 @@ export const Page = () => {
           prevScrollPos.current = parseFloat(sessionScrollDepth);
         }
       }
-      const handler = scrollHandler;
+      const handler = scrollDepthHandler;
       window.addEventListener("scroll", handler);
       return () => window.removeEventListener("scroll", handler);
     }
@@ -83,8 +87,10 @@ export const Page = () => {
 
   useEffect(() => {
     if (isLoaded) {
-      scrollToAnchor(anchor.hash);
-      removeHash();
+      window.requestAnimationFrame(() => {
+        scrollToAnchor(anchor.hash);
+        removeHash();
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);
@@ -102,8 +108,7 @@ export const Page = () => {
       {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
       <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
-      <SeksjonAlleSituasjoner rolleKontekst={rolleKontekster} rolle={rollevalg} isLoaded={isLoaded} />
-      <SeksjonPraktiskInfo praktiskInfo={praktiskInfo} isLoaded={isLoaded} />
+      <SeksjonAlleSituasjoner kontekster={rolleKontekster} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
       <NavChatbot
         customerKey="41155"
