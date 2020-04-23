@@ -56,7 +56,12 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
             ))}
           </div>
         ) : null}
-        {infoSeksjoner && <PraktiskInfoPanel praktiskInfo={infoSeksjoner} tittel={kontekst?.infotitle} />}
+        {infoSeksjoner && infoSeksjoner.length > 0 && (
+          <PraktiskInfoPanel
+            praktiskInfo={infoSeksjoner}
+            tittel={kontekst?.infotitle}
+          />
+        )}
       </div>
     </PanelBase>
   );
