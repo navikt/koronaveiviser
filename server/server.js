@@ -57,7 +57,10 @@ server.engine("html", mustacheExpress());
 
 // Api
 server.get(`${basePath}/api/alerts`, (req, res) => {
-    const query = "*[_type == 'alert' && !(_id in path('drafts.**'))] {...}";
+    const query = "*[_type == 'alert' " +
+        "&& (displayOnAllPages == true || 'koronaveiviseren' in displayOnSpesificPages) " +
+        "&& !(_id in path('drafts.**'))] {...}";
+
     const alerts = cache.get("alerts");
     if (alerts) {
         res.send(alerts);
