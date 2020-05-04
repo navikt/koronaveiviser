@@ -1,42 +1,30 @@
 import React from "react";
 import Lenke from "nav-frontend-lenker";
 import { HoyreChevron } from "nav-frontend-chevron";
-import { ExternalLinkIcon } from "../../assets/ExternalLinkIcon";
+import { isExternalUrl, textWithExternalIcon } from "../../utils/url-utils";
 
 type Props = {
   href: string;
-  children: JSX.Element;
+  children: React.ReactNode;
   onClick?: (e: any) => void;
   className?: string;
   id?: string;
 };
 
-const getHostname = (url: string) => url
-  .replace(/https?:\/\//i, "")
-  .replace(/www\./i, "")
-  .split('/')[0];
-
 const cssPrefix = "chevronlenke";
 
-const lenkeTekstMedChevron = (tekst: React.ReactNode, externalHostname?: string) => (
+const lenkeTekstMedChevron = (tekst: React.ReactNode, href: string) => (
   <>
     <div><HoyreChevron className={`${cssPrefix}__chevron`} /></div>
     <div>
-      {tekst}
-      {externalHostname && (
-        <span className={`${cssPrefix}__ekstern`}>
-          <span className={`${cssPrefix}__ekstern-ikon`}><ExternalLinkIcon /></span>
-          {`(${externalHostname})`}
-        </span>
-      )}
+      {isExternalUrl(href) ? textWithExternalIcon(tekst) : tekst}
     </div>
   </>
 );
 
 const LenkeMedChevron = (props: Props) => {
   const { href, className, id, onClick, children } = props;
-  const externalHostname = !href.includes("nav.no") ? getHostname(href) : undefined;
-  const lenkeTekst = lenkeTekstMedChevron(children, externalHostname);
+  const lenkeTekst = lenkeTekstMedChevron(children, href);
 
   return (
     <Lenke
