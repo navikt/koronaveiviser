@@ -38,7 +38,7 @@ export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = GACategory.An
                 )
               }}
             >
-              <SanityBlocks blocks={lenke.title} />
+              {localeString(lenke.title)}
             </LenkeMedChevron>
           )
         })}
