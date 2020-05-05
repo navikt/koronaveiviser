@@ -11,7 +11,6 @@ import {
   timeoutPromise
 } from "./clients/api";
 import { useStore } from "./store/Provider";
-import { hookChatbotOpenWithGaEvent } from "./utils/chatbotUtils";
 
 function App() {
   const [, dispatch] = useStore();
@@ -56,7 +55,6 @@ function App() {
       })
       .catch(console.error);
 
-    hookChatbotOpenWithGaEvent();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -5,13 +5,13 @@ import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSi
 import { useStore } from "../store/Provider";
 import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
-import NavChatbot from "@navikt/nav-chatbot";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/sanity/localeString";
 import MetaTags from "react-meta-tags";
 import { GACategory, triggerGaEvent } from "../utils/react-ga";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 import { scroller } from "react-scroll";
+import { ChatbotWrapper } from "../components/chatbot-wrapper/ChatbotWrapper";
 
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
@@ -110,10 +110,11 @@ export const Page = () => {
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
       <SeksjonAlleSituasjoner kontekster={rolleKontekster} isLoaded={isLoaded} />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
-      <NavChatbot
+      <ChatbotWrapper
         customerKey="41155"
         queueKey="Q_CHAT_BOT"
         configId="599f9e7c-7f6b-4569-81a1-27202c419953"
+        onOpen={() => triggerGaEvent(GACategory.Andre, "open-chatbot")}
       />
     </div>
   );
