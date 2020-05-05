@@ -1,5 +1,9 @@
 
 .chatbot-wrapper {
+  // Obs: Dette classname'et genereres av styledcomponents i chatbot'en
+  // Denne er gyldig for chatbot v.1.2.1
+  @chatbot-classname: jMySyT;
+
   @offset-desktop: 50px;
   @offset-mobil: 20px;
   @icon-size: 68px;
@@ -9,9 +13,7 @@
 
   cursor: pointer;
 
-  // Obs: Dette classname'et genereres av styledcomponents i chatbot'en
-  // Denne er gyldig for chatbot v.1.2.1
-  .jMySyT {
+  .@{chatbot-classname} {
     bottom: @offset-desktop;
     right: @offset-desktop;
     width: @icon-size;
@@ -31,7 +33,7 @@
       color: @white;
     }
 
-    .jMySyT {
+    .@{chatbot-classname} {
       transform: scale(1.25);
     }
   }
