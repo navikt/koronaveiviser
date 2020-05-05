@@ -21,31 +21,27 @@ export const ChatbotWrapper = ({ customerKey, queueKey, configId, onOpen }: Prop
       if (onOpen) {
         onOpen();
       }
-    }
-    else {
+    } else {
       setCallbackOnChatbotOpen(() => setChatbotOpened(true));
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatbotOpened]);
 
   return (
-    <>
-      <div
-        className={cssPrefix}
-        onClick={() => openChatbot(setChatbotOpened)}
-      >
-        <div className={`${cssPrefix}__visual ${chatbotOpened ? `${cssPrefix}__visual--open` : ""}`}>
-          <Normaltekst className={`${cssPrefix}__text`}>
-            {"Chatbot Frida"}
-          </Normaltekst>
-        </div>
-        <NavChatbot
-          customerKey={customerKey}
-          queueKey={queueKey}
-          configId={configId}
-        />
+    <div
+      className={cssPrefix}
+      onClick={() => openChatbot(setChatbotOpened)}
+    >
+      <div className={`${cssPrefix}__visual ${chatbotOpened ? `${cssPrefix}__visual--open` : ""}`}>
+        <Normaltekst className={`${cssPrefix}__text`}>
+          {"Chatbot Frida"}
+        </Normaltekst>
       </div>
-    </>
+      <NavChatbot
+        customerKey={customerKey}
+        queueKey={queueKey}
+        configId={configId}
+      />
+    </div>
   );
 };
