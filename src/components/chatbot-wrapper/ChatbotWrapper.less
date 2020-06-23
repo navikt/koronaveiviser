@@ -1,3 +1,4 @@
+@mobil-max-width: 768px;
 
 .chatbot-wrapper {
   // Obs: Dette classname'et genereres av styledcomponents i chatbot'en
@@ -11,17 +12,33 @@
   @text-height: 48px;
   @text-offset: (@icon-size - @text-height) / 2;
 
-  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9998;
+  padding-bottom: @offset-desktop;
+  padding-right: @offset-desktop;
+  padding-top: 8px;
+
+  @media (max-width: @mobil-max-width) {
+    padding-bottom: @offset-mobil;
+    padding-right: @offset-mobil;
+  }
+
+  &__innhold {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: @icon-size;
+  }
 
   .@{chatbot-classname} {
-    bottom: @offset-desktop;
-    right: @offset-desktop;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     width: @icon-size;
     height: @icon-size;
-    @media (max-width: @mobil-max-width) {
-      bottom: @offset-mobil;
-      right: @offset-mobil;
-    }
   }
 
   &:hover {
@@ -39,10 +56,7 @@
   }
 
   &__visual {
-    position: fixed;
-    z-index: 9998;
-    bottom: @offset-desktop + @text-offset;
-    right: @offset-desktop;
+    position: relative;
 
     width: @icon-size + @text-width;
     height: @text-height;
@@ -62,11 +76,6 @@
     transition-property: width, padding, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: ease-in;
-
-    @media (max-width: @mobil-max-width) {
-      bottom: @offset-mobil + @text-offset;
-      right: @offset-mobil;
-    }
 
     &--open {
       width: 0;
