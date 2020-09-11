@@ -1,9 +1,10 @@
 {
   "name": "koronaveiviser",
-  "version": "1.7.0",
+  "version": "1.7.2-test",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "dependencies": {
+    "@navikt/nav-dekoratoren-moduler": "^1.0.17",
     "@sanity/block-content-to-react": "^2.0.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
