@@ -34,7 +34,9 @@ body {
   padding: @padding-y @padding-x;
   box-sizing: border-box;
   visibility: hidden;
-  margin-top: @seksjon-spacing;
+  &:not(:first-child){
+    margin-top: @seksjon-spacing;
+  }
 
   &--loaded {
     visibility: visible;
