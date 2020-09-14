@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
@@ -15,9 +15,12 @@ import { scroller } from "react-scroll";
 const scrollBreakpoints = [0.25, 0.5, 0.75, 0.999];
 
 const getScrollPosition = () =>
-  (window.pageYOffset + window.innerHeight) / Math.max(
-  window.document.body.clientHeight, window.document.body.scrollHeight,
-  window.document.documentElement.clientHeight, window.document.documentElement.scrollHeight
+  (window.pageYOffset + window.innerHeight) /
+  Math.max(
+    window.document.body.clientHeight,
+    window.document.body.scrollHeight,
+    window.document.documentElement.clientHeight,
+    window.document.documentElement.scrollHeight
   );
 
 const getPercentage = (n: number) => `${Math.floor(n * 100 + 0.5).toString()}%`;
@@ -29,8 +32,7 @@ const getHash = () => {
   return parts.length > 1 ? parts[1] : ``;
 };
 
-const removeHash = () =>
-  window.history.pushState(null, "", " ");
+const removeHash = () => window.history.pushState(null, "", " ");
 
 const scrollToAnchor = (id: string) => {
   scroller.scrollTo(id, {
@@ -43,8 +45,11 @@ export const Page = () => {
     { anchor, alerts, dinSituasjon, rolleKontekster, relatertInfo, frontpage },
     dispatch
   ] = useStore();
-  const isLoaded = alerts.isLoaded && dinSituasjon.isLoaded
-    && rolleKontekster.isLoaded && relatertInfo.isLoaded;
+  const isLoaded =
+    alerts.isLoaded &&
+    dinSituasjon.isLoaded &&
+    rolleKontekster.isLoaded &&
+    relatertInfo.isLoaded;
   const sideTittel = localeString(frontpage.pageTitle);
   const prevScrollPos = useRef(0);
   const dispatchAnchor = () =>
@@ -53,9 +58,10 @@ export const Page = () => {
 
   const scrollDepthHandler = () => {
     const currentScrollPos = getScrollPosition();
-    const breakPointPassedDown = scrollBreakpoints
-      .find(breakPoint =>
-        breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos);
+    const breakPointPassedDown = scrollBreakpoints.find(
+      breakPoint =>
+        breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos
+    );
     if (breakPointPassedDown) {
       triggerGaEvent(
         GACategory.ScrollDepth,
@@ -89,7 +95,7 @@ export const Page = () => {
       window.requestAnimationFrame(() => {
         scrollToAnchor(anchor.hash);
         removeHash();
-      })
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchor]);
@@ -104,10 +110,21 @@ export const Page = () => {
         />
       </MetaTags>
       <ToppLinje tittel={sideTittel} />
-      {!isLoaded && <div className={"big-spinner"}><NavFrontendSpinner /></div>}
-      <SeksjonVarsler varsler={alerts} tittel={sideTittel} isLoaded={isLoaded} />
+      {!isLoaded && (
+        <div className={"big-spinner"}>
+          <NavFrontendSpinner type={"XL"} />
+        </div>
+      )}
+      <SeksjonVarsler
+        varsler={alerts}
+        tittel={sideTittel}
+        isLoaded={isLoaded}
+      />
       <SeksjonDinSituasjon dinSituasjon={dinSituasjon} isLoaded={isLoaded} />
-      <SeksjonAlleSituasjoner kontekster={rolleKontekster} isLoaded={isLoaded} />
+      <SeksjonAlleSituasjoner
+        kontekster={rolleKontekster}
+        isLoaded={isLoaded}
+      />
       <SeksjonRelatertInfo relatertInfo={relatertInfo} isLoaded={isLoaded} />
     </div>
   );
