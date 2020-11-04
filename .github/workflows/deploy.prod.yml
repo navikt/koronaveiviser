@@ -20,7 +20,7 @@ jobs:
           echo "GITHUB_TOKEN=$(echo ${GITHUB_TOKEN})" >> $GITHUB_ENV
       - name: Define client-side environment
         run: |
-          echo ::set-env name=REACT_APP_API_URL::https://www.nav.no/person/koronaveiviser/api
+          echo "REACT_APP_API_URL=https://www.nav.no/person/koronaveiviser/api" >> $GITHUB_ENV
       - uses: actions/cache@v1
         with:
           path: ~/.npm
