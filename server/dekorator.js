@@ -13,8 +13,16 @@ const cache = new NodeCache({
   checkperiod: SECONDS_PER_MINUTE
 });
 
+const breadcrumbs = [
+  {
+    url: 'https://www.nav.no/person/koronaveiviser/',
+    title: "Koronavirus - hva gjelder i min situasjon?",
+    handleInApp: true,
+  },
+];
+
 const decoratorUrl = process.env.DECORATOR_URL || 'https://www.nav.no/dekoratoren';
-const params = '?chatbot=true&feedback=true';
+const params = `?chatbot=true&feedback=true&breadcrumbs=${JSON.stringify(breadcrumbs)}`;
 
 const getDecorator = () =>
   new Promise((resolve, reject) => {
