@@ -13,13 +13,16 @@ const cache = new NodeCache({
   checkperiod: SECONDS_PER_MINUTE
 });
 
+const decoratorUrl = process.env.DECORATOR_URL || 'https://www.nav.no/dekoratoren';
+const params = '?chatbot=true&feedback=true';
+
 const getDecorator = () =>
   new Promise((resolve, reject) => {
     const decorator = cache.get("main-cache");
     if (decorator) {
       resolve(decorator);
     } else {
-      request(process.env.DECORATOR_URL, (error, response, body) => {
+      request(`${decoratorUrl}${params}`, (error, response, body) => {
         if (!error && response.statusCode >= 200 && response.statusCode < 400) {
           const { document } = new JSDOM(body).window;
           const prop = "innerHTML";
