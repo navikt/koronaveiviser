@@ -22,7 +22,7 @@ const breadcrumbs = [
 ];
 
 const decoratorUrl = process.env.DECORATOR_URL || 'https://www.nav.no/dekoratoren';
-const params = `?chatbot=true&feedback=true&breadcrumbs=${JSON.stringify(breadcrumbs)}`;
+const params = `?chatbot=true&feedback=true&breadcrumbs=${encodeURIComponent(JSON.stringify(breadcrumbs))}`;
 
 const getDecorator = () =>
   new Promise((resolve, reject) => {
