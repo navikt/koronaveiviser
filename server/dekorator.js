@@ -13,13 +13,24 @@ const cache = new NodeCache({
   checkperiod: SECONDS_PER_MINUTE
 });
 
+const breadcrumbs = [
+  {
+    url: 'https://www.nav.no/person/koronaveiviser/',
+    title: "Koronavirus - hva gjelder i min situasjon?",
+    handleInApp: true,
+  },
+];
+
+const decoratorUrl = process.env.DECORATOR_URL || 'https://www.nav.no/dekoratoren';
+const params = `?chatbot=true&feedback=true&breadcrumbs=${encodeURIComponent(JSON.stringify(breadcrumbs))}`;
+
 const getDecorator = () =>
   new Promise((resolve, reject) => {
     const decorator = cache.get("main-cache");
     if (decorator) {
       resolve(decorator);
     } else {
-      request(process.env.DECORATOR_URL, (error, response, body) => {
+      request(`${decoratorUrl}${params}`, (error, response, body) => {
         if (!error && response.statusCode >= 200 && response.statusCode < 400) {
           const { document } = new JSDOM(body).window;
           const prop = "innerHTML";

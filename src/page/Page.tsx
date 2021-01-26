@@ -3,7 +3,6 @@ import { SeksjonVarsler } from "./seksjon-varsler/SeksjonVarsler";
 import { SeksjonDinSituasjon } from "./seksjon-din-situasjon/SeksjonDinSituasjon";
 import { SeksjonAlleSituasjoner } from "./seksjon-alle-situasjoner/SeksjonAlleSituasjoner";
 import { useStore } from "../store/Provider";
-import { ToppLinje } from "./topp-linje/ToppLinje";
 import NavFrontendSpinner from "nav-frontend-spinner";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/sanity/localeString";
@@ -109,7 +108,6 @@ export const Page = () => {
           content={localeString(frontpage.metaDescription)}
         />
       </MetaTags>
-      <ToppLinje tittel={sideTittel} />
       {!isLoaded && (
         <div className={"big-spinner"}>
           <NavFrontendSpinner type={"XL"} />
