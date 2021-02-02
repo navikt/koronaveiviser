@@ -1,4 +1,4 @@
-name: Deploy-to-q1
+name: Deploy-to-dev
 on:
   push:
     tags:
@@ -36,10 +36,9 @@ jobs:
       - name: Generate nais variables
         run: |
           cat > .nais/vars.yaml <<EOF
-          namespace: q1
+          namespace: personbruker
           ingresses:
-            - https://koronaveiviser.nais.oera-q.no
-            - https://www-q1.nav.no/person/koronaveiviser
+            - https://www.dev.nav.no/person/koronaveiviser
           image: $IMAGE_REGISTRY/$IMAGE_NAME
           version: $IMAGE_VERSION
           EOF
