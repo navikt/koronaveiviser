@@ -2,25 +2,17 @@ const {
   injectDecoratorServerSide,
 } = require("@navikt/nav-dekoratoren-moduler/ssr");
 
-const getHtmlWithDecorator = (filePath, devOrProd, language) => {
-  const isDev = devOrProd === "dev";
-  const basePath = isDev ? `https://www.dev.nav.no` : `https://www.nav.no`;
-  return injectDecoratorServerSide({
-    env: devOrProd,
+const getHtmlWithDecorator = (filePath) =>
+  injectDecoratorServerSide({
+    env: process.env.ENV,
     filePath: filePath,
-    language: language,
     breadcrumbs: [
       {
-        url: `${basePath}/person/kontakt-oss/${language}`,
-        title: language === "nb" ? "Kontakt oss" : "Contact us",
+        url: "https://www.nav.no/person/koronaveiviser/",
+        title: "Koronavirus - hva gjelder i min situasjon?",
         handleInApp: true,
       },
     ],
-    availableLanguages: [
-      { locale: "nb", url: `${basePath}/person/kontakt-oss/nb/` },
-      { locale: "en", url: `${basePath}/person/kontakt-oss/en/` },
-    ],
   });
-};
 
 module.exports = getHtmlWithDecorator;
