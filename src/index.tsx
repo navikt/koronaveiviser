@@ -10,7 +10,7 @@ import { initGA } from "./utils/react-ga";
 
 const init = async () => {
   if (process.env.NODE_ENV === "development") {
-    injectDecoratorClientSide({
+    await injectDecoratorClientSide({
       env: "localhost",
       port: 8100,
       breadcrumbs: [
