@@ -60,7 +60,7 @@ const blockSerializer = (block: TextBlock) => {
 };
 
 const alertSerializer = (props: any) => {
-  const alert = props.node;
+  const alert = props.node as Alert;
   return (
     <Varsel type={alert.type} lastUpdate={alert._updatedAt}>
       <SanityBlocks blocks={alert.description} />
