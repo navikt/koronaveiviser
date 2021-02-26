@@ -16,8 +16,12 @@ import Lenke from "nav-frontend-lenker";
 import { GACategory, triggerGaEvent } from "../react-ga";
 import { localeString } from "./localeString";
 import { defaultLang } from "../../types/language";
-import { LocaleBlock, LocaleString, TextBlock, TypoStyle } from "./common-types";
-
+import {
+  LocaleBlock,
+  LocaleString,
+  TextBlock,
+  TypoStyle
+} from "./common-types";
 
 const typoComponents = {
   [TypoStyle.H1]: Sidetittel,
@@ -56,7 +60,7 @@ const blockSerializer = (block: TextBlock) => {
 };
 
 const alertSerializer = (props: any) => {
-  const alert = props.node as Alert;
+  const alert = props.node;
   return (
     <Varsel type={alert.type} lastUpdate={alert._updatedAt}>
       <SanityBlocks blocks={alert.description} />
