@@ -7,8 +7,7 @@ require("dotenv").config({
 
 const express = require("express");
 const path = require("path");
-const mustacheExpress = require("mustache-express");
-const getDecorator = require("./dekorator");
+const getHtmlWithDecorator = require("./dekorator");
 const buildPath = path.resolve(__dirname, "../build");
 const basePath = "/person/koronaveiviser";
 const logger = require("./logger");
@@ -50,10 +49,6 @@ server.use((req, res, next) => {
     }
     next();
 });
-
-server.set("views", `${__dirname}/../build`);
-server.set("view engine", "mustache");
-server.engine("html", mustacheExpress());
 
 // Api
 server.get(`${basePath}/api/alerts`, (req, res) => {
@@ -161,31 +156,22 @@ cache.on("del", key => console.log(`Clearing cache ${key}`));
 
 // Parse application/json
 server.use(express.json());
-server.use((req, res, next) => {
-  res.removeHeader("X-Powered-By");
-  next();
-});
-
-// Static files
 server.use(basePath, express.static(buildPath, { index: false }));
-
-// Nais functions
 server.get(`${basePath}/internal/isAlive|isReady`, (req, res) =>
   res.sendStatus(200)
 );
 
 // Match everything except internal og static
-server.use(/^(?!.*\/(internal|static|api)\/).*$/, (req, res) =>
-  getDecorator()
-    .then(fragments => {
-      res.render("index.html", fragments);
-    })
-    .catch(e => {
-      const error = `Failed to get decorator: ${e}`;
-      logger.error(error);
-      res.status(500).send(error);
-    })
-);
+server.use(/^(?!.*\/(internal|static|api)\/).*$/, (req, res) => {
+    getHtmlWithDecorator(`${buildPath}/index.html`)
+        .then((html) => {
+            res.send(html);
+        })
+        .catch((e) => {
+            logger.error(e);
+            res.status(500).send(e);
+        });
+});
 
 const port = process.env.PORT || 8080;
 server.listen(port, () => logger.info(`App listening on port: ${port}`));

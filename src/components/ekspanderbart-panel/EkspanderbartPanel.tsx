@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 import { EkspanderbartpanelBase } from "nav-frontend-ekspanderbartpanel";
 import { useEffect, useState } from "react";
-import { Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from "nav-frontend-typografi";
 
 type Props = {
   apen: boolean;
@@ -14,8 +14,17 @@ type Props = {
   children: JSX.Element;
 };
 
-export const EkspanderbartPanel = ({ apen, className, tittel, border, toggleTime, renderContentWhenClosed, onClick, children }: Props) => {
-  const [isOpen, setIsOpen] = useState();
+export const EkspanderbartPanel = ({
+  apen,
+  className,
+  tittel,
+  border,
+  toggleTime,
+  renderContentWhenClosed,
+  onClick,
+  children
+}: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>();
 
   useEffect(() => {
     setIsOpen(apen);
@@ -25,7 +34,7 @@ export const EkspanderbartPanel = ({ apen, className, tittel, border, toggleTime
     <EkspanderbartpanelBase
       className={className}
       apen={isOpen}
-      onClick={(event) => {
+      onClick={event => {
         setIsOpen(!isOpen);
         onClick && onClick(event);
       }}
