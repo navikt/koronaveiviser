@@ -8,14 +8,17 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "@navikt/nav-dekoratoren-moduler": "^1.2.1",
     "@sanity/client": "^1.149.2",
     "console-stamp": "^0.2.9",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsdom": "^15.1.1",
-    "mustache-express": "^1.2.8",
-    "node-cache": "^5.1.0",
-    "winston": "^3.2.1"
+    "html-react-parser": "^1.2.4",
+    "jsdom": "^15.2.1",
+    "node-cache": "^5.1.2",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.1",
+    "winston": "^3.3.3"
   },
   "browserslist": [
     ">0.2%",

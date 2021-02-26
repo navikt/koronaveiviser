@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PanelBase from "nav-frontend-paneler";
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./rollevalg/RolleValg";
@@ -21,9 +21,9 @@ const cssPrefix = "seksjon-alle-situasjoner";
 
 export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
   const [{ praktiskInfo, rollevalg }] = useStore();
-  const kontekst = kontekster.kontekster.find((kontekst) => (
-    localeString(kontekst.context) === rollevalg
-  ));
+  const kontekst = kontekster.kontekster.find(
+    kontekst => localeString(kontekst.context) === rollevalg
+  );
   const infoSeksjoner = kontekst?.inforefs?.reduce((acc, infoRef) => {
     const idFromRef = infoRef.ref._ref;
     const anchor = infoRef.anchor?.current;
@@ -32,7 +32,11 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
   }, [] as Information[]);
 
   return (
-    <PanelBase className={`${cssPrefix} seksjon-panel${isLoaded ? ` seksjon-panel--loaded` : ''}`}>
+    <PanelBase
+      className={`${cssPrefix} seksjon-panel${
+        isLoaded ? ` seksjon-panel--loaded` : ""
+      }`}
+    >
       <RolleValg />
       <div className={`${cssPrefix}__fane`}>
         {kontekst?.title && (

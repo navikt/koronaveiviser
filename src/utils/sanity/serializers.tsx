@@ -16,8 +16,12 @@ import Lenke from "nav-frontend-lenker";
 import { GACategory, triggerGaEvent } from "../react-ga";
 import { localeString } from "./localeString";
 import { defaultLang } from "../../types/language";
-import { LocaleBlock, LocaleString, TextBlock, TypoStyle } from "./common-types";
-
+import {
+  LocaleBlock,
+  LocaleString,
+  TextBlock,
+  TypoStyle
+} from "./common-types";
 
 const typoComponents = {
   [TypoStyle.H1]: Sidetittel,

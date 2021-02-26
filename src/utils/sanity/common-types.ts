@@ -33,6 +33,4 @@ export type LocaleUrl = { [key in Language]: string };
 
 export type SanityAnchor = {
   current: string;
-}
-
-
+};

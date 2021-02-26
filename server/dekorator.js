@@ -1,53 +1,18 @@
-const jsdom = require("jsdom");
-const request = require("request");
-const NodeCache = require("node-cache");
-const logger = require("./logger");
-const { JSDOM } = jsdom;
+const {
+  injectDecoratorServerSide,
+} = require("@navikt/nav-dekoratoren-moduler/ssr");
 
-const SECONDS_PER_MINUTE = 60;
-const SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60;
-
-// Refresh cache every hour
-const cache = new NodeCache({
-  stdTTL: SECONDS_PER_HOUR,
-  checkperiod: SECONDS_PER_MINUTE
-});
-
-const breadcrumbs = [
-  {
-    url: 'https://www.nav.no/person/koronaveiviser/',
-    title: "Koronavirus - hva gjelder i min situasjon?",
-    handleInApp: true,
-  },
-];
-
-const decoratorUrl = process.env.DECORATOR_URL || 'https://www.nav.no/dekoratoren';
-const params = `?chatbot=true&feedback=true&breadcrumbs=${encodeURIComponent(JSON.stringify(breadcrumbs))}`;
-
-const getDecorator = () =>
-  new Promise((resolve, reject) => {
-    const decorator = cache.get("main-cache");
-    if (decorator) {
-      resolve(decorator);
-    } else {
-      request(`${decoratorUrl}${params}`, (error, response, body) => {
-        if (!error && response.statusCode >= 200 && response.statusCode < 400) {
-          const { document } = new JSDOM(body).window;
-          const prop = "innerHTML";
-          const data = {
-            NAV_SCRIPTS: document.getElementById("scripts")[prop],
-            NAV_STYLES: document.getElementById("styles")[prop],
-            NAV_HEADER: document.getElementById("header-withmenu")[prop],
-            NAV_FOOTER: document.getElementById("footer-withmenu")[prop],
-          };
-          cache.set("main-cache", data);
-          logger.info(`Creating cache`);
-          resolve(data);
-        } else {
-          reject(new Error(error));
-        }
-      });
-    }
+const getHtmlWithDecorator = (filePath) =>
+  injectDecoratorServerSide({
+    env: process.env.ENV,
+    filePath: filePath,
+    breadcrumbs: [
+      {
+        url: "https://www.nav.no/person/koronaveiviser/",
+        title: "Koronavirus - hva gjelder i min situasjon?",
+        handleInApp: true,
+      },
+    ],
   });
 
-module.exports = getDecorator;
+module.exports = getHtmlWithDecorator;
