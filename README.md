@@ -28,7 +28,7 @@ Kopier environment-fil:
 cp .env.sample .env
 ```
 
-...og lim inn nevnte variabler inn i din nye .env.
+...og sett inn nevnte variabler inn i din nye .env.
 
 ### Starte Koronaveiviseren (3 steg):
 
@@ -38,9 +38,9 @@ cp .env.sample .env
 npm start
 ```
 
-#### 2. Start server:
+#### 2. Start api-tjenesten:
 
-Du må også starte serveren lokalt som leverer innhold fra Sanity.io.
+Du må også starte tjenesten lokalt som leverer innhold fra Sanity.io.
 
 ```
 cd server
