@@ -22,7 +22,7 @@ export const EkspanderbartPanel = ({
   toggleTime,
   renderContentWhenClosed,
   onClick,
-  children
+  children,
 }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>();
 
@@ -34,11 +34,11 @@ export const EkspanderbartPanel = ({
     <EkspanderbartpanelBase
       className={className}
       apen={isOpen}
-      onClick={event => {
+      onClick={(event) => {
         setIsOpen(!isOpen);
         onClick && onClick(event);
       }}
-      tittel={<Undertittel>{tittel}</Undertittel>}
+      tittel={<Undertittel tag="h3">{tittel}</Undertittel>}
       border={border}
       renderContentWhenClosed={renderContentWhenClosed}
     >
