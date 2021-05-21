@@ -52,9 +52,17 @@ const localeBlockSerializer = (block: { node: LocaleBlock }) => {
 const blockSerializer = (block: TextBlock) => {
   const TypoComponent =
     typoComponents[block.node.style] || typoComponents[TypoStyle.Normal];
+
+  let componentProps = {}
+
+  if (block.node.style && block.node.style !== TypoStyle.Normal) {
+    componentProps = { tag: block.node.style}
+  }
+
+
   return (
     <div className={"block"}>
-      <TypoComponent>{block.children}</TypoComponent>
+      <TypoComponent {...componentProps}>{block.children}</TypoComponent>
     </div>
   );
 };

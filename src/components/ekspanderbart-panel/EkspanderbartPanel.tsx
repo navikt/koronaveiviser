@@ -38,7 +38,7 @@ export const EkspanderbartPanel = ({
         setIsOpen(!isOpen);
         onClick && onClick(event);
       }}
-      tittel={<Undertittel>{tittel}</Undertittel>}
+      tittel={<Undertittel tag="h3">{tittel}</Undertittel>}
       border={border}
       renderContentWhenClosed={renderContentWhenClosed}
     >
