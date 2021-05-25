@@ -19,7 +19,7 @@ export const LenkeSeksjon = ({ tittel, lenker, rolle, gaCategory = AnalyticsCate
   return (
     <div className={cssPrefix}>
       <div className={`${cssPrefix}__tittel`}>
-        <Undertittel>
+        <Undertittel tag="h3">
           <SanityBlocks blocks={tittel} />
         </Undertittel>
       </div>
