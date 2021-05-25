@@ -6,13 +6,13 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 import { StoreProvider } from "./store/Provider";
 import { initialState, reducer } from "./store/store";
-import { initGA } from "./utils/react-ga";
+import { initAmplitude } from "./utils/amplitude";
 
 const init = async () => {
   if (process.env.NODE_ENV === "development") {
     await injectDecoratorClientSide({
       env: "localhost",
-      port: 8100,
+      port: 8088,
       breadcrumbs: [
         {
           title: "Korona - hva gjelder i min situasjon?",
@@ -22,7 +22,7 @@ const init = async () => {
     });
   }
 
-  initGA();
+  initAmplitude();
   ReactDOM.render(
     <StoreProvider reducer={reducer} initialState={initialState}>
       <App />

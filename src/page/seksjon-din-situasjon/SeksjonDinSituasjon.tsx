@@ -5,7 +5,7 @@ import { HeaderSeparator } from "../../components/header-separator/HeaderSeparat
 import Lenkepanel from "nav-frontend-lenkepanel/lib";
 import { DinSituasjon } from "../../utils/sanity/endpoints/your-situation";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
-import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../../utils/amplitude";
 import { localeString } from "../../utils/sanity/localeString";
 
 type Props = {
@@ -35,8 +35,8 @@ export const SeksjonDinSituasjon = ({ dinSituasjon, isLoaded }: Props) => {
               tittelProps={"undertittel"}
               border={true}
               onClick={() => {
-                triggerGaEvent(
-                  GACategory.DinSituasjon,
+                triggerAnalyticsEvent(
+                  AnalyticsCategory.DinSituasjon,
                   localeString(lenke.title),
                   url
                 )

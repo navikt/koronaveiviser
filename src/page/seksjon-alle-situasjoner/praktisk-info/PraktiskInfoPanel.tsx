@@ -5,7 +5,7 @@ import { HeaderSeparator } from "../../../components/header-separator/HeaderSepa
 import { SanityBlocks } from "../../../components/sanity-blocks/SanityBlocks";
 import { Element } from "react-scroll";
 import { EkspanderbartPanel } from "../../../components/ekspanderbart-panel/EkspanderbartPanel";
-import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../../../utils/amplitude";
 import { localeString } from "../../../utils/sanity/localeString";
 import { useStore } from "../../../store/Provider";
 import { Information } from "../../../utils/sanity/endpoints/information";
@@ -46,8 +46,8 @@ export const PraktiskInfoPanel = ({ praktiskInfo, tittel }: Props) => {
                 apen={shouldOpen}
                 className={`${cssPrefix}__section`}
                 tittel={title}
-                onClick={() => triggerGaEvent(
-                  GACategory.PraktiskInfo,
+                onClick={() => triggerAnalyticsEvent(
+                  AnalyticsCategory.PraktiskInfo,
                   `ekspander/${title}`
                 )}
                 toggleTime={shouldOpen ? anchor.timestamp : undefined}

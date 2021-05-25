@@ -4,7 +4,7 @@ import { Ingress, Systemtittel } from "nav-frontend-typografi";
 import { HeaderSeparator } from "../../components/header-separator/HeaderSeparator";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { RelatertInfo } from "../../utils/sanity/endpoints/related";
-import { GACategory, triggerGaEvent } from "../../utils/react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../../utils/amplitude";
 import LenkeMedChevron from "../../components/lenke-med-chevron/LenkeMedChevron";
 import { localeString } from "../../utils/sanity/localeString";
 
@@ -37,7 +37,7 @@ export const SeksjonRelatertInfo = ({ relatertInfo, isLoaded }: Props) => {
               <Ingress>
                 <LenkeMedChevron
                   href={url}
-                  onClick={() => triggerGaEvent(GACategory.RelatertInfo, "lenke", url)}
+                  onClick={() => triggerAnalyticsEvent(AnalyticsCategory.RelatertInfo, "lenke", url)}
                 >
                   <SanityBlocks blocks={link.title} />
                 </LenkeMedChevron>

@@ -13,7 +13,7 @@ import BlockContent from "@sanity/block-content-to-react";
 import { SanityBlocks } from "../../components/sanity-blocks/SanityBlocks";
 import { Varsel } from "../../components/varsler/Varsel";
 import Lenke from "nav-frontend-lenker";
-import { GACategory, triggerGaEvent } from "../react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../amplitude";
 import { localeString } from "./localeString";
 import { defaultLang } from "../../types/language";
 import {
@@ -73,7 +73,7 @@ const linkMarkSerializer = (mark: LinkMark) => {
     <Lenke
       href={mark.mark.href}
       onClick={() =>
-        triggerGaEvent(GACategory.PraktiskInfo, "lenke", mark.mark.href)
+        triggerAnalyticsEvent(AnalyticsCategory.PraktiskInfo, "lenke", mark.mark.href)
       }
     >
       {mark.children}
