@@ -5,12 +5,12 @@ const amplitude =
     typeof window !== 'undefined' ? require('amplitude-js') : () => null;
 
 export enum AnalyticsCategory {
-  DinSituasjon = "koronaveiviser-dinsituasjon",
-  AlleSituasjoner = "koronaveiviser-allesituasjoner",
-  PraktiskInfo = "koronaveiviser-praktiskinfo",
-  RelatertInfo = "koronaveiviser-relatertinfo",
-  ScrollDepth = "koronaveiviser-scrolldypde",
-  Andre = "koronaveiviser-andre"
+  DinSituasjon = "dinsituasjon",
+  AlleSituasjoner = "allesituasjoner",
+  PraktiskInfo = "praktiskinfo",
+  RelatertInfo = "relatertinfo",
+  ScrollDepth = "scrolldypde",
+  Andre = "andre"
 }
 
 export const initAmplitude = () => {
@@ -43,8 +43,7 @@ export const triggerAnalyticsEvent = (
     return;
   }
 
-  logAmplitudeEvent('navigere', {
-    category: category,
+  logAmplitudeEvent(category, {
     action: action,
     label: label
   })
