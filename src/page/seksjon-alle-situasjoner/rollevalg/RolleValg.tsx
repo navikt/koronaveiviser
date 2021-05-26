@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import { useStore } from "../../../store/Provider";
 import Lenke from "nav-frontend-lenker";
 import { Normaltekst } from "nav-frontend-typografi";
-import { GACategory, triggerGaEvent } from "../../../utils/react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../../../utils/amplitude";
 import { defaultLang } from "../../../types/language";
 import { localeString } from "../../../utils/sanity/localeString";
 import { getStorageItem, setStorageItem } from "../../../utils/sessionStorage";
@@ -74,8 +74,8 @@ export const RolleValg = () => {
                 onClick={(event) => {
                   event.preventDefault();
                   setRolle(rollenavn);
-                  triggerGaEvent(
-                    GACategory.AlleSituasjoner,
+                  triggerAnalyticsEvent(
+                    AnalyticsCategory.AlleSituasjoner,
                     `rollevalg/${rollenavn}`
                   )
                 }}

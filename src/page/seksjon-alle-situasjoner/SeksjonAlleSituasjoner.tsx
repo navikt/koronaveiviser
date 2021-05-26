@@ -3,7 +3,7 @@ import PanelBase from "nav-frontend-paneler";
 import { LenkeSeksjon } from "../../components/lenke-seksjon/LenkeSeksjon";
 import { RolleValg } from "./rollevalg/RolleValg";
 import { RolleKontekster } from "../../utils/sanity/endpoints/contexts";
-import { GACategory } from "../../utils/react-ga";
+import { AnalyticsCategory } from "../../utils/amplitude";
 import { localeString } from "../../utils/sanity/localeString";
 import { PraktiskInfoPanel } from "./praktisk-info/PraktiskInfoPanel";
 import { Systemtittel } from "nav-frontend-typografi";
@@ -54,7 +54,7 @@ export const SeksjonAlleSituasjoner = ({ kontekster, isLoaded }: Props) => {
                 tittel={lenkeSeksjon.title}
                 lenker={lenkeSeksjon.links}
                 rolle={rollevalg}
-                gaCategory={GACategory.AlleSituasjoner}
+                gaCategory={AnalyticsCategory.AlleSituasjoner}
                 key={index}
               />
             ))}

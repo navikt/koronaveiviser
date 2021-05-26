@@ -7,7 +7,7 @@ import NavFrontendSpinner from "nav-frontend-spinner";
 import { SeksjonRelatertInfo } from "./seksjon-relatert-info/SeksjonRelatertInfo";
 import { localeString } from "../utils/sanity/localeString";
 import MetaTags from "react-meta-tags";
-import { GACategory, triggerGaEvent } from "../utils/react-ga";
+import { AnalyticsCategory, triggerAnalyticsEvent } from "../utils/amplitude";
 import { getStorageItem, setStorageItem } from "../utils/sessionStorage";
 import { scroller } from "react-scroll";
 
@@ -62,8 +62,8 @@ export const Page = () => {
         breakPoint >= prevScrollPos.current && breakPoint < currentScrollPos
     );
     if (breakPointPassedDown) {
-      triggerGaEvent(
-        GACategory.ScrollDepth,
+      triggerAnalyticsEvent(
+        AnalyticsCategory.ScrollDepth,
         getPercentage(breakPointPassedDown)
       );
       setStorageItem(storageKey, currentScrollPos.toString());
