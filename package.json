@@ -1,6 +1,6 @@
 {
   "name": "koronaveiviser",
-  "version": "1.7.28-dev",
+  "version": "1.7.28-prod",
   "homepage": "/person/koronaveiviser/",
   "private": true,
   "scripts": {
