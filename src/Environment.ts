@@ -1,8 +1,6 @@
-const Environment = () => {
-  const host = window.location.host;
-  const subdomain = host.split(`.`)[0];
-  const baseAppPath = "/person/koronaveiviser";
+const baseAppPath = "/person/koronaveiviser";
 
+const Environment = () => {
   if (process.env.NODE_ENV === `development`) {
     return {
       miljo: `LOCAL`,
@@ -12,15 +10,14 @@ const Environment = () => {
       apiUrl: `http://localhost:8080${baseAppPath}/api`
     };
   }
-  if (subdomain !== `www`) {
-    // Preprod - Q0, Q1 etc
-    const env = subdomain.split(`-`)[1];
+
+  if (window.location.host === 'www.dev.nav.no') {
     return {
       miljo: `DEV`,
-      baseUrl: `https://www-${env}.nav.no`,
+      baseUrl: `https://www.dev.nav.no`,
       baseAppPath: baseAppPath,
-      appUrl: `https://www-${env}.nav.no${baseAppPath}`,
-      apiUrl: `https://www-${env}.nav.no${baseAppPath}/api`
+      appUrl: `https://www.dev.nav.no${baseAppPath}`,
+      apiUrl: `https://www.dev.nav.no${baseAppPath}/api`
     };
   }
 
