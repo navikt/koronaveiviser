@@ -1,9 +1,6 @@
 // Load environment
-const VAULT_PATH = "/var/run/secrets/nais.io/vault/.env";
 require("console-stamp")(console, "[HH:MM:ss.l]");
-require("dotenv").config({
-    path: process.env.NODE_ENV === "production" ? VAULT_PATH : "../.env"
-});
+require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
