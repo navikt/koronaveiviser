@@ -56,16 +56,13 @@ For å vise header og footer fra nav.no, må du også starte Dekoratøren.
 docker-compose up -d
 ```
 
-## Deployering
+## Deploy til dev-miljø
 
-- Dev - Tag på formatet `vX.X.X-dev`.
-- Prod - Tag på formatet `vX.X.X-prod`.
+[Deploy-to-dev](https://github.com/navikt/koronaveiviser/actions/workflows/deploy.dev.yml) -> Run workflow -> Velg branch -> Run workflow
 
-Push den nye versjonen til GitHub og merge til master.
+## Prodsetting
 
-```
-git push && git push --tags
-```
+Publiser en ny release på master for å starte deploy til prod
 
 ## Logging
 
