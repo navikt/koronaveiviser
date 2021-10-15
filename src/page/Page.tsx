@@ -100,7 +100,7 @@ export const Page = () => {
   }, [anchor]);
 
   return (
-    <div className={"pagecontent"}>
+    <div role={"main"} className={"pagecontent"}>
       <MetaTags>
         <title>{sideTittel}</title>
         <meta
