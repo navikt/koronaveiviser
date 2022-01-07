@@ -22,7 +22,7 @@ export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
   const setRolle = (context: RoleContext, setHash?: boolean) => {
     if (setHash) {
-      window.history.replaceState(null, '', `${document.location.pathname}#${context.anchor}`)
+      window.history.replaceState(null, '', `${document.location.pathname}#${context.anchor?.current || ''}`)
     }
 
     const rolleString = localeString(context.context);
