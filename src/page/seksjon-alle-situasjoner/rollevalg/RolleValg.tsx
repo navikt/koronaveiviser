@@ -22,7 +22,7 @@ export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
   const setRolle = (rolle: string, setHash?: boolean) => {
     if (setHash) {
-      window.location.hash = rolle;
+      window.location.hash = rolle.toLowerCase();
     }
     setStorageItem(storageKey, rolle);
     dispatch({
@@ -76,7 +76,7 @@ export const RolleValg = () => {
                 href={""}
                 onClick={(event) => {
                   event.preventDefault();
-                  setRolle(rollenavn);
+                  setRolle(rollenavn, true);
                   triggerAnalyticsEvent(
                     AnalyticsCategory.AlleSituasjoner,
                     `rollevalg/${rollenavn}`
