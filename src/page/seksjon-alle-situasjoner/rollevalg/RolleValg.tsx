@@ -20,9 +20,11 @@ const findContextFromAnchor = (contexts: RoleContext[], anchor: string) => (
 
 export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
-  const setRolle = (rolle: string) => {
+  const setRolle = (rolle: string, setHash?: boolean) => {
+    if (setHash) {
+      window.location.hash = rolle;
+    }
     setStorageItem(storageKey, rolle);
-    window.location.hash = rolle;
     dispatch({
       type: "SETT_ROLLE",
       payload: rolle,
@@ -48,12 +50,12 @@ export const RolleValg = () => {
       const context = konteksterSorted.find((context) =>
         localeString(context.context) === contextFromStorage);
       if (context) {
-        setRolle(localeString(context.context));
+        setRolle(localeString(context.context), true);
         return;
       }
     }
 
-    setRolle(localeString(konteksterSorted[0].context))
+    setRolle(localeString(konteksterSorted[0].context), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster, anchor]);
 
