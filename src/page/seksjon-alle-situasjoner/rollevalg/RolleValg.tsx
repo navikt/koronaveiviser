@@ -20,11 +20,17 @@ const findContextFromAnchor = (contexts: RoleContext[], anchor: string) => (
 
 export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
-  const setRolle = (rolle: string) => {
-    setStorageItem(storageKey, rolle);
+  const setRolle = (context: RoleContext, setHash?: boolean) => {
+    if (setHash) {
+      window.history.replaceState(null, '', `${document.location.pathname}#${context.anchor?.current || ''}`)
+    }
+
+    const rolleString = localeString(context.context);
+
+    setStorageItem(storageKey, rolleString);
     dispatch({
       type: "SETT_ROLLE",
-      payload: rolle,
+      payload: rolleString,
     })
   };
 
@@ -38,7 +44,7 @@ export const RolleValg = () => {
 
     const contextFromAnchor = findContextFromAnchor(konteksterSorted, anchor.hash);
     if (contextFromAnchor) {
-      setRolle(localeString(contextFromAnchor.context));
+      setRolle(contextFromAnchor);
       return;
     }
 
@@ -47,12 +53,12 @@ export const RolleValg = () => {
       const context = konteksterSorted.find((context) =>
         localeString(context.context) === contextFromStorage);
       if (context) {
-        setRolle(localeString(context.context));
+        setRolle(context);
         return;
       }
     }
 
-    setRolle(localeString(konteksterSorted[0].context))
+    setRolle(konteksterSorted[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster, anchor]);
 
@@ -73,7 +79,7 @@ export const RolleValg = () => {
                 href={""}
                 onClick={(event) => {
                   event.preventDefault();
-                  setRolle(rollenavn);
+                  setRolle(context, true);
                   triggerAnalyticsEvent(
                     AnalyticsCategory.AlleSituasjoner,
                     `rollevalg/${rollenavn}`
