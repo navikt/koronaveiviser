@@ -53,12 +53,12 @@ export const RolleValg = () => {
       const context = konteksterSorted.find((context) =>
         localeString(context.context) === contextFromStorage);
       if (context) {
-        setRolle(context, true);
+        setRolle(context);
         return;
       }
     }
 
-    setRolle(konteksterSorted[0], true);
+    setRolle(konteksterSorted[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolleKontekster, anchor]);
 
