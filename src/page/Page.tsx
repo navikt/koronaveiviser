@@ -31,8 +31,6 @@ const getHash = () => {
   return parts.length > 1 ? parts[1] : ``;
 };
 
-const removeHash = () => window.history.pushState(null, "", " ");
-
 const scrollToAnchor = (id: string) => {
   scroller.scrollTo(id, {
     smooth: true
@@ -93,7 +91,6 @@ export const Page = () => {
     if (isLoaded) {
       window.requestAnimationFrame(() => {
         scrollToAnchor(anchor.hash);
-        removeHash();
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
