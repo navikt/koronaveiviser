@@ -22,6 +22,7 @@ export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
   const setRolle = (rolle: string) => {
     setStorageItem(storageKey, rolle);
+    window.location.hash = rolle;
     dispatch({
       type: "SETT_ROLLE",
       payload: rolle,
