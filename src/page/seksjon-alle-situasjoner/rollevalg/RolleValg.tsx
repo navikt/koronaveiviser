@@ -22,7 +22,7 @@ export const RolleValg = () => {
   const [{ rollevalg, rolleKontekster, anchor }, dispatch] = useStore();
   const setRolle = (rolle: string, setHash?: boolean) => {
     if (setHash) {
-      history.replaceState(null, '', `${document.location.pathname}#${rolle.toLowerCase()}`)
+      window.history.replaceState(null, '', `${document.location.pathname}#${rolle.toLowerCase()}`)
     }
     setStorageItem(storageKey, rolle);
     dispatch({
