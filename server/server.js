@@ -29,26 +29,6 @@ const cache = new NodeCache(
     }[process.env.SANITY_DATASET]
 );
 
-const isValidOrigin =
-    process.env.NODE_ENV === 'development'
-        ? origin => origin === 'http://localhost:3000'
-        : origin => origin && /^https:\/\/([a-z0-9-]+\.)*nav\.no/i.test(origin);
-
-// Cors
-server.use((req, res, next) => {
-    const origin = req.get("origin");
-
-    if (isValidOrigin(origin)) {
-        res.header("Access-Control-Allow-Origin", origin);
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested-With, Content-Type, Accept"
-        );
-        res.header("Access-Control-Allow-Credentials", "true");
-    }
-    next();
-});
-
 // Api
 server.get(`${basePath}/api/alerts`, (req, res) => {
     const query = "*[_type == 'alert' " +
