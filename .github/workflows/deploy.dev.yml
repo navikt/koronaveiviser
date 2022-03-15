@@ -18,15 +18,10 @@ jobs:
           echo "IMAGE_VERSION=${IMAGE_VERSION_RAW,,}" >> $GITHUB_ENV
           echo "GITHUB_TOKEN=$(echo ${GITHUB_TOKEN})" >> $GITHUB_ENV
       - name: Define app environmment
-        env:
-          SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
-          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
         run: |
           cat > .env <<EOF
           ENV=dev
           SANITY_DATASET=staging
-          SANITY_PROJECT_ID=$SANITY_PROJECT_ID
-          SANITY_TOKEN=$SANITY_TOKEN
           EOF
       - uses: actions/cache@v2
         with:
