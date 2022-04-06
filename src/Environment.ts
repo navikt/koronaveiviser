@@ -11,13 +11,13 @@ const Environment = () => {
     };
   }
 
-  if (window.location.host === 'person.dev.nav.no') {
+  if (window.location.host === 'www.dev.nav.no') {
     return {
       miljo: `DEV`,
-      baseUrl: `https://person.dev.nav.no`,
+      baseUrl: `https://www.dev.nav.no`,
       baseAppPath: baseAppPath,
-      appUrl: `https://person.dev.nav.no${baseAppPath}`,
-      apiUrl: `https://person.dev.nav.no${baseAppPath}/api`
+      appUrl: `https://www.dev.nav.no${baseAppPath}`,
+      apiUrl: `https://www.dev.nav.no${baseAppPath}/api`
     };
   }
 
