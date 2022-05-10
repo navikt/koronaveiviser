@@ -64,10 +64,6 @@ docker-compose up -d
 
 Publiser en ny release på master for å starte deploy til prod
 
-## Logging
-
-Feil ved API-kall blir logget via frontendlogger og vises i Kibana<br>
-
 ## Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan rettes mot https://github.com/orgs/navikt/teams/personbruker

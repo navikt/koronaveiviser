@@ -1,5 +1,3 @@
-// import { HTTPError } from "../components/error/Error";
-// import { logApiError, logEvent } from "../utils/logger";
 import { BadRequest } from "../types/errors";
 import Environment from "../Environment";
 
