@@ -29,8 +29,6 @@ spec:
   envFrom:
     - secret: sanity-korona
   resources:
-    limits:
-      cpu: '3'
-      memory: 1500Mi
     requests:
-      memory: 1500Mi
+      cpu: 100m
+      memory: 256Mi
