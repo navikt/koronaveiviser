@@ -1,4 +1,4 @@
-const baseAppPath = "/person/koronaveiviser";
+const baseAppPath = "";
 
 const Environment = () => {
   if (process.env.NODE_ENV === `development`) {

@@ -1,7 +1,7 @@
 {
   "name": "koronaveiviser",
   "version": "1.7.29-prod",
-  "homepage": "/person/koronaveiviser/",
+  "homepage": "/",
   "private": true,
   "scripts": {
     "start": "npm-run-all -p start:*",
