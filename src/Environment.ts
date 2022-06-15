@@ -1,4 +1,5 @@
 const baseAppPath = "";
+const origin = 'https://koronaveiviser.intern.nav.no'
 
 const Environment = () => {
   if (process.env.NODE_ENV === `development`) {
@@ -11,22 +12,12 @@ const Environment = () => {
     };
   }
 
-  if (window.location.host === 'www.dev.nav.no') {
-    return {
-      miljo: `DEV`,
-      baseUrl: `https://www.dev.nav.no`,
-      baseAppPath: baseAppPath,
-      appUrl: `https://www.dev.nav.no${baseAppPath}`,
-      apiUrl: `https://www.dev.nav.no${baseAppPath}/api`
-    };
-  }
-
   return {
     miljo: `PROD`,
-    baseUrl: `https://www.nav.no`,
+    baseUrl: origin,
     baseAppPath: baseAppPath,
-    appUrl: `https://www.nav.no${baseAppPath}`,
-    apiUrl: `https://www.nav.no${baseAppPath}/api`
+    appUrl: `${origin}${baseAppPath}`,
+    apiUrl: `${origin}${baseAppPath}/api`
   };
 };
 
