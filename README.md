@@ -1,5 +1,7 @@
 # Koronaveiviser
 
+Denne appen er avviklet, og er kun deployet med intern ingress for tilgjengeliggjøring av innholds-historikk.
+
 ![Deploy-to-prod](https://github.com/navikt/koronaveiviser/workflows/Deploy-to-prod/badge.svg) | ![Deploy-to-dev](https://github.com/navikt/koronaveiviser/workflows/Deploy-to-dev/badge.svg)
 
 ## Komme i gang
