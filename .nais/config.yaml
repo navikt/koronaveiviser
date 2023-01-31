@@ -21,8 +21,8 @@ spec:
     path: /internal/isReady
     initialDelay: 10
   replicas:
-    min: 2
-    max: 3
+    min: 1
+    max: 1
   env:
     - name: NODE_EXTRA_CA_CERTS
       value: "/etc/ssl/ca-bundle.pem"
@@ -30,5 +30,5 @@ spec:
     - secret: sanity-korona
   resources:
     requests:
-      cpu: 100m
-      memory: 256Mi
+      cpu: 50m
+      memory: 128Mi
